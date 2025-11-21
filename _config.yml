@@ -2,7 +2,7 @@
 title: jueson
 SEOTitle: jueson | 觉尘的书签
 header-img: img/home-bg.jpg
-email: huxpro@gmail.com
+email: binlu4776@gmail.com
 description: "诸恶莫作，众善奉行"
 url: "https://jueson.github.io/" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
@@ -98,5 +98,5 @@ friends:
     { title: "JiyinYiyong", href: "http://tiye.me/" },
     { title: "DHong Say", href: "http://dhong.co" },
 br
-    { title: "juson在线", href: "http://ingf.github.io/" },
+    { title: "juson在线百度", href: "http://baidu.com" },
   ]
