@@ -11,8 +11,7 @@ multilingual: true
 
 <!-- Chinese Version -->
 <div class="zh post-container">
-    {% capture about_zh %}{% include about/tag.md %}{% endcapture %}
-    {{ about_zh | markdownify }}
+    {% include about/tag.md %}
 </div>
 
 {% if site.disqus_username %}
