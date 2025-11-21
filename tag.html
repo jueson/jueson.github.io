@@ -9,9 +9,10 @@ multilingual: true
 
 {% include multilingual-sel.html %}
 
-<div class="post-container">
-    {% capture tag_content %}{% include tag.md %}{% endcapture %}
-    {{ tag_content | markdownify }}
+<!-- Chinese Version -->
+<div class="tag post-container">
+    {% capture about_tag %}{% include about/tag.md %}{% endcapture %}
+    {{ about_tag | markdownify }}
 </div>
 
 {% if site.disqus_username %}
