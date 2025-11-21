@@ -4,17 +4,17 @@ layout: default
 description: "「我干了什么 究竟拿了时间换了什么」"
 header-img: "img/bg-little-universe.jpg"
 ---
-<div class="tag post-container">
-    {% capture about_tag %}{% include about/tag.md %}{% endcapture %}
-    {{ about_tag | markdownify }}
-</div>
-<!--
+
 Credits: this page shamelessly borrowed a lot from:
 https://github.com/kitian616/jekyll-TeXt-theme
 -->
 <!-- Page Header -->
 {% include intro-header.html type='page' short=true %}
-
+<div class="tag post-container">
+    {% capture about_tag %}{% include about/tag.md %}{% endcapture %}
+    {{ about_tag | markdownify }}
+</div>
+<!--
 <!-- Main Content -->
 <div class="container">
 	<div class="row">
