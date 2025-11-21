@@ -31,24 +31,7 @@
 -->
 
 ##### 影音视觉
-[1]: //huangxuan.me/2015/07/09/js-module-7day/
-[2]: //huangxuan.me/2015/12/28/css-sucks-2015/
-[3]: //huangxuan.me/2016/06/05/pwa-in-my-pov/
-[4]: //huangxuan.me/2016/10/20/pwa-qcon2016/
-[5]: //huangxuan.me/2016/11/20/sw-101-gdgdf/
-[6]: https://yanshuo.io/assets/player/?deck=58ac8598b123db0067292f92 "PWA Rehashing"
-[7]: https://yanshuo.io/assets/player/?deck=593ad6fbfe88c2006a0a0d6d "The State of PWA"
-[8]: https://yanshuo.io/assets/player/?deck=594d673d570c357d0698a950 "Building PWA"
-[9]: //huangxuan.me/jsconfcn2017/
-[10]: https://reactnative.dev/blog/2021/10/26/toward-hermes-being-the-default
-[11]: https://youtu.be/lGEMwh32soc
-[12]: https://reactjs.org/blog/2022/06/15/react-labs-what-we-have-been-working-on-june-2022.html
-[13]: https://www.bilibili.com/video/BV1LY411Q7hC/?spm_id_from=333.999.0.0
-[14]: https://appycyfaqcq1951.pc.xiaoe-tech.com/p/t_pc/course_pc_detail/video/v_64477dbfe4b0cf39e6c11d2a
-[15]: https://segmentfault.com/a/1190000043208486
-[16]: https://gitee.com/gitee-stars/30
-[17]: https://www.zhihu.com/zvideo/1542577108190068737?page=ogv
-[18]: https://segmentfault.com/a/1190000043208486
-[19]: https://juejin.cn/post/6844903750155419655
-[20]: https://www.bilibili.com/video/BV1SC4y1c7ju/
-[21]: https://www.bilibili.com/video/BV1uz421d7Ch/
+
+    范慎很困难地撑着上眼皮，看着指头算自己这辈子做过些什么有意义的事情，结果右手五根瘦成筷子一样的指头还没有数完，他就叹了一口气，很伤心地放弃了这个工作。
+    病房里的药水味总是这么刺鼻，旁边那床的老爷子前两天已经去地藏王菩萨那里报道了，大概再过几天就轮到自己吧。
+    他得了某种怪病，重症肌无力，就是特别适合言情小说男主角的那种病。据说没得医，将来嗝屁的那天什么都动不了，只有眼泪可以流下来。
