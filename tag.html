@@ -14,13 +14,4 @@ multilingual: true
 </div>
 
 
-<!-- Pager -->
-
-<ul class="pager">
-    {% if paginator.next_page %}
-    <li class="next">
-        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
-    </li>
-    {% endif %}
-</ul>
 {% endif %}
