@@ -497,11 +497,10 @@ footer {
 <body>
 
 
-
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
         <div class="post-content-preview">
-            {% if post.lang == 'en' %}
+            
                 {{ post.content | strip_html | truncate:300 }}
             {% else %}
                 {{ post.content | strip_html | truncate:200 }}
