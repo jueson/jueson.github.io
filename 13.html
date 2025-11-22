@@ -1,0 +1,954 @@
+---
+title: 首三
+layout: default
+---
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阅读友好博客 | 浅色背景设计</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* 浅色背景专用色板 */
+            --primary: #5a7dff;       /* 更柔和的主色 */
+            --secondary: #4a6cf7;     /* 辅助色 */
+            --accent: #6cb2ff;        /* 强调色 - 更明亮 */
+            --light-bg: #f9fbfd;      /* 极浅背景 */
+            --card-bg: #ffffff;       /* 卡片纯白背景 */
+            --text-dark: #2d3748;     /* 深文字 - 更易读 */
+            --text-gray: #718096;     /* 中性灰 */
+            --border-light: #e2e8f0;  /* 浅边框 */
+            --shadow: 0 4px 12px rgba(90, 125, 255, 0.08); /* 柔和阴影 */
+            --shadow-hover: 0 8px 20px rgba(90, 125, 255, 0.15);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+            background-image: linear-gradient(to bottom, #f9fbfd, #f0f5ff);
+            min-height: 100vh;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: var(--secondary);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 顶部导航 - 浅色风格 */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        
+        nav a {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        .search-bar {
+            display: flex;
+            background: var(--light-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 6px 15px;
+            width: 200px;
+        }
+        
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: var(--text-dark);
+            width: 100%;
+            padding: 5px 8px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        
+        .search-bar input::placeholder {
+            color: var(--text-gray);
+        }
+        
+        .search-bar button {
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        
+        .search-bar button:hover {
+            color: var(--primary);
+        }
+        
+        /* 英雄区域 - 更柔和 */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(249, 251, 253, 0.8), rgba(240, 245, 255, 0.6));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(108, 178, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 650px;
+            margin: 0 auto 30px;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(90, 125, 255, 0.2);
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(90, 125, 255, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            margin-left: 15px;
+            border: 2px solid var(--primary);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(90, 125, 255, 0.08);
+            color: var(--secondary);
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 40px;
+            padding: 50px 0;
+        }
+        
+        /* 文章卡片 - 阅读优化 */
+        .posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .post-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid var(--border-light);
+        }
+        
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .post-image {
+            height: 200px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .post-card:hover .post-image img {
+            transform: scale(1.05);
+        }
+        
+        .post-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .post-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+        
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .post-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .post-title a {
+            color: var(--text-dark);
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        
+        .post-title a:hover {
+            color: var(--primary);
+        }
+        
+        .post-excerpt {
+            margin-bottom: 20px;
+            color: var(--text-gray);
+            line-height: 1.8;
+            flex-grow: 1;
+        }
+        
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 0;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover {
+            color: var(--secondary);
+            gap: 10px;
+        }
+        
+        /* 侧边栏 */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .sidebar-widget {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+        }
+        
+        .widget-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+        
+        .about-me {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 3px solid var(--accent);
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--light-bg);
+            color: var(--primary);
+            transition: var(--transition);
+            font-size: 0.95rem;
+            border: 1px solid var(--border-light);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+        
+        .categories ul {
+            list-style: none;
+        }
+        
+        .categories li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+        
+        .categories li:last-child {
+            border-bottom: none;
+        }
+        
+        .categories a {
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .categories a:hover {
+            color: var(--primary);
+        }
+        
+        .categories span {
+            background: var(--light-bg);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+        }
+        
+        /* 强制换行友情链接 - 浅色风格 */
+        .friends-links {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(245, 250, 255, 0.9));
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+        }
+        
+        .friends-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--secondary);
+        }
+        
+        /* 核心样式：强制换行 + 浅色优化 */
+        .friends-list {
+            list-style: none;
+        }
+        
+        .friends-list li {
+            display: block;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 12px 18px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-left: 3px solid var(--accent);
+            font-size: 0.95rem;
+            border: 1px solid var(--border-light);
+        }
+        
+        .friends-list li:before {
+            content: "→";
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: var(--transition);
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+        
+        .friends-list li:hover {
+            background: var(--white);
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(90, 125, 255, 0.1);
+        }
+        
+        .friends-list li:hover:before {
+            opacity: 1;
+            left: 6px;
+        }
+        
+        .friends-list a {
+            color: var(--text-dark);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .friends-list i {
+            color: var(--primary);
+            font-size: 1.05rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .friends-list a:hover {
+            color: var(--primary);
+            gap: 14px;
+        }
+        
+        /* 文章内容区域 */
+        .content-article {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        
+        .content-article h2 {
+            font-size: 1.8rem;
+            margin: 25px 0 15px;
+            color: var(--text-dark);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .content-article p {
+            margin-bottom: 20px;
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+        
+        .content-article img {
+            max-width: 100%;
+            border-radius: var(--radius);
+            margin: 20px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .content-article blockquote {
+            border-left: 4px solid var(--accent);
+            padding: 15px 20px;
+            margin: 25px 0;
+            background: rgba(108, 178, 255, 0.05);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-style: italic;
+            color: var(--text-dark);
+        }
+        
+        /* 页脚 - 浅色风格 */
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid var(--border-light);
+            padding: 50px 0 20px;
+            color: var(--text-gray);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-widget h3 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--text-dark);
+        }
+        
+        .footer-widget h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .footer-widget p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .posts {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+                max-width: 250px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-article {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .posts {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .sidebar-widget {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header>
+    
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>阅读博客</span>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="#"><i class="fas fa-folder"></i> 分类</a></li>
+                    <li><a href="#"><i class="fas fa-tags"></i> 标签</a></li>
+                    <li><a href="#"><i class="fas fa-user"></i> 关于</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> 联系</a></li>
+                </ul>
+            </nav>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="搜索文章...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+       
+    </header>
+    
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="container">
+            <h1>沉浸式阅读体验，探索技术世界</h1>
+            <p>精选前端开发、用户体验设计、性能优化等深度文章，助您提升技术视野与开发能力</p>
+            <div>
+                <a href="#" class="btn">浏览文章</a>
+                <a href="#" class="btn btn-outline">订阅更新</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 主要内容区域 -->
+    <div class="container main-content">
+        <!-- 左侧内容 -->
+        <div class="content-left">
+            <!-- 示例文章内容 -->
+            <div class="content-article">
+                <h2>现代CSS布局：Grid与Flexbox的完美结合</h2>
+                <p>在现代Web开发中，CSS Grid和Flexbox已经成为构建响应式布局的强大工具。本文将探讨如何将这两种布局技术结合使用，创建出既灵活又强大的页面结构。</p>
+                
+                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1100&q=80" alt="CSS布局">
+                
+                <p>Grid布局擅长处理二维空间，非常适合整体页面结构的设计。而Flexbox则是一维布局的专家，特别适合处理组件内部的元素排列。当两者结合使用时，可以创造出几乎任何你能想象到的布局。</p>
+                
+                <h2>核心概念解析</h2>
+                <p>理解Grid和Flexbox的核心概念是掌握它们组合使用的关键：</p>
+                
+                <blockquote>
+                    "Grid是关于整体框架的构建，而Flexbox则负责框架内各个组件的排列。这种分工合作使得复杂布局的实现变得简单而高效。"
+                </blockquote>
+                
+                <p>在实际项目中，通常以Grid为基础构建页面骨架，然后在需要灵活排列的区域使用Flexbox。例如，在一个网格布局的卡片列表中，整个页面使用Grid定义列数和间距，而每个卡片内部则使用Flexbox排列标题、图片和描述等内容。</p>
+                
+                <h2>最佳实践与常见陷阱</h2>
+                <p>在使用Grid和Flexbox组合时，有几个最佳实践值得注意：</p>
+                
+                <p>首先，明确每个工具的最佳应用场景。Grid适合宏观布局，Flexbox适合微观排列。其次，合理使用gap属性替代margin来控制间距，这样更符合现代布局理念且更易维护。</p>
+                
+                <p>常见陷阱包括过度嵌套布局容器和不必要的媒体查询。通过精心规划布局结构，可以大大减少代码复杂度。</p>
+            </div>
+            
+            <!-- 文章卡片网格 -->
+            <div class="posts">
+                <!-- 文章卡片 1 -->
+                <article class="post-card">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="前端开发">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> 2023-06-15</span>
+                            <span><i class="far fa-folder"></i> 前端开发</span>
+                            <span><i class="far fa-comments"></i> 12 评论</span>
+                        </div>
+                        <h2 class="post-title"><a href="#">深入理解JavaScript闭包及其应用场景</a></h2>
+                        <p class="post-excerpt">闭包是JavaScript中一个强大且常被误解的概念。本文将深入探讨闭包的工作原理、常见应用场景以及如何避免内存泄漏问题...</p>
+                        <a href="#" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <!-- 文章卡片 2 -->
+                <article class="post-card">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1100&q=80" alt="CSS动画">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> 2023-06-10</span>
+                            <span><i class="far fa-folder"></i> CSS技巧</span>
+                            <span><i class="far fa-comments"></i> 8 评论</span>
+                        </div>
+                        <h2 class="post-title"><a href="#">使用CSS Grid和Flexbox创建现代响应式布局</a></h2>
+                        <p class="post-excerpt">探索如何结合CSS Grid和Flexbox的强大功能，创建既灵活又强大的响应式布局。本文包含大量实际案例和最佳实践...</p>
+                        <a href="#" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <!-- 文章卡片 3 -->
+                <article class="post-card">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="React性能优化">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> 2023-06-05</span>
+                            <span><i class="far fa-folder"></i> React</span>
+                            <span><i class="far fa-comments"></i> 15 评论</span>
+                        </div>
+                        <h2 class="post-title"><a href="#">React应用性能优化：10个实用技巧</a></h2>
+                        <p class="post-excerpt">提升React应用性能是每个开发者都应该掌握的技能。本文分享10个经过验证的性能优化技巧，包括memoization、懒加载和代码分割等...</p>
+                        <a href="#" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+        
+        <!-- 右侧边栏 -->
+        <div class="sidebar">
+            <!-- 关于我 -->
+            <div class="sidebar-widget about-me">
+                <h3 class="widget-title"><i class="fas fa-user"></i> 关于博主</h3>
+                <div class="avatar">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="博主头像">
+                </div>
+                <p>前端开发工程师，热爱分享技术知识和实践经验。专注于React、Vue和现代CSS技术。</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                </div>
+            </div>
+            
+            <!-- 分类 -->
+            <div class="sidebar-widget categories">
+                <h3 class="widget-title"><i class="fas fa-folder"></i> 文章分类</h3>
+                <ul>
+                    <li><a href="#">前端开发 <span>24</span></a></li>
+                    <li><a href="#">JavaScript <span>18</span></a></li>
+                    <li><a href="#">CSS技巧 <span>15</span></a></li>
+                    <li><a href="#">React <span>12</span></a></li>
+                    <li><a href="#">Vue.js <span>9</span></a></li>
+                    <li><a href="#">Node.js <span>7</span></a></li>
+                    <li><a href="#">工具推荐 <span>5</span></a></li>
+                </ul>
+            </div>
+            
+            <!-- 强制换行友情链接 -->
+            <div class="sidebar-widget friends-links">
+                <h3 class="widget-title"><i class="fas fa-link"></i> 友情链接</h3>
+                <ul class="friends-list">
+                    <!-- 使用Jekyll语法 -->
+                    {% for friend in site.friends %}
+                    <li>
+                        <a href="{{friend.href}}">
+                            <i class="fas fa-external-link-alt"></i>
+                            {{friend.title}}
+                        </a>
+                    </li>
+                    {% endfor %}
+                    
+                    <!-- 示例数据 -->
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> 前端周刊</a></li>
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript大师</a></li>
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> CSS技巧网</a></li>
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> React中文社区</a></li>
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> Vue.js开发者</a></li>
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> Node.js技术栈</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-widget">
+                    <h3>关于博客</h3>
+                    <p>本博客专注于分享Web前端开发技术、框架实践和性能优化技巧，帮助开发者提升技能水平。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-widget">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> 首页</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> 关于我</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> 文章分类</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> 标签云</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> 联系我</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-widget">
+                    <h3>热门分类</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> React开发</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Vue.js教程</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> JavaScript高级</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> CSS动画</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> 性能优化</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-widget">
+                    <h3>订阅更新</h3>
+                    <p>订阅我们的新闻通讯，获取最新文章和资源更新。</p>
+                    <div class="search-bar">
+                        <input type="email" placeholder="您的电子邮箱">
+                        <button><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 阅读博客. 保留所有权利 | 设计制作: 前端开发者</p>
+            </div>
+        </div>
+    </footer>
+</body>
