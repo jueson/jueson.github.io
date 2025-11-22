@@ -1,0 +1,321 @@
+---
+title: 友链
+layout: default
+description: "「我干了什么 究竟拿了时间换了什么」"
+header-img: "img/bg-little-universe.jpg"
+---
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .card {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card h2 i {
+            color: #fdbb2d;
+        }
+        
+        /* 原始列表样式 */
+        .original-list {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .original-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .original-list li {
+            display: inline-block;
+            margin-right: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .original-list li:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .original-list a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* 解决方案样式 - 强制换行 */
+        .solution-list {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .solution-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .solution-list li {
+            display: block; /* 关键属性 - 强制换行 */
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .solution-list li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: #fdbb2d;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease;
+        }
+        
+        .solution-list li:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+        
+        .solution-list li:hover:before {
+            transform: scaleY(1);
+        }
+        
+        .solution-list a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .solution-list i {
+            color: #fdbb2d;
+            font-size: 1.2rem;
+        }
+        
+        .explanation {
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 15px;
+            line-height: 1.8;
+        }
+        
+        .explanation h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fdbb2d;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: monospace;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            color: #fdbb2d;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-link"></i> 友情链接强制换行解决方案</h1>
+            <p class="subtitle">展示如何通过CSS修改使列表项强制换行显示，同时提供原始布局与修改后的布局对比</p>
+        </header>
+        
+        <div class="content">
+            <div class="card">
+                <h2><i class="fas fa-code"></i> 原始布局</h2>
+                <div class="original-list">
+                    <ul class="list-inline">
+                        <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                        <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    </ul>
+                </div>
+                <p>原始布局使用 <code>display: inline-block</code>，所有链接在同一行显示，超出容器宽度时会换行但布局不整齐。</p>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-check-circle"></i> 解决方案效果</h2>
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                        <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></li>
+                        <li><a href="#"><i class="fab fa-tiktok"></i> TikTok</a></li>
+                        <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
+                        <li><a href="#"><i class="fab fa-reddit"></i> Reddit</a></li>
+                    </ul>
+                </div>
+                <p>通过设置 <code>display: block</code>，每个链接独占一行，整齐排列并带有悬停效果。</p>
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3><i class="fas fa-lightbulb"></i> 实现说明</h3>
+            <p>要使友情链接强制换行显示，只需修改CSS中的 <span class="highlight">display</span> 属性：</p>
+            
+            <div class="code-block">
+                /* 原始样式 - 内联显示 */<br>
+                .list-inline li {<br>
+                &nbsp;&nbsp;display: <span class="highlight">inline-block</span>;<br>
+                }<br><br>
+                
+                /* 修改后样式 - 块级显示（强制换行） */<br>
+                .solution-list li {<br>
+                &nbsp;&nbsp;display: <span class="highlight">block</span>; /* 关键修改 */<br>
+                &nbsp;&nbsp;margin-bottom: 12px; /* 添加间距 */<br>
+                }
+            </div>
+            
+            <p>在Jekyll模板中，只需确保列表项具有 <span class="highlight">display: block</span> 样式即可：</p>
+            
+            <div class="code-block">
+                &lt;ul class="solution-list"&gt;<br>
+                &nbsp;&nbsp;{% for friend in site.friends %}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a href="{{friend.href}}"&gt;{{friend.title}}&lt;/a&gt;&lt;/li&gt;<br>
+                &nbsp;&nbsp;{% endfor %}<br>
+                &lt;/ul&gt;<br><br>
+                
+                /* 对应的CSS */<br>
+                .solution-list li {<br>
+                &nbsp;&nbsp;display: block;<br>
+                &nbsp;&nbsp;margin-bottom: 12px;<br>
+                }
+            </div>
+            
+            <p>这种方法保持了模板的简洁性，同时通过CSS实现了强制换行的效果，并添加了美观的样式增强用户体验。</p>
+        </div>
+        
+        <footer>
+            <p>© 2023 友情链接强制换行解决方案 | 使用纯CSS实现 | 兼容所有现代浏览器</p>
+        </footer>
+    </div>
+</body>
