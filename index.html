@@ -1,7 +1,7 @@
 ---
-layout: page
+title: 友f
+layout: default
 ---
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -504,9 +504,9 @@ footer {
         {% endif %}
         <div class="post-content-preview">
             {% if post.lang == 'en' %}
-                {{ post.content | strip_html | truncate:150 }}
+                {{ post.content | strip_html | truncate:300 }}
             {% else %}
-                {{ post.content | strip_html | truncate:100 }}
+                {{ post.content | strip_html | truncate:200 }}
             {% endif %}
         </div>
     </a>
@@ -517,6 +517,8 @@ footer {
 <hr>
 {% endfor %}
 
+<!-- Pager -->
+{% if paginator.total_pages > 1 %}
 <ul class="pager">
     {% if paginator.previous_page %}
     <li class="previous">
