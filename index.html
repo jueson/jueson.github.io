@@ -507,6 +507,16 @@ footer {
 
                 <div class="solution-list">
                     <ul>
+                    <!-- 使用Jekyll语法 -->
+                    {% for friend in site.friends %}
+                    <li>
+                        <a href="{{friend.href}}">
+                            <i class="fas fa-external-link-alt"></i>
+                            {{friend.title}}
+                        </a>
+                    </li>
+                    {% endfor %}
+
                         <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
                         <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
                         <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
