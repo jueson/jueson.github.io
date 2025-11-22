@@ -498,7 +498,6 @@ footer {
 
 
 
-
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
         <div class="post-content-preview">
@@ -509,7 +508,5 @@ footer {
             {% endif %}
         </div>
     </a>
-    <p class="post-meta">
-        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
-    </p>
+    
 </div>
