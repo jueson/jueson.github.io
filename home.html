@@ -1,12 +1,14 @@
 ---
-title: 首三
+title: 友二
 layout: default
 ---
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>阅读友好博客 | 浅色背景设计</title>
+    <title>友情链接 - 强制换行显示</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+        
     <style>
         :root {
             /* 浅色背景专用色板 */
@@ -718,237 +720,40 @@ layout: default
             }
         }
     </style>
+        
+    
 </head>
 <body>
-    <!-- 顶部导航栏 -->
-    <header>
-    
-            <div class="logo">
-                <i class="fas fa-book-open"></i>
-                <span>阅读博客</span>
-            </div>
-            
-            <nav>
-                <ul>
-<li><a href="/home.html"><i class="fas fa-home"></i> 首页</a></li>
-<li><a href="/categories.html"><i class="fas fa-folder"></i> 分类</a></li>
-<li><a href="/tags.html"><i class="fas fa-tags"></i> 标签</a></li>
-<li><a href="about.html"><i class="fas fa-user"></i> 关于</a></li>
-<li><a href="contact.html"><i class="fas fa-envelope"></i> 联系</a></li>
-                </ul>
-            </nav>
-            
-            <div class="search-bar">
-                <input type="text" placeholder="搜索文章...">
-                <button><i class="fas fa-search"></i></button>
-            </div>
-       
-    </header>
-    
-    <!-- 英雄区域 -->
-    <section class="hero">
-        <div class="container">
-            <h1>沉浸式阅读体验，探索技术世界</h1>
-            <p>精选前端开发、用户体验设计、性能优化等深度文章，助您提升技术视野与开发能力</p>
-            <div>
-                <a href="#" class="btn">浏览文章</a>
-                <a href="#" class="btn btn-outline">订阅更新</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- 主要内容区域 -->
-    <div class="container main-content">
-        <!-- 左侧内容 -->
-        <div class="content-left">
-            <!-- 示例文章内容 -->
-            <div class="content-article">
-                <h2>现代CSS布局：Grid与Flexbox的完美结合</h2>
-                <p>在现代Web开发中，CSS Grid和Flexbox已经成为构建响应式布局的强大工具。本文将探讨如何将这两种布局技术结合使用，创建出既灵活又强大的页面结构。</p>
-                
-                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1100&q=80" alt="CSS布局">
-                
-                <p>Grid布局擅长处理二维空间，非常适合整体页面结构的设计。而Flexbox则是一维布局的专家，特别适合处理组件内部的元素排列。当两者结合使用时，可以创造出几乎任何你能想象到的布局。</p>
-                
-                <h2>核心概念解析</h2>
-                <p>理解Grid和Flexbox的核心概念是掌握它们组合使用的关键：</p>
-                
-                <blockquote>
-                    "Grid是关于整体框架的构建，而Flexbox则负责框架内各个组件的排列。这种分工合作使得复杂布局的实现变得简单而高效。"
-                </blockquote>
-                
-                <p>在实际项目中，通常以Grid为基础构建页面骨架，然后在需要灵活排列的区域使用Flexbox。例如，在一个网格布局的卡片列表中，整个页面使用Grid定义列数和间距，而每个卡片内部则使用Flexbox排列标题、图片和描述等内容。</p>
-                
-                <h2>最佳实践与常见陷阱</h2>
-                <p>在使用Grid和Flexbox组合时，有几个最佳实践值得注意：</p>
-                
-                <p>首先，明确每个工具的最佳应用场景。Grid适合宏观布局，Flexbox适合微观排列。其次，合理使用gap属性替代margin来控制间距，这样更符合现代布局理念且更易维护。</p>
-                
-                <p>常见陷阱包括过度嵌套布局容器和不必要的媒体查询。通过精心规划布局结构，可以大大减少代码复杂度。</p>
-            </div>
-            
-            <!-- 文章卡片网格 -->
-            <div class="posts">
-                <!-- 文章卡片 1 -->
-                <article class="post-card">
-                    <div class="post-image">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="前端开发">
-                    </div>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> 2023-06-15</span>
-                            <span><i class="far fa-folder"></i> 前端开发</span>
-                            <span><i class="far fa-comments"></i> 12 评论</span>
-                        </div>
-                        <h2 class="post-title"><a href="#">深入理解JavaScript闭包及其应用场景</a></h2>
-                        <p class="post-excerpt">闭包是JavaScript中一个强大且常被误解的概念。本文将深入探讨闭包的工作原理、常见应用场景以及如何避免内存泄漏问题...</p>
-                        <a href="#" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-                
-                <!-- 文章卡片 2 -->
-                <article class="post-card">
-                    <div class="post-image">
-                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1100&q=80" alt="CSS动画">
-                    </div>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> 2023-06-10</span>
-                            <span><i class="far fa-folder"></i> CSS技巧</span>
-                            <span><i class="far fa-comments"></i> 8 评论</span>
-                        </div>
-                        <h2 class="post-title"><a href="#">使用CSS Grid和Flexbox创建现代响应式布局</a></h2>
-                        <p class="post-excerpt">探索如何结合CSS Grid和Flexbox的强大功能，创建既灵活又强大的响应式布局。本文包含大量实际案例和最佳实践...</p>
-                        <a href="#" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-                
-                <!-- 文章卡片 3 -->
-                <article class="post-card">
-                    <div class="post-image">
-                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="React性能优化">
-                    </div>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> 2023-06-05</span>
-                            <span><i class="far fa-folder"></i> React</span>
-                            <span><i class="far fa-comments"></i> 15 评论</span>
-                        </div>
-                        <h2 class="post-title"><a href="#">React应用性能优化：10个实用技巧</a></h2>
-                        <p class="post-excerpt">提升React应用性能是每个开发者都应该掌握的技能。本文分享10个经过验证的性能优化技巧，包括memoization、懒加载和代码分割等...</p>
-                        <a href="#" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-            </div>
-        </div>
-        
-        <!-- 右侧边栏 -->
-        <div class="sidebar">
-            <!-- 关于我 -->
-            <div class="sidebar-widget about-me">
-                <h3 class="widget-title"><i class="fas fa-user"></i> 关于博主</h3>
-                <div class="avatar">
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="博主头像">
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-link"></i> 友情链接强制换行解决方案</h1>
+            <p class="subtitle">展示如何通过CSS修改使列表项强制换行显示，同时提供原始布局与修改后的布局对比</p>
+        </header>
+
+
+<div class="rag post-container">
+    {% capture about_rag %}{% include about/rag.md %}{% endcapture %}
+    {{ about_rag | markdownify }}
+</div>
+
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                        <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></li>
+                        <li><a href="#"><i class="fab fa-tiktok"></i> TikTok</a></li>
+                        <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
+                        <li><a href="#"><i class="fab fa-reddit"></i> Reddit</a></li>
+                    </ul>
                 </div>
-                <p>前端开发工程师，热爱分享技术知识和实践经验。专注于React、Vue和现代CSS技术。</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-weibo"></i></a>
-                </div>
-            </div>
-            
-            <!-- 分类 -->
-            <div class="sidebar-widget categories">
-                <h3 class="widget-title"><i class="fas fa-folder"></i> 文章分类</h3>
-                <ul>
-                    <li><a href="#">前端开发 <span>24</span></a></li>
-                    <li><a href="#">JavaScript <span>18</span></a></li>
-                    <li><a href="#">CSS技巧 <span>15</span></a></li>
-                    <li><a href="#">React <span>12</span></a></li>
-                    <li><a href="#">Vue.js <span>9</span></a></li>
-                    <li><a href="#">Node.js <span>7</span></a></li>
-                    <li><a href="#">工具推荐 <span>5</span></a></li>
-                </ul>
-            </div>
-            
-            <!-- 强制换行友情链接 -->
-            <div class="sidebar-widget friends-links">
-                <h3 class="widget-title"><i class="fas fa-link"></i> 友情链接</h3>
-                <ul class="friends-list">
-                    <!-- 使用Jekyll语法 -->
-                    {% for friend in site.friends %}
-                    <li>
-                        <a href="{{friend.href}}">
-                            <i class="fas fa-external-link-alt"></i>
-                            {{friend.title}}
-                        </a>
-                    </li>
-                    {% endfor %}
-                    
-                    <!-- 示例数据 -->
-                    <li><a href="#"><i class="fas fa-external-link-alt"></i> 前端周刊</a></li>
-                    <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript大师</a></li>
-                    <li><a href="#"><i class="fas fa-external-link-alt"></i> CSS技巧网</a></li>
-                    <li><a href="#"><i class="fas fa-external-link-alt"></i> React中文社区</a></li>
-                    <li><a href="#"><i class="fas fa-external-link-alt"></i> Vue.js开发者</a></li>
-                    <li><a href="#"><i class="fas fa-external-link-alt"></i> Node.js技术栈</a></li>
-                </ul>
-            </div>
-        </div>
+
+
+        <footer>
+            <p> 友情链接强制换行解决方案 | 使用纯CSS实现 | 兼容所有现代浏览器</p>
+        </footer>
     </div>
-    
-    <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-widget">
-                    <h3>关于博客</h3>
-                    <p>本博客专注于分享Web前端开发技术、框架实践和性能优化技巧，帮助开发者提升技能水平。</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-weibo"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-widget">
-                    <h3>快速链接</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-angle-right"></i> 首页</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> 关于我</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> 文章分类</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> 标签云</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> 联系我</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-widget">
-                    <h3>热门分类</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-angle-right"></i> React开发</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Vue.js教程</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> JavaScript高级</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> CSS动画</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> 性能优化</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-widget">
-                    <h3>订阅更新</h3>
-                    <p>订阅我们的新闻通讯，获取最新文章和资源更新。</p>
-                    <div class="search-bar">
-                        <input type="email" placeholder="您的电子邮箱">
-                        <button><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 阅读博客. 保留所有权利 | 设计制作: 前端开发者</p>
-            </div>
-        </div>
-    </footer>
 </body>
