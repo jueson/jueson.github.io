@@ -1,6 +1,31 @@
 {% if site.friends %}
 <hr>
 <h5>快链</h5>
+
+ <!-- 强制换行友情链接 - 完全匹配原风格 -->
+            <div class="sidebar-widget friends-links">
+                <h5 class="widget-title"><i class="fas fa-link"></i> 友情链接</h3>
+                <ul class="friends-list">
+                    <!-- 使用Jekyll语法 -->
+                    {% for friend in site.friends %}
+                    <li>
+                        <a href="{{friend.href}}">
+                            <i class="fas fa-external-link-alt"></i>
+                            {{friend.title}}
+                        </a>
+                    </li>
+                    {% endfor %}
+
+                    <!-- 示例数据 -->
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> 前端周刊</a></li>
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript大师</a></li>
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> CSS技巧网</a></li>
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> React中文社区</a></li>
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> Vue.js开发者</a></li>
+                    <li><a href="#"><i class="fas fa-external-link-alt"></i> Node.js技术栈</a></li>
+                </ul>
+            </div>
+
 <ul class="list-inline">
   {% for friend in site.friends %}
   <li><a href="{{friend.href}}">{{friend.title}}</a></li>
