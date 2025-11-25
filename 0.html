@@ -15,6 +15,86 @@ header-img: "img/bg-little-universe.jpg"
     <title>友情链接 - 强制换行显示</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>  
+/* 卡片容器 */
+.card {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 600px; /* 最大宽度，可以根据需要调整 */
+    margin: 0 auto; /* 水平居中 */
+    padding: 20px;
+    background-color: #fff; /* 背景色，根据实际情况调整 */
+    border-radius: 8px; /* 圆角 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 阴影效果 */
+}
+
+/* 卡片标题 */
+.card h5 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+}
+
+/* 图标样式 */
+.card h5 i {
+    margin-right: 8px;
+    color: #28a745; /* 绿色，表示成功或完成 */
+}
+
+/* 列表容器 */
+.solution-list {
+    overflow-x: auto; /* 如果内容过宽，允许横向滚动 */
+}
+
+/* 朋友列表 */
+.friends-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.friends-list li {
+    margin-bottom: 10px;
+}
+
+.friends-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* 链接样式 */
+.friends-list a {
+    display: block;
+    padding: 8px 12px;
+    background-color: #f8f9fa; /* 浅灰色背景 */
+    border-radius: 4px;
+    text-decoration: none;
+    color: #007bff; /* 链接颜色 */
+    transition: background-color 0.3s;
+}
+
+.friends-list a:hover {
+    background-color: #e9ecef; /* 鼠标悬停时的背景色 */
+}
+
+.friends-list a i {
+    margin-right: 8px;
+    width: 16px; /* 固定图标宽度，使文字对齐 */
+    text-align: center;
+}
+
+/* 响应式调整：小屏幕下 */
+@media (max-width: 480px) {
+    .card {
+        padding: 15px;
+    }
+    .card h5 {
+        font-size: 16px;
+    }
+    .friends-list a {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+}
 
 {
     margin: 0;
