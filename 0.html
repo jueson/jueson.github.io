@@ -8,17 +8,17 @@ header-img: "img/bg-little-universe.jpg"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自适应高度卡片模块</title>
+    <title>站点快链模板</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 提取自您提供的背景样式 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        /* 页面基础样式：浅色渐变背景+深灰文字，适合长文阅读 */
         body {
             background: linear-gradient(135deg, #f5f7fa, #e4edf9, #fdf2e9);
             color: #2d3748;
@@ -28,15 +28,17 @@ header-img: "img/bg-little-universe.jpg"
             flex-direction: column;
             align-items: center;
         }
-        
+
+        /* 内容容器：限制宽度并居中，保证大屏幕阅读舒适度 */
         .container {
             max-width: 1200px;
             width: 100%;
             margin: 0 auto;
             padding: 20px;
         }
-        
-        .header {
+
+        /* 页头：包含主标题与副标题，半透明白色背景+磨砂效果 */
+        header {
             text-align: center;
             margin-bottom: 40px;
             padding: 30px 20px;
@@ -46,41 +48,48 @@ header-img: "img/bg-little-universe.jpg"
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             width: 100%;
         }
-        
-        .header h1 {
+
+        header h1 {
             font-size: 2.5rem;
             margin-bottom: 12px;
             color: #2b6cb0;
             text-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
         }
-        
-        .header .subtitle {
+
+        header .subtitle {
             font-size: 1.1rem;
             opacity: 0.8;
             max-width: 700px;
             margin: 0 auto;
             line-height: 1.7;
         }
-        
-        /* 卡片样式 - 修复高度自适应问题 */
+
+        /* 内容区域：双列布局，小屏幕自动堆叠 */
+        .content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* 卡片组件：带悬停动画的信息容器 */
         .card {
+            flex: 1;
+            min-width: 300px;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 15px;
             padding: 30px;
             backdrop-filter: blur(10px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 100%;
-            margin-bottom: 30px;
             display: flex;
             flex-direction: column;
         }
-        
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
         }
-        
+
         .card h2 {
             font-size: 1.6rem;
             margin-bottom: 20px;
@@ -90,26 +99,23 @@ header-img: "img/bg-little-universe.jpg"
             align-items: center;
             gap: 10px;
         }
-        
+
         .card h2 i {
             color: #f6ad55;
         }
-        
-        /* 纵向列表样式 */
+
+        /* 解决方案列表：优化后的纵向排列+交互细节 */
         .solution-list {
             padding: 0;
-            flex-grow: 1; /* 确保列表区域扩展填充可用空间 */
+            flex-grow: 1;
         }
-        
-        .friends-list {
+
+        .solution-list ul {
             list-style: none;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
         }
-        
-        .friends-list li {
+
+        .solution-list li {
             display: block;
             margin-bottom: 12px;
             background: rgba(255, 255, 255, 0.7);
@@ -119,13 +125,13 @@ header-img: "img/bg-little-universe.jpg"
             position: relative;
             overflow: hidden;
         }
-        
-        .friends-list li:last-child {
+
+        .solution-list li:last-child {
             margin-bottom: 0;
         }
-        
+
         /* 左侧装饰条动画 */
-        .friends-list li:before {
+        .solution-list li:before {
             content: "";
             position: absolute;
             left: 0;
@@ -137,17 +143,17 @@ header-img: "img/bg-little-universe.jpg"
             transform-origin: top;
             transition: transform 0.3s ease;
         }
-        
-        .friends-list li:hover {
+
+        .solution-list li:hover {
             background: rgba(255, 255, 255, 0.85);
             transform: translateX(5px);
         }
-        
-        .friends-list li:hover:before {
+
+        .solution-list li:hover:before {
             transform: scaleY(1);
         }
-        
-        .friends-list a {
+
+        .solution-list a {
             color: #2d3748;
             text-decoration: none;
             font-weight: 500;
@@ -155,15 +161,13 @@ header-img: "img/bg-little-universe.jpg"
             align-items: center;
             gap: 10px;
         }
-        
-        .friends-list i {
-            color: #3498db;
+
+        .solution-list i {
+            color: #f6ad55;
             font-size: 1.1rem;
-            width: 24px;
-            text-align: center;
         }
-        
-        /* 页脚样式 */
+
+        /* 页脚：补充信息，半透明设计不抢焦点 */
         footer {
             text-align: center;
             margin-top: 50px;
@@ -175,353 +179,115 @@ header-img: "img/bg-little-universe.jpg"
             opacity: 0.8;
             color: #718096;
         }
-        
-        /* 响应式设计 */
+
+        /* 小屏幕适配：单列布局+字体调整 */
         @media (max-width: 768px) {
-            .header h1 {
+            .content {
+                flex-direction: column;
+            }
+
+            header h1 {
                 font-size: 2rem;
             }
-            
+
             .card {
                 padding: 25px;
             }
-            
+
             .card h2 {
                 font-size: 1.4rem;
             }
-            
-            .friends-list a {
-                font-size: 0.95rem;
-            }
         }
-        
+
         @media (max-width: 480px) {
             body {
                 padding: 15px;
             }
-            
+
             .header {
                 padding: 20px 15px;
             }
-            
+
             .header h1 {
                 font-size: 1.7rem;
             }
-            
+
             .card {
                 padding: 20px 15px;
             }
-            
-            .friends-list li {
+
+            .solution-list li {
                 padding: 10px 15px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 页头包含 -->
+    {% include intro-header.html type='page' %}
+    
     <div class="container">
-        <div class="header">
-<!-- Page Header -->
-{% include intro-header.html type='page' short=true %}
+        <div class="content">
+            <div class="card">
+                <h2><i class="fas fa-check-circle"></i> 推荐资源</h2>
+                
+                <div class="solution-list">
+                    <ul>
+                        <!-- 使用Jekyll语法 -->
+                        {% for friend in site.friends %}
+                        <li>
+                            <a href="{{friend.href}}">
+                                <i class="fas fa-external-link-alt"></i>
+                                {{friend.title}}
+                            </a>
+                        </li>
+                        {% endfor %}
 
-        </div>
-        
-        <div class="card">
-            <h2><i class="fas fa-check-circle"></i> 推荐资源</h2>
+                        <!-- 示例数据 -->
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 前端周刊</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript大师</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> CSS技巧网</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> React中文社区</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Vue.js开发者</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Node.js技术栈</a></li>
+                    </ul>
+                </div>
+            </div>
             
-            <div class="solution-list">
-                <ul class="friends-list">
-                    <!-- 使用Jekyll语法 -->
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            前端周刊
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            JavaScript大师
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            CSS技巧网
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            React中文社区
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Vue.js开发者
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Node.js技术栈
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            TypeScript指南
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Web性能优化
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            GraphQL实践指南
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Webpack深度解析
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            CSS Grid布局完全指南
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Flexbox实战案例
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            响应式设计原则
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            PWA开发教程
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            前端安全最佳实践
-                        </a>
-                    </li>
-                </ul>
+            <div class="card">
+                <h2><i class="fas fa-book"></i> 学习路径</h2>
+                
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> HTML5入门教程</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> CSS布局完全指南</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript高级编程</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> ES6新特性详解</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 框架比较：React vs Vue</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-tools"></i> 开发工具</h2>
+                
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> VS Code插件推荐</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Chrome调试技巧</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Git工作流指南</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Webpack配置手册</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        
-        <div class="card">
-            <h2><i class="fas fa-book"></i> 学习路径</h2>
-            
-            <div class="solution-list">
-                <ul class="friends-list">
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            HTML5入门教程
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            CSS布局完全指南
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            JavaScript高级编程
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            ES6新特性详解
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            框架比较：React vs Vue
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            状态管理深入解析
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            服务端渲染原理
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            前端测试策略
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            性能优化方法论
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="card">
-            <h2><i class="fas fa-tools"></i> 开发工具</h2>
-            
-            <div class="solution-list">
-                <ul class="friends-list">
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            VS Code插件推荐
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Chrome调试技巧
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Git工作流指南
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Webpack配置手册
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Babel使用教程
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            ESLint配置指南
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Prettier格式化规则
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            npm脚本最佳实践
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Docker前端开发环境
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            CI/CD流水线配置
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="card">
-            <h2><i class="fas fa-video"></i> 视频教程</h2>
-            
-            <div class="solution-list">
-                <ul class="friends-list">
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            JavaScript设计模式
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            React Hooks深入解析
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            Vue3组合式API
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            TypeScript类型系统
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            动画与交互设计
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            移动端开发技巧
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            无障碍网页设计
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-external-link-alt"></i>
-                            WebGL入门教程
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-        <footer>
-            <p>© 2023 前端资源导航 | 持续更新优质开发资源</p>
-        </footer>
     </div>
     
+    <!-- 页脚包含 -->
+    {% include footer.html %}
+    
     <script>
-        // 添加简单的交互效果
+        // 简单的交互效果
         document.addEventListener('DOMContentLoaded', function() {
             const cards = document.querySelectorAll('.card');
             
@@ -535,7 +301,7 @@ header-img: "img/bg-little-universe.jpg"
                 });
             });
             
-            const links = document.querySelectorAll('.friends-list a');
+            const links = document.querySelectorAll('.solution-list a');
             
             links.forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -549,10 +315,9 @@ header-img: "img/bg-little-universe.jpg"
                     
                     // 显示提示信息
                     const title = this.textContent.trim();
-                    alert(`即将跳转到: ${title}\n（此演示中链接未实际配置）`);
+                    alert(`即将跳转到: ${title}`);
                 });
             });
         });
     </script>
 </body>
-
