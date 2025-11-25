@@ -7,7 +7,7 @@ header-img: "img/post-bg-universe.jpg"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>站点快链 - 纵向布局</title>
+    <title>站点快链 - 全屏Header</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -17,53 +17,55 @@ header-img: "img/post-bg-universe.jpg"
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* 页面基础样式：浅色渐变背景+深灰文字，适合长文阅读 */
+        /* 页面基础样式 */
         body {
             background: linear-gradient(135deg, #f5f7fa, #e4edf9, #fdf2e9);
             color: #2d3748;
             min-height: 100vh;
-            padding: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
         }
 
-        /* 内容容器：限制宽度并居中，保证大屏幕阅读舒适度 */
-        .container {
-            max-width: 1200px;
+        /* 全屏宽度Header */
+        .full-width-header {
             width: 100%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* 页头：包含主标题与副标题，半透明白色背景+磨砂效果 */
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px 20px;
             background: rgba(255, 255, 255, 0.5);
-            border-radius: 15px;
             backdrop-filter: blur(10px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            width: 100%;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .full-width-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
             color: #2b6cb0;
             text-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
         }
 
-        header .subtitle {
-            font-size: 1.1rem;
+        .full-width-header .subtitle {
+            font-size: 1.2rem;
             opacity: 0.8;
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
             line-height: 1.7;
         }
 
-        /* 内容区域：强制纵向排列，无横向并列 */
+        /* 内容容器 */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        /* 内容区域：强制纵向排列 */
         .content {
             display: block;
             width: 100%;
@@ -101,7 +103,7 @@ header-img: "img/post-bg-universe.jpg"
             color: #f6ad55;
         }
 
-        /* 解决方案列表：优化后的纵向排列+交互细节 */
+        /* 解决方案列表 */
         .solution-list {
             padding: 0;
         }
@@ -163,51 +165,63 @@ header-img: "img/post-bg-universe.jpg"
             font-size: 1.1rem;
         }
 
-        /* 页脚：补充信息，半透明设计不抢焦点 */
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
+        /* 全屏宽度Footer */
+        .full-width-footer {
             width: 100%;
             background: rgba(255, 255, 255, 0.5);
-            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
             font-size: 0.9rem;
             opacity: 0.8;
             color: #718096;
         }
 
-        /* 小屏幕适配：字体调整 */
+        /* 小屏幕适配 */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
+            .full-width-header h1 {
+                font-size: 2.2rem;
             }
-
+            
+            .full-width-header {
+                padding: 30px 15px;
+            }
+            
             .content-block {
                 padding: 25px;
             }
-
+            
             .content-block h2 {
                 font-size: 1.4rem;
             }
         }
 
         @media (max-width: 480px) {
-            body {
-                padding: 15px;
+            .full-width-header h1 {
+                font-size: 1.8rem;
             }
-
-            header {
-                padding: 20px 15px;
+            
+            .full-width-header .subtitle {
+                font-size: 1rem;
             }
-
-            header h1 {
-                font-size: 1.7rem;
+            
+            .full-width-header {
+                padding: 25px 10px;
             }
-
+            
+            .container {
+                padding: 0 10px 30px;
+            }
+            
             .content-block {
                 padding: 20px 15px;
             }
-
+            
             .solution-list li {
                 padding: 10px 15px;
             }
@@ -215,10 +229,15 @@ header-img: "img/post-bg-universe.jpg"
     </style>
 </head>
 <body>
+    <!-- 全屏宽度Header -->
+    <div class="full-width-header">
+        <div class="header-content">
+            <!-- 使用您提供的header标签 -->
+            {% include intro-header.html type='page' %}
+        </div>
+    </div>
+    
     <div class="container">
-        <!-- 使用您提供的header标签 -->
-        {% include intro-header.html type='page' %}
-        
         <div class="content">
             <!-- 推荐资源区块 -->
             <div class="content-block">
@@ -303,6 +322,16 @@ header-img: "img/post-bg-universe.jpg"
             </div>
         </div>
     </div>
+    
+    <!-- 全屏宽度Footer -->
+    <div class="full-width-footer">
+        <div class="footer-content">
+            <!-- 使用您提供的footer标签 -->
+            {% include footer.html %}
+        </div>
+    </div>
+    
+
 <script>
 // 添加交互效果
 document.addEventListener('DOMContentLoaded', function() {
