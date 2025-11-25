@@ -7,7 +7,7 @@ header-img: "img/post-bg-universe.jpg"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>站点快链模板</title>
+    <title>站点快链 - 纵向布局</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -36,32 +36,26 @@ header-img: "img/post-bg-universe.jpg"
             padding: 20px;
         }
 
-        /* 页头Card样式 */
-        .header-card {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* 页头：包含主标题与副标题，半透明白色背景+磨砂效果 */
+        header {
             text-align: center;
             margin-bottom: 40px;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             width: 100%;
         }
 
-        .header-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-        }
-
-        .header-card h1 {
+        header h1 {
             font-size: 2.5rem;
             margin-bottom: 12px;
             color: #2b6cb0;
             text-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
         }
 
-        .header-card .subtitle {
+        header .subtitle {
             font-size: 1.1rem;
             opacity: 0.8;
             max-width: 700px;
@@ -69,19 +63,27 @@ header-img: "img/post-bg-universe.jpg"
             line-height: 1.7;
         }
 
-        /* 内容区域：双列布局，小屏幕自动堆叠 */
+        /* 内容区域：强制纵向排列，无横向并列 */
         .content {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
+            display: block;
+            width: 100%;
         }
 
-        /* 内容区块样式（非Card） */
+        /* 内容区块样式 */
         .content-block {
-            flex: 1;
-            min-width: 300px;
-            padding: 20px 0;
+            width: 100%;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
         }
 
         .content-block h2 {
@@ -174,14 +176,14 @@ header-img: "img/post-bg-universe.jpg"
             color: #718096;
         }
 
-        /* 小屏幕适配：单列布局+字体调整 */
+        /* 小屏幕适配：字体调整 */
         @media (max-width: 768px) {
-            .content {
-                flex-direction: column;
+            header h1 {
+                font-size: 2rem;
             }
 
-            .header-card h1 {
-                font-size: 2rem;
+            .content-block {
+                padding: 25px;
             }
 
             .content-block h2 {
@@ -194,12 +196,16 @@ header-img: "img/post-bg-universe.jpg"
                 padding: 15px;
             }
 
-            .header-card {
+            header {
                 padding: 20px 15px;
             }
 
-            .header-card h1 {
+            header h1 {
                 font-size: 1.7rem;
+            }
+
+            .content-block {
+                padding: 20px 15px;
             }
 
             .solution-list li {
@@ -210,14 +216,11 @@ header-img: "img/post-bg-universe.jpg"
 </head>
 <body>
     <div class="container">
-        <!-- Header使用Card样式 -->
-        <div class="header-card">
-            <h1>站点快链</h1>
-            <p class="subtitle">精选优质前端开发资源，助您提升技能水平</p>
-        </div>
+        <!-- 使用您提供的header标签 -->
+        {% include intro-header.html type='page' %}
         
         <div class="content">
-            <!-- 推荐资源区块（非Card样式） -->
+            <!-- 推荐资源区块 -->
             <div class="content-block">
                 <h2><i class="fas fa-check-circle"></i> 推荐资源</h2>
                 
@@ -244,7 +247,7 @@ header-img: "img/post-bg-universe.jpg"
                 </div>
             </div>
             
-            <!-- 学习路径区块（非Card样式） -->
+            <!-- 学习路径区块 -->
             <div class="content-block">
                 <h2><i class="fas fa-book"></i> 学习路径</h2>
                 
@@ -255,11 +258,15 @@ header-img: "img/post-bg-universe.jpg"
                         <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript高级编程</a></li>
                         <li><a href="#"><i class="fas fa-external-link-alt"></i> ES6新特性详解</a></li>
                         <li><a href="#"><i class="fas fa-external-link-alt"></i> 框架比较：React vs Vue</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 状态管理深入解析</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 服务端渲染原理</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 前端测试策略</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 性能优化方法论</a></li>
                     </ul>
                 </div>
             </div>
             
-            <!-- 开发工具区块（非Card样式） -->
+            <!-- 开发工具区块 -->
             <div class="content-block">
                 <h2><i class="fas fa-tools"></i> 开发工具</h2>
                 
@@ -269,10 +276,36 @@ header-img: "img/post-bg-universe.jpg"
                         <li><a href="#"><i class="fas fa-external-link-alt"></i> Chrome调试技巧</a></li>
                         <li><a href="#"><i class="fas fa-external-link-alt"></i> Git工作流指南</a></li>
                         <li><a href="#"><i class="fas fa-external-link-alt"></i> Webpack配置手册</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Babel使用教程</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> ESLint配置指南</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Prettier格式化规则</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> npm脚本最佳实践</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 视频教程区块 -->
+            <div class="content-block">
+                <h2><i class="fas fa-video"></i> 视频教程</h2>
+                
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript设计模式</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> React Hooks深入解析</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Vue3组合式API</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> TypeScript类型系统</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 动画与交互设计</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 移动端开发技巧</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 无障碍网页设计</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> WebGL入门教程</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+        
+        <!-- 使用您提供的footer标签 -->
+        {% include footer.html %}
+    </div>
 <script>
 // 添加交互效果
 document.addEventListener('DOMContentLoaded', function() {
