@@ -4,7 +4,7 @@
 
  <!-- 强制换行友情链接 - 完全匹配原风格 -->
             <div class="sidebar-widget friends-links">
-                <h5 class="widget-title"><i class="fas fa-link"></i> 友情链接</h3>
+                <h5 class="widget-title"><i class="fas fa-link"></i> 快链</h3>
                 <ul class="friends-list">
                     <!-- 使用Jekyll语法 -->
                     {% for friend in site.friends %}
@@ -26,9 +26,4 @@
                 </ul>
             </div>
 
-<ul class="list-inline">
-  {% for friend in site.friends %}
-  <li><a href="{{friend.href}}">{{friend.title}}</a></li>
-  {% endfor %}
-</ul>
 {% endif %}
