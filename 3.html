@@ -1,0 +1,329 @@
+---
+title: 3
+layout: default
+description: "「深渊正在凝视你」"
+header-img: "img/post-bg-universe.jpg"
+---
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>站点快链模板</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* 页面基础样式：浅色渐变背景+深灰文字，适合长文阅读 */
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #e4edf9, #fdf2e9);
+            color: #2d3748;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 内容容器：限制宽度并居中，保证大屏幕阅读舒适度 */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 页头Card样式 */
+        .header-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        .header-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-card h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            color: #2b6cb0;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-card .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* 内容区域：双列布局，小屏幕自动堆叠 */
+        .content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        /* 内容区块样式（非Card） */
+        .content-block {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px 0;
+        }
+
+        .content-block h2 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(43, 108, 176, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #2b6cb0;
+        }
+
+        .content-block h2 i {
+            color: #f6ad55;
+        }
+
+        /* 解决方案列表：优化后的纵向排列+交互细节 */
+        .solution-list {
+            padding: 0;
+        }
+
+        .solution-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .solution-list li {
+            display: block;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 左侧装饰条动画 */
+        .solution-list li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: #f6ad55;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease;
+        }
+
+        .solution-list li:hover {
+            background: rgba(255, 255, 255, 0.85);
+            transform: translateX(5px);
+        }
+
+        .solution-list li:hover:before {
+            transform: scaleY(1);
+        }
+
+        .solution-list a {
+            color: #2d3748;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .solution-list i {
+            color: #f6ad55;
+            font-size: 1.1rem;
+        }
+
+        /* 页脚：补充信息，半透明设计不抢焦点 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: #718096;
+        }
+
+        /* 小屏幕适配：单列布局+字体调整 */
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .header-card h1 {
+                font-size: 2rem;
+            }
+
+            .content-block h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .header-card {
+                padding: 20px 15px;
+            }
+
+            .header-card h1 {
+                font-size: 1.7rem;
+            }
+
+            .solution-list li {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header使用Card样式 -->
+        <div class="header-card">
+            <h1>站点快链</h1>
+            <p class="subtitle">精选优质前端开发资源，助您提升技能水平</p>
+        </div>
+        
+        <div class="content">
+            <!-- 推荐资源区块（非Card样式） -->
+            <div class="content-block">
+                <h2><i class="fas fa-check-circle"></i> 推荐资源</h2>
+                
+                <div class="solution-list">
+                    <ul>
+                        <!-- 使用Jekyll语法 -->
+                        {% for friend in site.friends %}
+                        <li>
+                            <a href="{{friend.href}}">
+                                <i class="fas fa-external-link-alt"></i>
+                                {{friend.title}}
+                            </a>
+                        </li>
+                        {% endfor %}
+
+                        <!-- 示例数据 -->
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 前端周刊</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript大师</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> CSS技巧网</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> React中文社区</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Vue.js开发者</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Node.js技术栈</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 学习路径区块（非Card样式） -->
+            <div class="content-block">
+                <h2><i class="fas fa-book"></i> 学习路径</h2>
+                
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> HTML5入门教程</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> CSS布局完全指南</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript高级编程</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> ES6新特性详解</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 框架比较：React vs Vue</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 开发工具区块（非Card样式） -->
+            <div class="content-block">
+                <h2><i class="fas fa-tools"></i> 开发工具</h2>
+                
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> VS Code插件推荐</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Chrome调试技巧</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Git工作流指南</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Webpack配置手册</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+<script>
+// 添加交互效果
+document.addEventListener('DOMContentLoaded', function() {
+    const postPreviews = document.querySelectorAll('.post-preview');
+
+    // 为每个文章预览添加点击效果
+    postPreviews.forEach(preview => {
+        preview.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'A') {
+                const link = this.querySelector('a');
+                if (link) {
+                    window.location.href = link.href;
+                }
+            }
+        });
+
+        // 添加键盘导航支持
+        preview.setAttribute('tabindex', '0');
+        preview.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const link = this.querySelector('a');
+                if (link) {
+                    window.location.href = link.href;
+                }
+            }
+        });
+    });
+
+    // 添加滚动动画效果
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // 观察所有文章预览
+    postPreviews.forEach(preview => {
+        preview.style.opacity = '0';
+        preview.style.transform = 'translateY(20px)';
+        preview.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(preview);
+    });
+});
+
+</script>
+</body>
