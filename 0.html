@@ -12,11 +12,17 @@ header-img: "img/bg-little-universe.jpg"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>强制换行显示</title>
+    <title>自适应高度卡片模块</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         /* 提取自您提供的背景样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
         body {
             background: linear-gradient(135deg, #f5f7fa, #e4edf9, #fdf2e9);
             color: #2d3748;
@@ -25,8 +31,6 @@ header-img: "img/bg-little-universe.jpg"
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
         }
         
         .container {
@@ -62,7 +66,7 @@ header-img: "img/bg-little-universe.jpg"
             line-height: 1.7;
         }
         
-        /* 卡片样式 - 纵向布局 */
+        /* 卡片样式 - 修复高度自适应问题 */
         .card {
             background: rgba(255, 255, 255, 0.8);
             border-radius: 15px;
@@ -72,6 +76,8 @@ header-img: "img/bg-little-universe.jpg"
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             width: 100%;
             margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
         }
         
         .card:hover {
@@ -96,6 +102,7 @@ header-img: "img/bg-little-universe.jpg"
         /* 纵向列表样式 */
         .solution-list {
             padding: 0;
+            flex-grow: 1; /* 确保列表区域扩展填充可用空间 */
         }
         
         .friends-list {
@@ -214,106 +221,11 @@ header-img: "img/bg-little-universe.jpg"
             }
         }
     </style>
-
-
-</head>
-
-<!-- 优化后的文章列表部分 -->
-{% for post in paginator.posts %}
-<div class="post-preview">
-    <a href="{{ post.url | prepend: site.baseurl }}">
-        <h2 class="post-title">
-            {{ post.title }}
-        </h2>
-        {% if post.subtitle %}
-        <h3 class="post-subtitle">
-            {{ post.subtitle }}
-        </h3>
-        {% endif %}
-        <div class="post-content-preview">
-            {% if post.lang == 'en' %}
-                {{ post.content | strip_html | truncate:300 }}
-            {% else %}
-                {{ post.content | strip_html | truncate:200 }}
-            {% endif %}
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
-    </p>
-</div>
-{% endfor %}
-
-<!-- 优化后的分页器 -->
-{% if paginator.total_pages > 1 %}
-<ul class="pager">
-    {% if paginator.previous_page %}
-    <li class="previous">
-        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">上一页</a>
-    </li>
-    {% endif %}
-    {% if paginator.next_page %}
-    <li class="next">
-        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">下一页</a>
-    </li>
-    {% endif %}
-</ul>
-{% endif %}
-
-<script>
-// 添加交互效果
-document.addEventListener('DOMContentLoaded', function() {
-    const postPreviews = document.querySelectorAll('.post-preview');
-
-    // 为每个文章预览添加点击效果
-    postPreviews.forEach(preview => {
-        preview.addEventListener('click', function(e) {
-            if (e.target.tagName !== 'A') {
-                const link = this.querySelector('a');
-                if (link) {
-                    window.location.href = link.href;
-                }
-            }
-        });
-
-        // 添加键盘导航支持
-        preview.setAttribute('tabindex', '0');
-        preview.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                const link = this.querySelector('a');
-                if (link) {
-                    window.location.href = link.href;
-                }
-            }
-        });
-    });
-
-    // 添加滚动动画效果
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // 观察所有文章预览
-    postPreviews.forEach(preview => {
-        preview.style.opacity = '0';
-        preview.style.transform = 'translateY(20px)';
-        preview.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(preview);
-    });
-});
-</script>
-
-            
+    
+    
+    
+    
+    
             <div class="card">
                 <h2><i class="fas fa-check-circle"></i> 解决方案效果</h2>
                 <div class="solution-list">
@@ -332,6 +244,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <p>通过设 <code>display: block</code>，每个链接独占一行，整齐排列并带有悬停效果。</p>
             </div>
+    
+    
+    
+    
+    
+    
+    
+    <script>
+        // 添加简单的交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '10';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                });
+            });
+            
+            const links = document.querySelectorAll('.friends-list a');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 创建点击效果
+                    this.style.backgroundColor = '#e3f2fd';
+                    setTimeout(() => {
+                        this.style.backgroundColor = '';
+                    }, 300);
+                    
+                    // 显示提示信息
+                    const title = this.textContent.trim();
+                    alert(`即将跳转到: ${title}\n（此演示中链接未实际配置）`);
+                });
+            });
+        });
+    </script>
+</body>
 
-
-        
