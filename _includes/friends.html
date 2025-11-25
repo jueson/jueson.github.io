@@ -1,9 +1,9 @@
 {% if site.friends %}
 <hr>
 
- <!-- 强制换行友情链接 - 完全匹配原风格 -->
-            <div class="sidebar-widget friends-links">
-                <h5 class="widget-title"><i class="fas fa-link"></i> 快链</h3>
+            <div class="card">
+                <h5><i class="fas fa-check-circle"></i> 站点快链</h5>
+                <div class="solution-list">
                 <ul class="friends-list">
                     <!-- 使用Jekyll语法 -->
                     {% for friend in site.friends %}
@@ -23,6 +23,11 @@
                     <li><a href="#"><i class="fas fa-external-link-alt"></i> Vue.js开发者</a></li>
                     <li><a href="#"><i class="fas fa-external-link-alt"></i> Node.js技术栈</a></li>
                 </ul>
+                </div>
             </div>
+        </div>
+        
+
+
 
 {% endif %}
