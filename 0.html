@@ -4,7 +4,6 @@ layout: default
 description: "「深渊正在凝视你」"
 header-img: "img/post-bg-universe.jpg"
 ---
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,26 +36,32 @@ header-img: "img/post-bg-universe.jpg"
             padding: 20px;
         }
 
-        /* 页头：包含主标题与副标题，半透明白色背景+磨砂效果 */
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px 20px;
-            background: rgba(255, 255, 255, 0.5);
+        /* 页头Card样式 */
+        .header-card {
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 15px;
+            padding: 30px;
             backdrop-filter: blur(10px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            margin-bottom: 40px;
             width: 100%;
         }
 
-        header h1 {
+        .header-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-card h1 {
             font-size: 2.5rem;
             margin-bottom: 12px;
             color: #2b6cb0;
             text-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
         }
 
-        header .subtitle {
+        .header-card .subtitle {
             font-size: 1.1rem;
             opacity: 0.8;
             max-width: 700px;
@@ -69,28 +74,17 @@ header-img: "img/post-bg-universe.jpg"
             display: flex;
             gap: 30px;
             flex-wrap: wrap;
+            margin-bottom: 30px;
         }
 
-        /* 卡片组件：带悬停动画的信息容器 */
-        .card {
+        /* 内容区块样式（非Card） */
+        .content-block {
             flex: 1;
             min-width: 300px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
+            padding: 20px 0;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-        }
-
-        .card h2 {
+        .content-block h2 {
             font-size: 1.6rem;
             margin-bottom: 20px;
             padding-bottom: 10px;
@@ -98,16 +92,16 @@ header-img: "img/post-bg-universe.jpg"
             display: flex;
             align-items: center;
             gap: 10px;
+            color: #2b6cb0;
         }
 
-        .card h2 i {
+        .content-block h2 i {
             color: #f6ad55;
         }
 
         /* 解决方案列表：优化后的纵向排列+交互细节 */
         .solution-list {
             padding: 0;
-            flex-grow: 1;
         }
 
         .solution-list ul {
@@ -186,15 +180,11 @@ header-img: "img/post-bg-universe.jpg"
                 flex-direction: column;
             }
 
-            header h1 {
+            .header-card h1 {
                 font-size: 2rem;
             }
 
-            .card {
-                padding: 25px;
-            }
-
-            .card h2 {
+            .content-block h2 {
                 font-size: 1.4rem;
             }
         }
@@ -204,16 +194,12 @@ header-img: "img/post-bg-universe.jpg"
                 padding: 15px;
             }
 
-            .header {
+            .header-card {
                 padding: 20px 15px;
             }
 
-            .header h1 {
+            .header-card h1 {
                 font-size: 1.7rem;
-            }
-
-            .card {
-                padding: 20px 15px;
             }
 
             .solution-list li {
@@ -223,14 +209,18 @@ header-img: "img/post-bg-universe.jpg"
     </style>
 </head>
 <body>
-    <!-- 页头包含 -->
-    {% include intro-header.html type='page' %}
-
     <div class="container">
+        <!-- Header使用Card样式 -->
+        <div class="header-card">
+            <h1>站点快链</h1>
+            <p class="subtitle">精选优质前端开发资源，助您提升技能水平</p>
+        </div>
+        
         <div class="content">
-            
+            <!-- 推荐资源区块（非Card样式） -->
+            <div class="content-block">
                 <h2><i class="fas fa-check-circle"></i> 推荐资源</h2>
-<br>
+                
                 <div class="solution-list">
                     <ul>
                         <!-- 使用Jekyll语法 -->
@@ -252,11 +242,12 @@ header-img: "img/post-bg-universe.jpg"
                         <li><a href="#"><i class="fas fa-external-link-alt"></i> Node.js技术栈</a></li>
                     </ul>
                 </div>
-            <br>
-
+            </div>
             
+            <!-- 学习路径区块（非Card样式） -->
+            <div class="content-block">
                 <h2><i class="fas fa-book"></i> 学习路径</h2>
-
+                
                 <div class="solution-list">
                     <ul>
                         <li><a href="#"><i class="fas fa-external-link-alt"></i> HTML5入门教程</a></li>
@@ -266,11 +257,12 @@ header-img: "img/post-bg-universe.jpg"
                         <li><a href="#"><i class="fas fa-external-link-alt"></i> 框架比较：React vs Vue</a></li>
                     </ul>
                 </div>
+            </div>
             
-<br>
-            
+            <!-- 开发工具区块（非Card样式） -->
+            <div class="content-block">
                 <h2><i class="fas fa-tools"></i> 开发工具</h2>
-
+                
                 <div class="solution-list">
                     <ul>
                         <li><a href="#"><i class="fas fa-external-link-alt"></i> VS Code插件推荐</a></li>
@@ -279,13 +271,8 @@ header-img: "img/post-bg-universe.jpg"
                         <li><a href="#"><i class="fas fa-external-link-alt"></i> Webpack配置手册</a></li>
                     </ul>
                 </div>
-            <br>
+            </div>
         </div>
-    </div>
-
-    <!-- 页脚包含 -->
-    {% include footer.html %}
-<br>
 <script>
 // 添加交互效果
 document.addEventListener('DOMContentLoaded', function() {
@@ -338,5 +325,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-    </script>
+</script>
 </body>
