@@ -326,67 +326,40 @@ header-img: "img/post-bg-universe.jpg"
                 </div>
             </div>
         </div>
-        
-        <!-- 使用您提供的footer标签 -->
-        <footer>
-            {% include footer.html %}
-        </footer>
     </div>
     
-
-    
-
-<script>
-// 添加交互效果
-document.addEventListener('DOMContentLoaded', function() {
-    const postPreviews = document.querySelectorAll('.post-preview');
-
-    // 为每个文章预览添加点击效果
-    postPreviews.forEach(preview => {
-        preview.addEventListener('click', function(e) {
-            if (e.target.tagName !== 'A') {
-                const link = this.querySelector('a');
-                if (link) {
-                    window.location.href = link.href;
-                }
-            }
+    <script>
+        // 简单的交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '10';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                });
+            });
+            
+            const links = document.querySelectorAll('.solution-list a');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 创建点击效果
+                    this.style.backgroundColor = '#e3f2fd';
+                    setTimeout(() => {
+                        this.style.backgroundColor = '';
+                    }, 300);
+                    
+                    // 显示提示信息
+                    const title = this.textContent.trim();
+                    alert(`即将跳转到: ${title}`);
+                });
+            });
         });
-
-        // 添加键盘导航支持
-        preview.setAttribute('tabindex', '0');
-        preview.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                const link = this.querySelector('a');
-                if (link) {
-                    window.location.href = link.href;
-                }
-            }
-        });
-    });
-
-    // 添加滚动动画效果
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // 观察所有文章预览
-    postPreviews.forEach(preview => {
-        preview.style.opacity = '0';
-        preview.style.transform = 'translateY(20px)';
-        preview.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(preview);
-    });
-});
-
-</script>
+    </script>
 </body>
