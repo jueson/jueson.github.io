@@ -89,7 +89,7 @@ service-worker: true
 page-mathjax: false
 
 # Friends
-friends:
+friends: false
   [
     { title: "乱序（Midare）", href: "http://mida.re/" },
     { title: "Ebn Zhang", href: "https://ebnbin.dev/" },
