@@ -1,0 +1,411 @@
+---
+layout: default
+description: "「深渊正在凝视你」"
+header-img: "img/post-bg-universe.jpg"
+---
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>站点快链 - Header背景图片版</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* 页面基础样式 */
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #e4edf9, #fdf2e9);
+            color: #2d3748;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 内容容器 */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        /* 内容区域：强制纵向排列 */
+        .content {
+            display: block;
+            width: 100%;
+        }
+
+        /* 内容区块样式 */
+        .content-block {
+            width: 100%;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-block h2 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(43, 108, 176, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #2b6cb0;
+        }
+
+        .content-block h2 i {
+            color: #f6ad55;
+        }
+
+        /* 解决方案列表 */
+        .solution-list {
+            padding: 0;
+        }
+
+        .solution-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .solution-list li {
+            display: block;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 左侧装饰条动画 */
+        .solution-list li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: #f6ad55;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease;
+        }
+
+        .solution-list li:hover {
+            background: rgba(255, 255, 255, 0.85);
+            transform: translateX(5px);
+        }
+
+        .solution-list li:hover:before {
+            transform: scaleY(1);
+        }
+
+        .solution-list a {
+            color: #2d3748;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .solution-list i {
+            color: #f6ad55;
+            font-size: 1.1rem;
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: #718096;
+        }
+
+        /* 小屏幕适配 */
+        @media (max-width: 768px) {
+            .content-block {
+                padding: 25px;
+            }
+
+            .content-block h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px 30px;
+            }
+
+            .content-block {
+                padding: 20px 15px;
+            }
+
+            .solution-list li {
+                padding: 10px 15px;
+            }
+        }
+
+        /* 新增：Header样式 - 图片背景效果 */
+        .intro-header {
+            position: relative;
+            height: 95%;
+            width: 95%;
+            overflow: hidden;
+            border-radius: 15px;
+            margin: 0 auto 30px;          /* 上下边距0，左右自动，底部30px间距 - 这是居中关键 */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-container {
+        position: absolute;
+        bottom: 0; /* 从底部开始 */
+        width: 90%;
+        height: 90%; /* 占卡片高度的90% */
+        background: rgba(255, 255, 255, 0.1); /* 半透明白色背景 */
+        backdrop-filter: blur(5px); /* 毛玻璃效果 */
+        z-index: 2;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* 垂直居中内容 */
+        transition: all 0.4s ease;
+}
+
+
+
+        .header-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.7);
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .header-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .header-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+
+
+
+
+<body>
+
+    <div class="container">
+        <div class="content">
+            <!-- 推荐资源区块 -->
+            <div class="content-block">
+                <h2><i class="fas fa-check-circle"></i> 推荐资源</h2>
+
+                <div class="solution-list">
+                    <ul>
+                        <!-- 使用Jekyll语法 -->
+                        {% for friend in site.friends %}
+                        <li>
+                            <a href="{{friend.href}}">
+                                <i class="fas fa-external-link-alt"></i>
+                                {{friend.title}}
+                            </a>
+                        </li>
+                        {% endfor %}
+
+
+
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 学习路径区块 -->
+            <div class="content-block">
+                <h2><i class="fas fa-book"></i> 学习路径</h2>
+
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> HTML5入门教程</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> CSS布局完全指南</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript高级编程</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> ES6新特性详解</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 框架比较：React vs Vue</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 状态管理深入解析</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 服务端渲染原理</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 前端测试策略</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 性能优化方法论</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 开发工具区块 -->
+            <div class="content-block">
+                <h2><i class="fas fa-tools"></i> 开发工具</h2>
+
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> VS Code插件推荐</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Chrome调试技巧</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Git工作流指南</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Webpack配置手册</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Babel使用教程</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> ESLint配置指南</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Prettier格式化规则</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> npm脚本最佳实践</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 视频教程区块 -->
+            <div class="content-block">
+                <h2><i class="fas fa-video"></i> 视频教程</h2>
+
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript设计模式</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> React Hooks深入解析</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Vue3组合式API</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> TypeScript类型系统</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 动画与交互设计</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 移动端开发技巧</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 无障碍网页设计</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> WebGL入门教程</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<script>
+// 添加交互效果
+document.addEventListener('DOMContentLoaded', function() {
+    const postPreviews = document.querySelectorAll('.post-preview');
+
+    // 为每个文章预览添加点击效果
+    postPreviews.forEach(preview => {
+        preview.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'A') {
+                const link = this.querySelector('a');
+                if (link) {
+                    window.location.href = link.href;
+                }
+            }
+        });
+
+        // 添加键盘导航支持
+        preview.setAttribute('tabindex', '0');
+        preview.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const link = this.querySelector('a');
+                if (link) {
+                    window.location.href = link.href;
+                }
+            }
+        });
+    });
+
+    // 添加滚动动画效果
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // 观察所有文章预览
+    postPreviews.forEach(preview => {
+        preview.style.opacity = '0';
+        preview.style.transform = 'translateY(20px)';
+        preview.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(preview);
+    });
+});
+
+</script>
+</body>
