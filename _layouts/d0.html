@@ -5,4 +5,26 @@
 
  {{ content }}
 
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                {% include sns-links.html center=true %}
+
+                <p class="copyright text-muted">
+                    Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
+
+                    <br>
+                    Powered by Hux Blog
+
+                    <br>
+                    <a href="{{ site.baseurl }}/">返回首页</a>
+
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
 </html>
