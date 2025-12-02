@@ -4,10 +4,9 @@
 
  {{ content }}
 
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <footer class="bg-white/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800 mt-8">
+        <div class="max-w-5xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+            <div class="text-gray-600 dark:text-gray-400">
 
                 <p class="copyright text-muted">
                     Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
@@ -17,8 +16,14 @@
 
                 </p>
             </div>
+            <div class="flex justify-center items-center gap-6 mt-4 md:mt-0">
+                 <a href="https://github.com/dqtx760" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors" aria-label="GitHub Profile"><i class="fab fa-github text-xl"></i></a>
+                 <a href="#" id="wechat-public-trigger" class="text-gray-500 hover:text-green-500 dark:hover:text-green-400 transition-colors" aria-label="WeChat Public Account"><i class="fab fa-weixin text-xl"></i></a>
+                 <!-- Donation Button -->
+                 <a href="#" id="donation-btn" class="text-gray-500 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors" aria-label="Sponsor this project">
+                    <i class="fas fa-hand-holding-heart text-xl"></i>
+                 </a>
+            </div>
         </div>
-    </div>
-</footer>
-
+    </footer>
 </html>
