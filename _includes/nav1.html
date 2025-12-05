@@ -21,13 +21,7 @@
                 <div class="navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a class="navbar-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
-                        </li>
-                        {% for page in site.pages %}
-                        {% if page.title and page.hide-in-nav != true %}
-                        <li>
                             <a href="{{ site.baseurl }}/">首页</a>
-                            
                         </li>
                         {% for page in site.pages %}
                         {% if page.title and page.hide-in-nav != true %}
@@ -52,41 +46,37 @@
     <style>
         /* 默认大屏样式 - 水平布局 */
         .nav.navbar-nav {
-    display: flex;
-    flex-wrap: nowrap; /* 改为不换行，确保所有项目在一行显示 */
-    justify-content: space-between; /* 使用space-between实现两端对齐 */
-    width: 100%;
-    align-items: center; /* 垂直居中对齐 */
-}
-
-/* 保持列表项的内联块级显示 */
-.nav.navbar-nav li {
-    float: none;
-    display: inline-block;
-    margin: 0 5px; /* 添加水平间距，使链接之间有适当间隔 */
-}
-
-
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .nav.navbar-nav li {
+            float: none;
+            display: inline-block;
+        }
+        
         /* 小屏样式 - 单列垂直布局 */
         @media (max-width: 768px) {
             .nav.navbar-nav {
                 display: block;
                 text-align: left;
             }
-
+            
             .nav.navbar-nav li {
                 display: block;
                 width: 100%;
                 text-align: left;
                 margin: 5px 0;
             }
-
+            
             .nav.navbar-nav li a {
                 display: block;
                 padding: 10px 15px;
             }
         }
-
+        
         /* 中屏过渡样式 */
         @media (max-width: 992px) and (min-width: 769px) {
             .nav.navbar-nav {
