@@ -278,6 +278,57 @@ by:大强同学 致此感谢！</code></pre>
         </section>
 
     </main>
+<footer>
+
+<style>
+
+footer .container {
+
+text-align: center;
+
+}
+
+footer .row {
+
+display: flex;
+
+justify-content: center;
+
+}
+
+footer .col-lg-8 {
+
+float: none;
+
+margin: 0 auto;
+
+}
+
+footer a[href="/"] {
+
+color: #87CEFA; /* 浅蓝色 */
+
+}
+
+</style>
+
+<div class="container">            
+    <!-- SNS Link -->
+                {% include sns-links.html center=true %}
+              <p class="copyright text-muted">
+                    Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
+
+                    <br>
+                    Powered by Hux Blog
+
+                    <br>
+                    <a href="{{ site.baseurl }}/">返回首页</a>
+
+                </p>
+
+</div>
+
+</footer>
 
     <!-- ====== Donation Modal ====== -->
     <div id="donation-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
