@@ -1,51 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
+{% include head.html %}
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+
+    {% include search.html %}
+
     {{ content }}
 
-<footer>
+    {% include footer.html %}
 
-<style>
 
-/* 只对footer内的元素生效 */
+<!-- Migrate from head to bottom, no longer block render and still work -->
 
-footer .container {
-
-text-align: center;
-
-}
-
-footer .row {
-
-display: flex;
-
-justify-content: center;
-
-}
-
-footer .col-lg-8 {
-
-float: none;
-
-margin: 0 auto;
-
-}
-
-footer a[href="/"] {
-
-color: #87CEFA; /* 浅蓝色 */
-
-}
-
-</style>
-
-<div class="container">
-
-    {% include footer1.html %}
 </body>
-
-</div>
-
-</footer>
 
 </html>
