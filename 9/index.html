@@ -573,272 +573,31 @@ layout: d0
             transform: translateY(-2px);
         }
     </style>
-
 <!-- 优化后的文章列表部分 -->
-
+{% for post in paginator.posts %}
 <div class="post-preview">
-    <a href="/2021/04/10/js-20yrs-preface/">
+    <a href="{{ post.url | prepend: site.baseurl }}">
         <h2 class="post-title">
-            《JavaScript 二十年》推荐语
+            {{ post.title }}
         </h2>
-        
-        <div class="post-content-preview">
-            
-                
-  雪碧（doodlewind）邀请我给《JavaScript 二十年》 写的推荐序。
-
-
-JavaScript 常常被戏称为一门偶然成功的玩具语言。而实际上，它出身名门，更是成长在聚光灯之下。纵观历史，有资格被标准化的编程语言甚少，它因此成为多方角力的战场，却也有幸同时得到业界与学界先驱的亲传。时至今日，我们甚至难言是它背负了太多妥协，还是这些妥协才成就了它呢。以史为鉴，或许你会有自己的...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Hux on April 10, 2021
-    </p>
-</div>
-
-<div class="post-preview">
-    <a href="/2020/07/05/reflection-2020/">
-        <h2 class="post-title">
-            作为一个前端，看不懂@黄玄 的几乎每一个回答，只有我自己吗？
-        </h2>
-        
+        {% if post.subtitle %}
         <h3 class="post-subtitle">
-            Taking this chance to reflect on myself
+            {{ post.subtitle }}
         </h3>
-        
+        {% endif %}
         <div class="post-content-preview">
-            
-                
-  这篇文章转载自我在知乎上的回答
-
-
-我也看不懂。
-
-对于任何一个我有一定了解的领域，我都知道一大堆我看不懂的东西。反而是对于那些我一点都不了解的，我甚至都说不出来我不懂什么。
-
-有的时候我会觉得，在我眼里还只有前端的时候，我还更自信更爱分享一点。可能因为那时候我能感知到的「边界」就只有 2^4 = 16 这么大，还觉得自己满打满算已经懂了 4 吧。打个比喻的话就是觉得自己已经能干活了，...
-            
+            {% if post.lang == 'en' %}
+                {{ post.content | strip_html | truncate:300 }}
+            {% else %}
+                {{ post.content | strip_html | truncate:200 }}
+            {% endif %}
         </div>
     </a>
     <p class="post-meta">
-        Posted by Hux on July 5, 2020
+        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
     </p>
 </div>
-
-<div class="post-preview">
-    <a href="/2020/04/03/react-hooks-vue-composition/">
-        <h2 class="post-title">
-            React Hooks 是否可以改为用类似 Vue 3 Composition API 的方式实现？
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Thinking in React vs. Thinking in Vue
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                
-  这篇文章转载自我在知乎上的回答
-
-
-不能，因为是很不一样的心智模型（Mental Model）。我觉得很多同学只关注到了这两套 API 在功能上都能复用逻辑的相似点，而低估了两个框架体系「大背景」上的差异。
-
-正文开始前我先声明一下，
-
-
-  
-    一是本文观点不代表公司。我是觉得圈子里不认同 Hooks 的声音太多了（比如 @徐飞 叔叔、 @贺师俊 贺老、 @题叶 同学等老朋友 ...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Hux on April 3, 2020
-    </p>
-</div>
-
-<div class="post-preview">
-    <a href="/2019/11/19/is-pwa-dead-in-2019/">
-        <h2 class="post-title">
-            2019 年 PWA(Progressive Web App) 凉了吗？
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Is PWA effectively dead in 2019?
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                
-  这篇文章转载自我在知乎上的回答
-
-
-作为 PWA 在国内的早期布道者与实践者，我觉得挺凉的。
-以下都是主观感受且 opinion is my own。
-
-PWA（甚至整个 Web）似乎被 Google（Chrome）与「第三世界」绑到一起去了。「这世界还有多少人没上过网、没有 4G、没有 3G……印度、印度尼西亚、非洲、乌干达……」这便是这两年的 Chrome Dev Summit 的...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Hux on November 19, 2019
-    </p>
-</div>
-
-<div class="post-preview">
-    <a href="/2019/09/03/vim-from-finder/">
-        <h2 class="post-title">
-            把「终端下的 Vim」作为 macOS Finder 的打开方式
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Open file with terminal Vim from the macOS Finder
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                我的日常主力编辑器主要是：
-
-
-  (Neo)Vim
-  Spacemacs (via Emacs-plus)
-  Visual Studio Code
-  IntelliJ IDEA
-
-
-这里面只有 (Neo)Vim 是存活在终端中的（我并不在终端内使用 Emacs），而由于我日常主要是从终端（via iTerm）来使用电脑，所以会把他们都加入到 $PATH 里以方便从终端中唤起，VSCo...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Hux on September 3, 2019
-    </p>
-</div>
-
-<div class="post-preview">
-    <a href="/2018/10/06/vim-cn-im/">
-        <h2 class="post-title">
-            Vim 与中文输入法
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Using Vim with non-english input method
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                Update: 我最后还是放弃把 Vim 作为主要编辑器来输入中文了，整体使用下来 mental model 的 cost 太重了。记笔记时用用中文呀或者改改博客时偶尔用一下还蛮去，这个时候这个功能至少能帮助你 Esc 之后不煞笔，所以也不算完全没有价值吧……
-
-
-
-我相信很多中文世界的 Vimer 都遇到过这个烦恼，在 vim 的 insert 模式时可能突然想输个中文，输完之后会本能的...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Hux on October 6, 2018
-    </p>
-</div>
-
-<div class="post-preview">
-    <a href="/2018/09/27/avoiding-success-at-all-cost/">
-        <h2 class="post-title">
-            Avoiding success at all cost
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Watching "Escape from the Ivory Tower: The Haskell Journey"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                “Avoiding success at all cost” is the informal motto behinds Haskell. It could be parenthesized in two ways, either “Avoiding (success at all cost)” or “(Avoiding sucess) (at all cost)”.
-
-I’m not going to interpret them directly but rather to share some thoughts on “the success vs. costs” basing ...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Hux on September 27, 2018
-    </p>
-</div>
-
-<div class="post-preview">
-    <a href="/2018/06/30/dreamer/">
-        <h2 class="post-title">
-            程序员中的梦想家
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Dreamers among programmers
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                
-  本文首发于我的知乎专栏 The Little Programmer，转载请保留链接 ;)
-
-
-有一类程序员是 visionary 型的，为了实现一些超前的 idea，绕过某些技术的限制，他们写的 code 晦涩高深得只有他们自己能懂，做出来的 tool 看上去很美好结果处处是坑出了 bug 根本没法查，但正是这类人不断创造出新的东西，在洗礼之后成为一个个 big thing。
-
-我每周...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Hux on June 30, 2018
-    </p>
-</div>
-
-<div class="post-preview">
-    <a href="/2018/05/11/pwa-zh-preface/">
-        <h2 class="post-title">
-            《PWA 实战》推荐序
-        </h2>
-        
-        <div class="post-content-preview">
-            
-                
-  「博文视点」邀请我给《PWA实战：面向下一代的Progressive Web APP》 写的推荐序。
-
-
-Progressive Web App 是继 Ajax、响应式设计、HTML5 之后，web 平台的又一次革命性突破。它在开放 Web 标准的基础之上，突破了以往 Web 应用只能「依赖互联网分发」与「依赖浏览器为入口」的两大桎梏，一下子打开了 Web 应用从性能、架构到用户体验...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Hux on May 11, 2018
-    </p>
-</div>
-
-<div class="post-preview">
-    <a href="/2017/12/12/uncomputable-funcs/">
-        <h2 class="post-title">
-            如何证明不可计算的函数比可计算的函数多？
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Why is there more uncomputable functions?
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                
-  这篇文章转载自我在知乎上的回答
-
-
-严谨的证明的话，可以使用「形式语言」（Formal language）来证明：
-
-在可计算理论和计算复杂度理论中，每个「计算问题」都被描述为一个一个「形式语言」，即字符串的集合。比如对于判断一个图是否是无向连通图这个问题：我们可以写为一个描述所有无向连通图的集合：
-
-\[A = \{ \langle G \rangle \vert G \text{ ...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Hux on December 12, 2017
-    </p>
-</div>
+{% endfor %}
 
 
 <!-- 优化后的分页器 -->
