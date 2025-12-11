@@ -94,9 +94,13 @@ friends:
     { title: "色号集合", href: "https://jueson.github.io/web/color/" },
     { title: "图标集合", href: "https://jueson.github.io/web/logo/" },
     { title: "TV应用资源集合", href: "https://jueson.github.io/tvboxtool/" },
-    { title: "Sherry Woo", href: "https://sherrywoo.me/" },
-    { title: "SmdCn", href: "http://blog.smdcn.net" },
-    { title: "JiyinYiyong", href: "http://tiye.me/" },
+    { title: "必应", href: "https://cn.bing.com/" },
+    { title: "yandex", href: "https://yandex.com/" },
+    { title: "baidu", href: "https://baidu.com/" },
+    { title: "55X", href: "https://avsolu1.com/cn" },
+    { title: "javd", href: "https://javd.me/" },
+    { title: "missa2v", href: "https://www.missav2.icu/dm194/cn" },
+
     { title: "thesislib", href: "https://m.thesislib.com/dm67/cn" },
     { title: "missa2v", href: "https://www.missav2.icu/dm194/cn" },
   ]
