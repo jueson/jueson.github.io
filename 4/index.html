@@ -1,8 +1,6 @@
 ---
 layout: d0
 ---
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -133,6 +131,36 @@ layout: d0
             font-size: 1.1rem;
         }
 
+        /* TV应用资源区块的特殊响应式布局 */
+        .content-block:nth-child(4) .solution-list ul {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .content-block:nth-child(4) .solution-list li {
+            margin-bottom: 0;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 1200px) and (min-width: 768px) {
+            .content-block:nth-child(4) .solution-list ul {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .content-block:nth-child(4) .solution-list ul {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-block:nth-child(4) .solution-list ul {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* 页脚 */
         footer {
             text-align: center;
@@ -178,26 +206,30 @@ layout: d0
             width: 95%;
             overflow: hidden;
             border-radius: 15px;
-            margin: 0 auto 30px;          /* 上下边距0，左右自动，底部30px间距 - 这是居中关键 */
+            margin: 0 auto 30px;
+            /* 上下边距0，左右自动，底部30px间距 - 这是居中关键 */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .text-container {
-        position: absolute;
-        bottom: 0; /* 从底部开始 */
-        width: 90%;
-        height: 90%; /* 占卡片高度的90% */
-        background: rgba(255, 255, 255, 0.1); /* 半透明白色背景 */
-        backdrop-filter: blur(5px); /* 毛玻璃效果 */
-        z-index: 2;
-        padding: 25px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* 垂直居中内容 */
-        transition: all 0.4s ease;
-}
-
-
+            position: absolute;
+            bottom: 0;
+            /* 从底部开始 */
+            width: 90%;
+            height: 90%;
+            /* 占卡片高度的90% */
+            background: rgba(255, 255, 255, 0.1);
+            /* 半透明白色背景 */
+            backdrop-filter: blur(5px);
+            /* 毛玻璃效果 */
+            z-index: 2;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* 垂直居中内容 */
+            transition: all 0.4s ease;
+        }
 
         .header-background {
             position: absolute;
@@ -228,13 +260,13 @@ layout: d0
         .header-content h1 {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .header-content p {
             font-size: 1.2rem;
             max-width: 600px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .header-links {
@@ -263,10 +295,6 @@ layout: d0
     </style>
 </head>
 
-
-
-
-
 <body>
 
     <div class="container">
@@ -282,17 +310,61 @@ layout: d0
                 <div class="solution-list">
                     <ul>
                         <!-- 使用Jekyll语法 -->
-                        {% for friend in site.friends %}
                         <li>
-                            <a href="{{friend.href}}">
+                            <a href="https://jueson.github.io/web/color/">
                                 <i class="fas fa-external-link-alt"></i>
-                                {{friend.title}}
+                                色号集合
                             </a>
                         </li>
-                        {% endfor %}
 
+                        <li>
+                            <a href="https://jueson.github.io/web/logo/">
+                                <i class="fas fa-external-link-alt"></i>
+                                图标集合
+                            </a>
+                        </li>
 
+                        <li>
+                            <a href="http://kunq.me">
+                                <i class="fas fa-external-link-alt"></i>
+                                Kun Qian
+                            </a>
+                        </li>
 
+                        <li>
+                            <a href="https://sherrywoo.me/">
+                                <i class="fas fa-external-link-alt"></i>
+                                Sherry Woo
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="http://blog.smdcn.net">
+                                <i class="fas fa-external-link-alt"></i>
+                                SmdCn
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="http://tiye.me/">
+                                <i class="fas fa-external-link-alt"></i>
+                                JiyinYiyong
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="https://m.thesislib.com/dm67/cn">
+                                <i class="fas fa-external-link-alt"></i>
+                                thesislib
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="https://www.missav2.icu/dm194/cn">
+                                <i class="fas fa-external-link-alt"></i>
+                                missa2v
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -339,97 +411,105 @@ layout: d0
                 <h2><i class="fas fa-tv"></i> TV应用资源</h2>
                 <div class="solution-list">
                     <ul>
-                <li><a href="https://pan.xunlei.com/x/VOc19v6j083vscOuJTHMotXXA1?pwd=prgs#"><i class="fas fa-external-link-alt"></i> 酷9</a></li>
-                <li><a href="https://www.kdocs.cn/l/cbqzlC3waPFX"><i class="fas fa-external-link-alt"></i> TVBox</a></li>
-                <li><a href="https://pan.xunlei.com/x/VOcdMl7EZcqq_jOBuwZoyEiMA1?pwd=i5r9# "><i class="fas fa-external-link-alt"></i> BBLL改版</a></li>
-                <li><a href="https://github.com/orion-lib/OrionTV/releases"><i class="fas fa-external-link-alt"></i> OrionTV</a></li>
-                <li><a href="https://bmh.163.com/" >网易爆米花</a></li>
-                <li><a href="https://ipconfig.com/zh"><i class="fas fa-external-link-alt"></i> IPV6查询</a></li>
-                <li><a href="https://proxy.pipers.cn/"><i class="fas fa-external-link-alt"></i> GitHub加速</a></li>
-                <li><a href="https://www.qiushui.vip/gj/zh.html"><i class="fas fa-external-link-alt"></i> TXT/M3U转换</a></li>                    
-                <li><a href="https://www.kdocs.cn/l/clmJIYpDA4mH"><i class="fas fa-external-link-alt"></i> Potplayer</a></li>
-                <li><a href="https://pan.xunlei.com/s/VObOEh5aX766n2zOEttkN1oPA1?pwd=t6ku#"><i class="fas fa-external-link-alt"></i> M3u检测</a></li>
-                <li><a href="http://iptv.cqshushu.com"><i class="fas fa-external-link-alt"></i> IPTV源1</a></li>
-                <li><a href="https://iptvs.hacks.tools/"><i class="fas fa-external-link-alt"></i> IPTV源2</a></li>
-                <li><a href="https://tonkiang.us/"><i class="fas fa-external-link-alt"></i> IPTV源3</a></li>
-                <li><a href="https://iptv-search.com/zh-hans/"><i class="fas fa-external-link-alt"></i> IPTV源4</a></li>
-                <li><a href="https://yang-1989.eu.org/Conversion.php"><i class="fas fa-external-link-alt"></i> 转换/去重</a></li>
-                <li><a href="https://fofa.info/"><i class="fas fa-external-link-alt"></i> FOFA</a></li>
-                <li><a href="https://quake.360.net/quake/#/index"><i class="fas fa-external-link-alt"></i> Quake</a></li>
-                <li><a href="https://hunter.qianxin.com/"><i class="fas fa-external-link-alt"></i> Hunter</a></li>
-                <li><a href="https://www.zoomeye.org/"><i class="fas fa-external-link-alt"></i> ZoomEye</a></li>
-                <li><a href="https://search.censys.io/"><i class="fas fa-external-link-alt"></i> Censys</a></li>
+                        <li><a href="https://pan.xunlei.com/x/VOc19v6j083vscOuJTHMotXXA1?pwd=prgs#"><i
+                                    class="fas fa-external-link-alt"></i> 酷9</a></li>
+                        <li><a href="https://www.kdocs.cn/l/cbqzlC3waPFX"><i class="fas fa-external-link-alt"></i>
+                                TVBox</a></li>
+                        <li><a href="https://pan.xunlei.com/x/VOcdMl7EZcqq_jOBuwZoyEiMA1?pwd=i5r9#"><i
+                                    class="fas fa-external-link-alt"></i> BBLL改版</a></li>
+                        <li><a href="https://github.com/orion-lib/OrionTV/releases"><i
+                                    class="fas fa-external-link-alt"></i> OrionTV</a></li>
+                        <li><a href="https://bmh.163.com/"><i class="fas fa-external-link-alt"></i> 网易爆米花</a></li>
+                        <li><a href="https://ipconfig.com/zh"><i class="fas fa-external-link-alt"></i> IPV6查询</a></li>
+                        <li><a href="https://proxy.pipers.cn/"><i class="fas fa-external-link-alt"></i> GitHub加速</a>
+                        </li>
+                        <li><a href="https://www.qiushui.vip/gj/zh.html"><i class="fas fa-external-link-alt"></i>
+                                TXT/M3U转换</a></li>
+                        <li><a href="https://www.kdocs.cn/l/clmJIYpDA4mH"><i class="fas fa-external-link-alt"></i>
+                                Potplayer</a></li>
+                        <li><a href="https://pan.xunlei.com/s/VObOEh5aX766n2zOEttkN1oPA1?pwd=t6ku#"><i
+                                    class="fas fa-external-link-alt"></i> M3u检测</a></li>
+                        <li><a href="http://iptv.cqshushu.com"><i class="fas fa-external-link-alt"></i> IPTV源1</a>
+                        </li>
+                        <li><a href="https://iptvs.hacks.tools/"><i class="fas fa-external-link-alt"></i> IPTV源2</a>
+                        </li>
+                        <li><a href="https://tonkiang.us/"><i class="fas fa-external-link-alt"></i> IPTV源3</a></li>
+                        <li><a href="https://iptv-search.com/zh-hans/"><i class="fas fa-external-link-alt"></i>
+                                IPTV源4</a></li>
+                        <li><a href="https://yang-1989.eu.org/Conversion.php"><i class="fas fa-external-link-alt"></i>
+                                转换/去重</a></li>
+                        <li><a href="https://fofa.info/"><i class="fas fa-external-link-alt"></i> FOFA</a></li>
+                        <li><a href="https://quake.360.net/quake/#/index"><i class="fas fa-external-link-alt"></i>
+                                Quake</a></li>
+                        <li><a href="https://hunter.qianxin.com/"><i class="fas fa-external-link-alt"></i> Hunter</a>
+                        </li>
+                        <li><a href="https://www.zoomeye.org/"><i class="fas fa-external-link-alt"></i> ZoomEye</a></li>
+                        <li><a href="https://search.censys.io/"><i class="fas fa-external-link-alt"></i> Censys</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
+    <footer>
+        <p class="copyright text-muted">
+            Copyright &copy; Jueson 2025
+            <br>
+            Powered by Hux Blog
+        </p>
+    </footer>
 
+    <script>
+        // 添加交互效果
+        document.addEventListener('DOMContentLoaded', function () {
+            const postPreviews = document.querySelectorAll('.post-preview');
 
-<footer>
-              <p class="copyright text-muted">
-                    Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
+            // 为每个文章预览添加点击效果
+            postPreviews.forEach(preview => {
+                preview.addEventListener('click', function (e) {
+                    if (e.target.tagName !== 'A') {
+                        const link = this.querySelector('a');
+                        if (link) {
+                            window.location.href = link.href;
+                        }
+                    }
+                });
 
-                    <br>
-                    Powered by Hux Blog
+                // 添加键盘导航支持
+                preview.setAttribute('tabindex', '0');
+                preview.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        const link = this.querySelector('a');
+                        if (link) {
+                            window.location.href = link.href;
+                        }
+                    }
+                });
+            });
 
+            // 添加滚动动画效果
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
-                </p>
-</footer>
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
 
-
-<script>
-// 添加交互效果
-document.addEventListener('DOMContentLoaded', function() {
-    const postPreviews = document.querySelectorAll('.post-preview');
-
-    // 为每个文章预览添加点击效果
-    postPreviews.forEach(preview => {
-        preview.addEventListener('click', function(e) {
-            if (e.target.tagName !== 'A') {
-                const link = this.querySelector('a');
-                if (link) {
-                    window.location.href = link.href;
-                }
-            }
+            // 观察所有文章预览
+            postPreviews.forEach(preview => {
+                preview.style.opacity = '0';
+                preview.style.transform = 'translateY(20px)';
+                preview.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(preview);
+            });
         });
-
-        // 添加键盘导航支持
-        preview.setAttribute('tabindex', '0');
-        preview.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                const link = this.querySelector('a');
-                if (link) {
-                    window.location.href = link.href;
-                }
-            }
-        });
-    });
-
-    // 添加滚动动画效果
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // 观察所有文章预览
-    postPreviews.forEach(preview => {
-        preview.style.opacity = '0';
-        preview.style.transform = 'translateY(20px)';
-        preview.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(preview);
-    });
-});
-
-</script>
+    </script>
 </body>
+
