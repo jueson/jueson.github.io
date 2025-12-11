@@ -1,10 +1,13 @@
+
 ---
 layout: d0
 ---
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>测试页4</title>
+    <title>站点快链</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -269,130 +272,132 @@ layout: d0
 
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-link"></i> 测试页4</h1>
+            <h1><i class="fas fa-link"></i> 站点快链</h1>
             <p></p>
-    
+        </div>
+        <div class="content">
+            <!-- 推荐资源区块 -->
+            <div class="content-block">
+                <h2><i class="fas fa-check-circle"></i> 推荐资源</h2>
+
+                <div class="solution-list">
+                    <ul>
+                        <!-- 使用Jekyll语法 -->
+                        {% for friend in site.friends %}
+                        <li>
+                            <a href="{{friend.href}}">
+                                <i class="fas fa-external-link-alt"></i>
+                                {{friend.title}}
+                            </a>
+                        </li>
+                        {% endfor %}
+
+
+
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 学习路径区块 -->
+            <div class="content-block">
+                <h2><i class="fas fa-book"></i> 学习路径</h2>
+
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> HTML5入门教程</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> CSS布局完全指南</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript高级编程</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> ES6新特性详解</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 框架比较：React vs Vue</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 状态管理深入解析</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 服务端渲染原理</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 前端测试策略</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 性能优化方法论</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 开发工具区块 -->
+            <div class="content-block">
+                <h2><i class="fas fa-tools"></i> 开发工具</h2>
+
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> VS Code插件推荐</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Chrome调试技巧</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Git工作流指南</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Webpack配置手册</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Babel使用教程</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> ESLint配置指南</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Prettier格式化规则</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> npm脚本最佳实践</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 视频教程区块 -->
+            <div class="content-block">
+                <h2><i class="fas fa-video"></i> 视频教程</h2>
+
+                <div class="solution-list">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> JavaScript设计模式</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> React Hooks深入解析</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> Vue3组合式API</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> TypeScript类型系统</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 动画与交互设计</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 移动端开发技巧</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> 无障碍网页设计</a></li>
+                        <li><a href="#"><i class="fas fa-external-link-alt"></i> WebGL入门教程</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="container">
 
 
-
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- Google Fonts for a modern look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #0ea5e9, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .dark .gradient-text {
-            background: linear-gradient(135deg, #38bdf8, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* [FIX] Theme toggle icon visibility driven by CSS for reliability */
-        .dark .fa-sun { display: inline-block; }
-        .dark .fa-moon { display: none; }
-        html:not(.dark) .fa-sun { display: none; }
-        html:not(.dark) .fa-moon { display: inline-block; }
-
-        /* Smooth transitions */
-        * {
-            transition: background-color 0.3s, border-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
-        }
-    </style>
-
-    <!-- Theme Initializer - Placed in head to prevent theme flash -->
-    <script>
-        (function() {
-            const theme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (theme === 'dark' || (!theme && prefersDark)) {
-                document.documentElement.classList.add('dark');
-            }
-        })();
-    </script>
-</head>
-        <section id="tools" class="pt-12 pb-8">
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                <a href="https://pan.xunlei.com/x/VOc19v6j083vscOuJTHMotXXA1?pwd=prgs#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">酷9</span>
-                </a>
-                <a href="https://www.kdocs.cn/l/cbqzlC3waPFX" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">TVBox</span>
-                </a>
-                <a href="https://pan.xunlei.com/x/VOcdMl7EZcqq_jOBuwZoyEiMA1?pwd=i5r9# " target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">BBLL改版</span>
-                </a>
-                <a href="https://github.com/orion-lib/OrionTV/releases" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">OrionTV</span>
-                </a>
-                <a href="https://bmh.163.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                  <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">网易爆米花</span>
-                </a>
-                <a href="https://ipconfig.com/zh" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">IPV6查询</span>
-                </a>
-                <a href="https://proxy.pipers.cn/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">GitHub加速</span>
-                </a>
-                <a href="https://www.qiushui.vip/gj/zh.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">TXT/M3U转换</span>
-                </a>                    
-                <a href="https://www.kdocs.cn/l/clmJIYpDA4mH" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">Potplayer</span>
-                </a>
-                <a href="https://pan.xunlei.com/s/VObOEh5aX766n2zOEttkN1oPA1?pwd=t6ku#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">M3u检测</span>
-                </a>
-                <a href="http://iptv.cqshushu.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">IPTV源1</span>
-                </a>
-                <a href="https://iptvs.hacks.tools/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">IPTV源2</span>
-                </a>
-                <a href="https://tonkiang.us/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">IPTV源3</span>
-                </a>
-                <a href="https://iptv-search.com/zh-hans/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">IPTV源4</span>
-                </a>
-                <a href="https://yang-1989.eu.org/Conversion.php" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">转换/去重</span>
-                </a>
-                <a href="https://fofa.info/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">FOFA</span>
-                </a>
-                <a href="https://quake.360.net/quake/#/index" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">Quake</span>
-                </a>
-                <a href="https://hunter.qianxin.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">Hunter</span>
-                </a>
-                <a href="https://www.zoomeye.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">ZoomEye</span>
-                </a>
-                <a href="https://search.censys.io/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-center bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-indigo-500 transition-all transform hover:-translate-y-1">
-                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">Censys</span>
-                </a>
+            <!-- TV应用资源区块 -->
+            <div class="content-block">
+                <h2><i class="fas fa-tv"></i> TV应用资源</h2>
+                
+                <div class="solution-list">
+                    <ul>
+                <li><a href="https://pan.xunlei.com/x/VOc19v6j083vscOuJTHMotXXA1?pwd=prgs#">酷9</a></li>
+                <li><a href="https://www.kdocs.cn/l/cbqzlC3waPFX">TVBox</a></li>
+                <li><a href="https://pan.xunlei.com/x/VOcdMl7EZcqq_jOBuwZoyEiMA1?pwd=i5r9# ">BBLL改版</a></li>
+                <li><a href="https://github.com/orion-lib/OrionTV/releases">OrionTV</a></li>
+                <li><a href="https://bmh.163.com/" >网易爆米花</a></li>
+                <li><a href="https://ipconfig.com/zh">IPV6查询</a></li>
+                <li><a href="https://proxy.pipers.cn/">GitHub加速</a></li>
+                <li><a href="https://www.qiushui.vip/gj/zh.html">TXT/M3U转换</a></li>                    
+                <li><a href="https://www.kdocs.cn/l/clmJIYpDA4mH">Potplayer</a></li>
+                <li><a href="https://pan.xunlei.com/s/VObOEh5aX766n2zOEttkN1oPA1?pwd=t6ku#">M3u检测</a></li>
+                <li><a href="http://iptv.cqshushu.com">IPTV源1</a></li>
+                <li><a href="https://iptvs.hacks.tools/">IPTV源2</a></li>
+                <li><a href="https://tonkiang.us/">IPTV源3</a></li>
+                <li><a href="https://iptv-search.com/zh-hans/">IPTV源4</a></li>
+                <li><a href="https://yang-1989.eu.org/Conversion.php">转换/去重</a></li>
+                <li><a href="https://fofa.info/">FOFA</a></li>
+                <li><a href="https://quake.360.net/quake/#/index">Quake</a></li>
+                <li><a href="https://hunter.qianxin.com/">Hunter</a></li>
+                <li><a href="https://www.zoomeye.org/">ZoomEye</a></li>
+                <li><a href="https://search.censys.io/">Censys</a></li>
+                    </ul>
+                </div>
             </div>
-        </section>
-    </div>
+ 
+            
+<footer>
+              <p class="copyright text-muted">
+                    Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
+
+                    <br>
+                    Powered by Hux Blog
+
+
+                </p>
+</footer>
 
 
 <script>
@@ -448,5 +453,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
-
 </body>
+            
+            
+            
+       
