@@ -1,6 +1,7 @@
 ---
 layout: d0
 ---
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -198,15 +199,24 @@ layout: d0
             font-size: 1.1rem;
         }
 
-        /* TV应用工具区块的特殊响应式布局 */
+        /* TV应用工具区块的特殊响应式布局 - 已修改 */
         .content-block:nth-child(1) .solution-list ul {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 15px;
         }
-
-        .content-block:nth-child(1) .solution-list li {
-            margin-bottom: 0;
+        
+        /* 文字居中显示 */
+        .content-block:nth-child(1) .solution-list li a {
+            justify-content: center;
+            text-align: center;
+            display: block;
+            padding: 8px 0;
+        }
+        
+        /* 移除图标 */
+        .content-block:nth-child(1) .solution-list li a i {
+            display: none;
         }
 
         /* 下载卡片样式 */
@@ -307,7 +317,7 @@ layout: d0
             align-items: center;
             justify-content: space-between;
         }
-        
+
         .source-link span {
             font-family: monospace;
             font-size: 0.9rem;
@@ -317,7 +327,7 @@ layout: d0
             white-space: nowrap;
             flex-grow: 1;
         }
-        
+
         .copy-btn {
             background-color: #2b6cb0;
             color: white;
@@ -330,17 +340,17 @@ layout: d0
             margin-left: 10px;
             flex-shrink: 0;
         }
-        
+
         .copy-btn:hover {
             background-color: #1a4f8c;
         }
 
-        /* 响应式调整 */
+        /* 响应式调整 - 已修改 */
         @media (max-width: 1200px) and (min-width: 768px) {
             .content-block:nth-child(1) .solution-list ul {
                 grid-template-columns: repeat(3, 1fr);
             }
-            
+
             .download-cards {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -350,37 +360,38 @@ layout: d0
             .content-block:nth-child(1) .solution-list ul {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .download-cards {
                 grid-template-columns: 1fr;
             }
-            
+
             .header-content {
                 padding: 10px 0;
             }
-            
+
             .logo-text {
                 font-size: 18px;
             }
-            
+
             .logo i {
                 font-size: 24px;
             }
         }
 
         @media (max-width: 480px) {
+            /* 超小屏也保持2列 */
             .content-block:nth-child(1) .solution-list ul {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .container {
                 padding: 10px 10px 30px;
             }
-            
+
             .content-block {
                 padding: 20px 15px;
             }
-            
+
             .solution-list li {
                 padding: 10px 15px;
             }
@@ -416,31 +427,31 @@ layout: d0
 
     <div class="container">
         <div class="content">
-            <!-- TV应用工具区块 -->
+            <!-- TV应用工具区块 - 已修改 -->
             <div class="content-block" id="tv-tools">
                 <h2><i class="fas fa-tools"></i> TV应用工具</h2>
                 <div class="solution-list">
                     <ul>
-                        <li><a href="https://pan.xunlei.com/x/VOc19v6j083vscOuJTHMotXXA1?pwd=prgs#" target="_blank"><i class="fas fa-external-link-alt"></i> 酷9</a></li>
-                        <li><a href="https://www.kdocs.cn/l/cbqzlC3waPFX" target="_blank"><i class="fas fa-external-link-alt"></i> TVBox</a></li>
-                        <li><a href="https://pan.xunlei.com/x/VOcdMl7EZcqq_jOBuwZoyEiMA1?pwd=i5r9#" target="_blank"><i class="fas fa-external-link-alt"></i> BBLL改版</a></li>
-                        <li><a href="https://github.com/orion-lib/OrionTV/releases" target="_blank"><i class="fas fa-external-link-alt"></i> OrionTV</a></li>
-                        <li><a href="https://bmh.163.com/" target="_blank"><i class="fas fa-external-link-alt"></i> 网易爆米花</a></li>
-                        <li><a href="https://ipconfig.com/zh" target="_blank"><i class="fas fa-external-link-alt"></i> IPV6查询</a></li>
-                        <li><a href="https://proxy.pipers.cn/" target="_blank"><i class="fas fa-external-link-alt"></i> GitHub加速</a></li>
-                        <li><a href="https://www.qiushui.vip/gj/zh.html" target="_blank"><i class="fas fa-external-link-alt"></i> TXT/M3U转换</a></li>
-                        <li><a href="https://www.kdocs.cn/l/clmJIYpDA4mH" target="_blank"><i class="fas fa-external-link-alt"></i> Potplayer</a></li>
-                        <li><a href="https://pan.xunlei.com/s/VObOEh5aX766n2zOEttkN1oPA1?pwd=t6ku#" target="_blank"><i class="fas fa-external-link-alt"></i> M3u检测</a></li>
-                        <li><a href="http://iptv.cqshushu.com" target="_blank"><i class="fas fa-external-link-alt"></i> IPTV源1</a></li>
-                        <li><a href="https://iptvs.hacks.tools/" target="_blank"><i class="fas fa-external-link-alt"></i> IPTV源2</a></li>
-                        <li><a href="https://tonkiang.us/" target="_blank"><i class="fas fa-external-link-alt"></i> IPTV源3</a></li>
-                        <li><a href="https://iptv-search.com/zh-hans/" target="_blank"><i class="fas fa-external-link-alt"></i> IPTV源4</a></li>
-                        <li><a href="https://yang-1989.eu.org/Conversion.php" target="_blank"><i class="fas fa-external-link-alt"></i> 转换/去重</a></li>
-                        <li><a href="https://fofa.info/" target="_blank"><i class="fas fa-external-link-alt"></i> FOFA</a></li>
-                        <li><a href="https://quake.360.net/quake/#/index" target="_blank"><i class="fas fa-external-link-alt"></i> Quake</a></li>
-                        <li><a href="https://hunter.qianxin.com/" target="_blank"><i class="fas fa-external-link-alt"></i> Hunter</a></li>
-                        <li><a href="https://www.zoomeye.org/" target="_blank"><i class="fas fa-external-link-alt"></i> ZoomEye</a></li>
-                        <li><a href="https://search.censys.io/" target="_blank"><i class="fas fa-external-link-alt"></i> Censys</a></li>
+                        <li><a href="https://pan.xunlei.com/x/VOc19v6j083vscOuJTHMotXXA1?pwd=prgs#" target="_blank">酷9</a></li>
+                        <li><a href="https://www.kdocs.cn/l/cbqzlC3waPFX" target="_blank">TVBox</a></li>
+                        <li><a href="https://pan.xunlei.com/x/VOcdMl7EZcqq_jOBuwZoyEiMA1?pwd=i5r9#" target="_blank">BBLL改版</a></li>
+                        <li><a href="https://github.com/orion-lib/OrionTV/releases" target="_blank">OrionTV</a></li>
+                        <li><a href="https://bmh.163.com/" target="_blank">网易爆米花</a></li>
+                        <li><a href="https://ipconfig.com/zh" target="_blank">IPV6查询</a></li>
+                        <li><a href="https://proxy.pipers.cn/" target="_blank">GitHub加速</a></li>
+                        <li><a href="https://www.qiushui.vip/gj/zh.html" target="_blank">TXT/M3U转换</a></li>
+                        <li><a href="https://www.kdocs.cn/l/clmJIYpDA4mH" target="_blank">Potplayer</a></li>
+                        <li><a href="https://pan.xunlei.com/s/VObOEh5aX766n2zOEttkN1oPA1?pwd=t6ku#" target="_blank">M3u检测</a></li>
+                        <li><a href="http://iptv.cqshushu.com" target="_blank">IPTV源1</a></li>
+                        <li><a href="https://iptvs.hacks.tools/" target="_blank">IPTV源2</a></li>
+                        <li><a href="https://tonkiang.us/" target="_blank">IPTV源3</a></li>
+                        <li><a href="https://iptv-search.com/zh-hans/" target="_blank">IPTV源4</a></li>
+                        <li><a href="https://yang-1989.eu.org/Conversion.php" target="_blank">转换/去重</a></li>
+                        <li><a href="https://fofa.info/" target="_blank">FOFA</a></li>
+                        <li><a href="https://quake.360.net/quake/#/index" target="_blank">Quake</a></li>
+                        <li><a href="https://hunter.qianxin.com/" target="_blank">Hunter</a></li>
+                        <li><a href="https://www.zoomeye.org/" target="_blank">ZoomEye</a></li>
+                        <li><a href="https://search.censys.io/" target="_blank">Censys</a></li>
                     </ul>
                 </div>
             </div>
@@ -460,7 +471,7 @@ layout: d0
                             </a>
                         </div>
                     </div>
-                    
+
                     <!-- 影视类卡片 -->
                     <div class="download-card">
                         <img class="download-card-image" src="https://gitee.com/da-qiang-classmate/typora/raw/master/image/20251013012535537.webp" alt="TVBox截图" loading="lazy">
@@ -472,7 +483,7 @@ layout: d0
                             </a>
                         </div>
                     </div>
-                    
+
                     <!-- 工具类卡片 -->
                     <div class="download-card">
                         <img class="download-card-image" src="https://gitee.com/da-qiang-classmate/typora/raw/master/image/20251005190627336.webp" alt="应用管家截图" loading="lazy">
@@ -515,7 +526,7 @@ layout: d0
                             <button class="copy-btn" data-text="http://ax570383885.serv00.net/zy.txt">复制</button>
                         </li>
                     </ul>
-                    
+
                     <h3><i class="fas fa-database"></i> TVBox源</h3>
                     <ul>
                         <li class="source-link">
@@ -540,7 +551,7 @@ layout: d0
                             <button class="copy-btn" data-text="https://9lnk.io/OLxT">复制</button>
                         </li>
                     </ul>
-                    
+
                     <div class="instructions">
                         <p><strong>使用说明：</strong></p>
                         <p>1. 直播类软件仅支持导入IPTV源，如酷9、mytv、yourtv等。</p>
