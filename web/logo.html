@@ -1,0 +1,788 @@
+---
+layout: d0
+---
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页设计常用图标集合</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #f72585;
+            --light-bg: #f8f9fa;
+            --dark-text: #212529;
+            --light-text: #6c757d;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --danger-color: #f94144;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 10px;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 50%, #fdf2e9 100%);
+            color: var(--dark-text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            background: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .icons-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(67, 97, 238, 0.2);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--accent-color);
+        }
+
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .icon-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 25px 15px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .icon-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .icon-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .icon-card:hover i {
+            color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        .icon-name {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            font-weight: 500;
+            margin-bottom: 8px;
+            word-break: break-word;
+        }
+
+        .icon-class {
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            background: rgba(67, 97, 238, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .copy-notice {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            font-size: 0.8rem;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .icon-card:hover .copy-notice {
+            transform: translateY(0);
+        }
+
+        .usage-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 15px 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        @media (max-width: 768px) {
+            .icons-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .categories {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .icons-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            }
+            
+            .icon-card {
+                padding: 20px 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-icons"></i> 网页设计图标集合</h1>
+            <p class="subtitle">收录了Font Awesome中最常用的网页设计图标，按类别分类，支持搜索和点击复制</p>
+            
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" class="search-box" placeholder="搜索图标名称或类别...">
+            </div>
+            
+            <div class="categories">
+                <button class="category-btn active" data-category="all">全部图标</button>
+                <button class="category-btn" data-category="interface">界面元素</button>
+                <button class="category-btn" data-category="action">操作与状态</button>
+                <button class="category-btn" data-category="social">社交媒体</button>
+                <button class="category-btn" data-category="file">文件与文档</button>
+                <button class="category-btn" data-category="communication">沟通交流</button>
+                <button class="category-btn" data-category="media">媒体与娱乐</button>
+                <button class="category-btn" data-category="device">设备与技术</button>
+                <button class="category-btn" data-category="business">商业与金融</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- 界面元素图标 -->
+            <section class="icons-section" data-category="interface">
+                <h2 class="section-title"><i class="fas fa-th-large"></i> 界面元素图标</h2>
+                <div class="icons-grid">
+                    <!-- 每个图标卡片会通过JavaScript动态生成 -->
+                </div>
+            </section>
+            
+            <!-- 操作与状态图标 -->
+            <section class="icons-section" data-category="action">
+                <h2 class="section-title"><i class="fas fa-cogs"></i> 操作与状态图标</h2>
+                <div class="icons-grid">
+                    <!-- 每个图标卡片会通过JavaScript动态生成 -->
+                </div>
+            </section>
+            
+            <!-- 社交媒体图标 -->
+            <section class="icons-section" data-category="social">
+                <h2 class="section-title"><i class="fas fa-share-alt"></i> 社交媒体图标</h2>
+                <div class="icons-grid">
+                    <!-- 每个图标卡片会通过JavaScript动态生成 -->
+                </div>
+            </section>
+            
+            <!-- 文件与文档图标 -->
+            <section class="icons-section" data-category="file">
+                <h2 class="section-title"><i class="fas fa-folder-open"></i> 文件与文档图标</h2>
+                <div class="icons-grid">
+                    <!-- 每个图标卡片会通过JavaScript动态生成 -->
+                </div>
+            </section>
+            
+            <!-- 沟通交流图标 -->
+            <section class="icons-section" data-category="communication">
+                <h2 class="section-title"><i class="fas fa-comments"></i> 沟通交流图标</h2>
+                <div class="icons-grid">
+                    <!-- 每个图标卡片会通过JavaScript动态生成 -->
+                </div>
+            </section>
+            
+            <!-- 媒体与娱乐图标 -->
+            <section class="icons-section" data-category="media">
+                <h2 class="section-title"><i class="fas fa-play-circle"></i> 媒体与娱乐图标</h2>
+                <div class="icons-grid">
+                    <!-- 每个图标卡片会通过JavaScript动态生成 -->
+                </div>
+            </section>
+            
+            <!-- 设备与技术图标 -->
+            <section class="icons-section" data-category="device">
+                <h2 class="section-title"><i class="fas fa-laptop"></i> 设备与技术图标</h2>
+                <div class="icons-grid">
+                    <!-- 每个图标卡片会通过JavaScript动态生成 -->
+                </div>
+            </section>
+            
+            <!-- 商业与金融图标 -->
+            <section class="icons-section" data-category="business">
+                <h2 class="section-title"><i class="fas fa-chart-line"></i> 商业与金融图标</h2>
+                <div class="icons-grid">
+                    <!-- 每个图标卡片会通过JavaScript动态生成 -->
+                </div>
+            </section>
+            
+            <!-- 使用说明 -->
+            <section class="usage-section">
+                <h2 class="section-title"><i class="fas fa-code"></i> 使用方法</h2>
+                <p>点击任意图标即可复制其CSS类名，然后可以直接在HTML中使用：</p>
+                
+                <div class="code-block">
+&lt;!-- 在HTML头部引入Font Awesome --&gt;<br>
+&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"&gt;<br><br>
+&lt;!-- 在需要的地方使用图标 --&gt;<br>
+&lt;i class="fas fa-home"&gt;&lt;/i&gt; 首页<br>
+&lt;i class="fas fa-search"&gt;&lt;/i&gt; 搜索<br>
+&lt;i class="fas fa-user"&gt;&lt;/i&gt; 用户
+                </div>
+                
+                <p><strong>提示：</strong> 所有图标都来自Font Awesome 6.4.0免费版，支持所有现代浏览器。</p>
+            </section>
+        </main>
+        
+        <footer>
+            <p>网页设计常用图标集合 &copy; 2023 | 收录了Font Awesome中最常用的网页设计图标</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalIcons">0</div>
+                    <div class="stat-label">总图标数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">分类</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">6.4.0</div>
+                    <div class="stat-label">Font Awesome版本</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 图标数据
+        const iconsData = {
+            interface: [
+                { name: "首页", class: "fa-home", keywords: "home 首页 主页" },
+                { name: "搜索", class: "fa-search", keywords: "search 搜索 查找" },
+                { name: "用户", class: "fa-user", keywords: "user 用户 账户" },
+                { name: "设置", class: "fa-cog", keywords: "cog 设置 齿轮" },
+                { name: "菜单", class: "fa-bars", keywords: "bars 菜单 导航" },
+                { name: "关闭", class: "fa-times", keywords: "times 关闭 删除" },
+                { name: "添加", class: "fa-plus", keywords: "plus 添加 新建" },
+                { name: "编辑", class: "fa-edit", keywords: "edit 编辑 修改" },
+                { name: "删除", class: "fa-trash", keywords: "trash 删除 移除" },
+                { name: "保存", class: "fa-save", keywords: "save 保存 存储" },
+                { name: "下载", class: "fa-download", keywords: "download 下载" },
+                { name: "上传", class: "fa-upload", keywords: "upload 上传" },
+                { name: "刷新", class: "fa-sync", keywords: "sync 刷新 同步" },
+                { name: "信息", class: "fa-info-circle", keywords: "info 信息 详情" },
+                { name: "帮助", class: "fa-question-circle", keywords: "question 帮助 疑问" },
+                { name: "警告", class: "fa-exclamation-triangle", keywords: "exclamation 警告 注意" },
+                { name: "成功", class: "fa-check-circle", keywords: "check 成功 完成" },
+                { name: "错误", class: "fa-times-circle", keywords: "times 错误 失败" },
+                { name: "锁", class: "fa-lock", keywords: "lock 锁 安全" },
+                { name: "解锁", class: "fa-unlock", keywords: "unlock 解锁 开放" },
+                { name: "眼睛", class: "fa-eye", keywords: "eye 眼睛 查看" },
+                { name: "隐藏", class: "fa-eye-slash", keywords: "eye-slash 隐藏 不可见" },
+                { name: "星标", class: "fa-star", keywords: "star 星标 收藏" },
+                { name: "爱心", class: "fa-heart", keywords: "heart 爱心 喜欢" },
+                { name: "购物车", class: "fa-shopping-cart", keywords: "shopping-cart 购物车" },
+                { name: "铃铛", class: "fa-bell", keywords: "bell 铃铛 通知" },
+                { name: "日历", class: "fa-calendar", keywords: "calendar 日历 日期" },
+                { name: "时钟", class: "fa-clock", keywords: "clock 时钟 时间" },
+                { name: "地图标记", class: "fa-map-marker", keywords: "map-marker 地图 位置" },
+                { name: "全局", class: "fa-globe", keywords: "globe 全局 地球" }
+            ],
+            action: [
+                { name: "播放", class: "fa-play", keywords: "play 播放" },
+                { name: "暂停", class: "fa-pause", keywords: "pause 暂停" },
+                { name: "停止", class: "fa-stop", keywords: "stop 停止" },
+                { name: "下一步", class: "fa-step-forward", keywords: "step-forward 下一步" },
+                { name: "上一步", class: "fa-step-backward", keywords: "step-backward 上一步" },
+                { name: "前进", class: "fa-forward", keywords: "forward 前进" },
+                { name: "后退", class: "fa-backward", keywords: "backward 后退" },
+                { name: "重做", class: "fa-redo", keywords: "redo 重做 重复" },
+                { name: "撤销", class: "fa-undo", keywords: "undo 撤销 返回" },
+                { name: "分享", class: "fa-share", keywords: "share 分享" },
+                { name: "打印", class: "fa-print", keywords: "print 打印" },
+                { name: "复制", class: "fa-copy", keywords: "copy 复制" },
+                { name: "粘贴", class: "fa-paste", keywords: "paste 粘贴" },
+                { name: "剪切", class: "fa-cut", keywords: "cut 剪切" },
+                { name: "筛选", class: "fa-filter", keywords: "filter 筛选 过滤" },
+                { name: "排序", class: "fa-sort", keywords: "sort 排序" },
+                { name: "放大", class: "fa-search-plus", keywords: "search-plus 放大 放大镜" },
+                { name: "缩小", class: "fa-search-minus", keywords: "search-minus 缩小" },
+                { name: "调整", class: "fa-sliders-h", keywords: "sliders 调整 设置" },
+                { name: "展开", class: "fa-expand", keywords: "expand 展开 全屏" },
+                { name: "收缩", class: "fa-compress", keywords: "compress 收缩 退出全屏" },
+                { name: "外部链接", class: "fa-external-link-alt", keywords: "external-link 外部链接" },
+                { name: "链接", class: "fa-link", keywords: "link 链接 连接" },
+                { name: "取消链接", class: "fa-unlink", keywords: "unlink 取消链接" },
+                { name: "二维码", class: "fa-qrcode", keywords: "qrcode 二维码" },
+                { name: "条形码", class: "fa-barcode", keywords: "barcode 条形码" }
+            ],
+            social: [
+                { name: "Facebook", class: "fab fa-facebook", keywords: "facebook 脸书" },
+                { name: "Twitter", class: "fab fa-twitter", keywords: "twitter 推特" },
+                { name: "Instagram", class: "fab fa-instagram", keywords: "instagram" },
+                { name: "LinkedIn", class: "fab fa-linkedin", keywords: "linkedin 领英" },
+                { name: "YouTube", class: "fab fa-youtube", keywords: "youtube 油管" },
+                { name: "微信", class: "fab fa-weixin", keywords: "weixin 微信" },
+                { name: "QQ", class: "fab fa-qq", keywords: "qq" },
+                { name: "微博", class: "fab fa-weibo", keywords: "weibo 微博" },
+                { name: "GitHub", class: "fab fa-github", keywords: "github" },
+                { name: "Gitlab", class: "fab fa-gitlab", keywords: "gitlab" },
+                { name: "Stack Overflow", class: "fab fa-stack-overflow", keywords: "stack-overflow" },
+                { name: "Reddit", class: "fab fa-reddit", keywords: "reddit" },
+                { name: "Pinterest", class: "fab fa-pinterest", keywords: "pinterest" },
+                { name: "Dribbble", class: "fab fa-dribbble", keywords: "dribbble" },
+                { name: "Behance", class: "fab fa-behance", keywords: "behance" },
+                { name: "Medium", class: "fab fa-medium", keywords: "medium" },
+                { name: "Discord", class: "fab fa-discord", keywords: "discord" },
+                { name: "Slack", class: "fab fa-slack", keywords: "slack" },
+                { name: "Skype", class: "fab fa-skype", keywords: "skype" },
+                { name: "Telegram", class: "fab fa-telegram", keywords: "telegram" },
+                { name: "WhatsApp", class: "fab fa-whatsapp", keywords: "whatsapp" }
+            ],
+            file: [
+                { name: "文件", class: "fa-file", keywords: "file 文件" },
+                { name: "PDF文件", class: "fa-file-pdf", keywords: "file-pdf pdf" },
+                { name: "Word文件", class: "fa-file-word", keywords: "file-word word" },
+                { name: "Excel文件", class: "fa-file-excel", keywords: "file-excel excel" },
+                { name: "图片文件", class: "fa-file-image", keywords: "file-image 图片" },
+                { name: "压缩文件", class: "fa-file-archive", keywords: "file-archive 压缩" },
+                { name: "代码文件", class: "fa-file-code", keywords: "file-code 代码" },
+                { name: "视频文件", class: "fa-file-video", keywords: "file-video 视频" },
+                { name: "音频文件", class: "fa-file-audio", keywords: "file-audio 音频" },
+                { name: "文件夹", class: "fa-folder", keywords: "folder 文件夹" },
+                { name: "打开文件夹", class: "fa-folder-open", keywords: "folder-open 打开文件夹" },
+                { name: "剪贴板", class: "fa-clipboard", keywords: "clipboard 剪贴板" },
+                { name: "文档", class: "fa-file-alt", keywords: "file-alt 文档" },
+                { name: "上传文件", class: "fa-file-upload", keywords: "file-upload 上传文件" },
+                { name: "下载文件", class: "fa-file-download", keywords: "file-download 下载文件" },
+                { name: "导入", class: "fa-file-import", keywords: "file-import 导入" },
+                { name: "导出", class: "fa-file-export", keywords: "file-export 导出" }
+            ],
+            communication: [
+                { name: "邮件", class: "fa-envelope", keywords: "envelope 邮件 信封" },
+                { name: "打开邮件", class: "fa-envelope-open", keywords: "envelope-open 打开邮件" },
+                { name: "评论", class: "fa-comment", keywords: "comment 评论" },
+                { name: "评论点", class: "fa-comment-dots", keywords: "comment-dots 评论点" },
+                { name: "评论", class: "fa-comments", keywords: "comments 评论 对话" },
+                { name: "@符号", class: "fa-at", keywords: "at @ 艾特" },
+                { name: "标签", class: "fa-hashtag", keywords: "hashtag # 标签" },
+                { name: "电话", class: "fa-phone", keywords: "phone 电话" },
+                { name: "手机", class: "fa-mobile-alt", keywords: "mobile-alt 手机" },
+                { name: "消息", class: "fa-sms", keywords: "sms 消息 短信" },
+                { name: "视频通话", class: "fa-video", keywords: "video 视频 通话" },
+                { name: "语音通话", class: "fa-phone-alt", keywords: "phone-alt 语音通话" },
+                { name: "麦克风", class: "fa-microphone", keywords: "microphone 麦克风" },
+                { name: "静音", class: "fa-microphone-slash", keywords: "microphone-slash 静音" },
+                { name: "耳机", class: "fa-headphones", keywords: "headphones 耳机" },
+                { name: "分享", class: "fa-share-alt", keywords: "share-alt 分享" },
+                { name: "转发", class: "fa-share-square", keywords: "share-square 转发" },
+                { name: "回复", class: "fa-reply", keywords: "reply 回复" },
+                { name: "全部回复", class: "fa-reply-all", keywords: "reply-all 全部回复" },
+                { name: "收件箱", class: "fa-inbox", keywords: "inbox 收件箱" },
+                { name: "发送", class: "fa-paper-plane", keywords: "paper-plane 发送" }
+            ],
+            media: [
+                { name: "图片", class: "fa-image", keywords: "image 图片 图像" },
+                { name: "图片集", class: "fa-images", keywords: "images 图片集" },
+                { name: "相机", class: "fa-camera", keywords: "camera 相机" },
+                { name: "视频", class: "fa-video", keywords: "video 视频" },
+                { name: "音乐", class: "fa-music", keywords: "music 音乐" },
+                { name: "电影", class: "fa-film", keywords: "film 电影" },
+                { name: "电视", class: "fa-tv", keywords: "tv 电视" },
+                { name: "游戏手柄", class: "fa-gamepad", keywords: "gamepad 游戏手柄" },
+                { name: "播放列表", class: "fa-list-ol", keywords: "list-ol 播放列表" },
+                { name: "音量", class: "fa-volume-up", keywords: "volume-up 音量" },
+                { name: "静音", class: "fa-volume-mute", keywords: "volume-mute 静音" },
+                { name: "音量减小", class: "fa-volume-down", keywords: "volume-down 音量减小" },
+                { name: "音量关闭", class: "fa-volume-off", keywords: "volume-off 音量关闭" },
+                { name: "字幕", class: "fa-closed-captioning", keywords: "closed-captioning 字幕" },
+                { name: "直播", class: "fa-broadcast-tower", keywords: "broadcast-tower 直播" },
+                { name: "播客", class: "fa-podcast", keywords: "podcast 播客" },
+                { name: "YouTube", class: "fab fa-youtube", keywords: "youtube 油管" },
+                { name: "Twitch", class: "fab fa-twitch", keywords: "twitch" },
+                { name: "Spotify", class: "fab fa-spotify", keywords: "spotify" },
+                { name: "SoundCloud", class: "fab fa-soundcloud", keywords: "soundcloud" }
+            ],
+            device: [
+                { name: "笔记本电脑", class: "fa-laptop", keywords: "laptop 笔记本电脑" },
+                { name: "台式机", class: "fa-desktop", keywords: "desktop 台式机" },
+                { name: "平板", class: "fa-tablet-alt", keywords: "tablet-alt 平板" },
+                { name: "手机", class: "fa-mobile-alt", keywords: "mobile-alt 手机" },
+                { name: "服务器", class: "fa-server", keywords: "server 服务器" },
+                { name: "数据库", class: "fa-database", keywords: "database 数据库" },
+                { name: "硬盘", class: "fa-hdd", keywords: "hdd 硬盘" },
+                { name: "内存", class: "fa-memory", keywords: "memory 内存" },
+                { name: "CPU", class: "fa-microchip", keywords: "microchip cpu" },
+                { name: "键盘", class: "fa-keyboard", keywords: "keyboard 键盘" },
+                { name: "鼠标", class: "fa-mouse", keywords: "mouse 鼠标" },
+                { name: "打印机", class: "fa-print", keywords: "print 打印机" },
+                { name: "扫描仪", class: "fa-scanner", keywords: "scanner 扫描仪" },
+                { name: "路由器", class: "fa-router", keywords: "router 路由器" },
+                { name: "WiFi", class: "fa-wifi", keywords: "wifi 无线" },
+                { name: "蓝牙", class: "fa-bluetooth", keywords: "bluetooth 蓝牙" },
+                { name: "USB", class: "fa-usb", keywords: "usb" },
+                { name: "插头", class: "fa-plug", keywords: "plug 插头" },
+                { name: "电池", class: "fa-battery-full", keywords: "battery-full 电池" },
+                { name: "电池空", class: "fa-battery-empty", keywords: "battery-empty 电池空" }
+            ],
+            business: [
+                { name: "图表", class: "fa-chart-line", keywords: "chart-line 图表 趋势" },
+                { name: "柱状图", class: "fa-chart-bar", keywords: "chart-bar 柱状图" },
+                { name: "饼图", class: "fa-chart-pie", keywords: "chart-pie 饼图" },
+                { name: "购物车", class: "fa-shopping-cart", keywords: "shopping-cart 购物车" },
+                { name: "购物袋", class: "fa-shopping-bag", keywords: "shopping-bag 购物袋" },
+                { name: "标签", class: "fa-tag", keywords: "tag 标签" },
+                { name: "标签", class: "fa-tags", keywords: "tags 标签" },
+                { name: "价格标签", class: "fa-tag", keywords: "tag 价格标签" },
+                { name: "礼物", class: "fa-gift", keywords: "gift 礼物" },
+                { name: "货车", class: "fa-truck", keywords: "truck 货车 运输" },
+                { name: "信用卡", class: "fa-credit-card", keywords: "credit-card 信用卡" },
+                { name: "收据", class: "fa-receipt", keywords: "receipt 收据" },
+                { name: "钱包", class: "fa-wallet", keywords: "wallet 钱包" },
+                { name: "钱币", class: "fa-money-bill", keywords: "money-bill 钱币" },
+                { name: "钱币波", class: "fa-money-bill-wave", keywords: "money-bill-wave 钱币波" },
+                { name: "硬币", class: "fa-coins", keywords: "coins 硬币" },
+                { name: "比特币", class: "fab fa-bitcoin", keywords: "bitcoin 比特币" },
+                { name: "美元符号", class: "fa-dollar-sign", keywords: "dollar-sign 美元" },
+                { name: "欧元符号", class: "fa-euro-sign", keywords: "euro-sign 欧元" },
+                { name: "英镑符号", class: "fa-pound-sign", keywords: "pound-sign 英镑" },
+                { name: "日元符号", class: "fa-yen-sign", keywords: "yen-sign 日元" },
+                { name: "卢比符号", class: "fa-rupee-sign", keywords: "rupee-sign 卢比" },
+                { name: "计算器", class: "fa-calculator", keywords: "calculator 计算器" },
+                { name: "百分比", class: "fa-percent", keywords: "percent 百分比" },
+                { name: "商店", class: "fa-store", keywords: "store 商店" },
+                { name: "商店", class: "fa-store-alt", keywords: "store-alt 商店" },
+                { name: "购物篮", class: "fa-shopping-basket", keywords: "shopping-basket 购物篮" },
+                { name: "收银机", class: "fa-cash-register", keywords: "cash-register 收银机" }
+            ]
+        };
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            // 渲染所有图标
+            renderAllIcons();
+            
+            // 初始化分类按钮事件
+            initCategoryButtons();
+            
+            // 初始化搜索功能
+            initSearch();
+            
+            // 初始化复制功能
+            initCopyFunctionality();
+            
+            // 更新图标总数
+            updateIconCount();
+        });
+
+        // 渲染所有图标
+        function renderAllIcons() {
+            for (const category in iconsData) {
+                const section = document.querySelector(`[data-category="${category}"] .icons-grid`);
+                if (!section) continue;
+                
+                iconsData[category].forEach(icon => {
+                    const iconCard = createIconCard(icon);
+                    section.appendChild(iconCard);
+                });
+            }
+        }
+
+        // 创建图标卡片
+        function createIconCard(icon) {
+            const card = document.createElement('div');
+            card.className = 'icon-card';
+            card.setAttribute('data-name', icon.name);
+            card.setAttribute('data-class', icon.class);
+            card.setAttribute('data-keywords', icon.keywords);
+            
+            // 判断是fab还是fas
+            const iconType = icon.class.startsWith('fab') ? 'fab' : 'fas';
+            
+            card.innerHTML = `
+                <i class="${icon.class}"></i>
+                <div class="icon-name">${icon.name}</div>
+                <div class="icon-class">${icon.class}</div>
+                <div class="copy-notice">点击复制类名</div>
+            `;
+            
+            return card;
+        }
+
+        // 初始化分类按钮
+        function initCategoryButtons() {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // 为当前按钮添加active类
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // 显示/隐藏对应分类
+                    document.querySelectorAll('.icons-section').forEach(section => {
+                        if (category === 'all') {
+                            section.style.display = 'block';
+                        } else {
+                            section.style.display = section.getAttribute('data-category') === category ? 'block' : 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        // 初始化搜索功能
+        function initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                // 如果搜索词为空，显示所有图标
+                if (!searchTerm) {
+                    document.querySelectorAll('.icon-card').forEach(card => {
+                        card.style.display = 'block';
+                    });
+                    document.querySelectorAll('.icons-section').forEach(section => {
+                        section.style.display = 'block';
+                    });
+                    return;
+                }
+                
+                // 遍历所有图标卡片
+                document.querySelectorAll('.icon-card').forEach(card => {
+                    const name = card.getAttribute('data-name').toLowerCase();
+                    const iconClass = card.getAttribute('data-class').toLowerCase();
+                    const keywords = card.getAttribute('data-keywords').toLowerCase();
+                    
+                    // 检查是否匹配
+                    if (name.includes(searchTerm) || iconClass.includes(searchTerm) || keywords.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // 隐藏没有匹配卡片的分类
+                document.querySelectorAll('.icons-section').forEach(section => {
+                    const category = section.getAttribute('data-category');
+                    const hasVisibleIcons = Array.from(section.querySelectorAll('.icon-card'))
+                        .some(card => card.style.display !== 'none');
+                    
+                    section.style.display = hasVisibleIcons ? 'block' : 'none';
+                });
+            });
+        }
+
+        // 初始化复制功能
+        function initCopyFunctionality() {
+            document.addEventListener('click', function(e) {
+                const iconCard = e.target.closest('.icon-card');
+                if (iconCard) {
+                    const iconClass = iconCard.getAttribute('data-class');
+                    
+                    // 复制到剪贴板
+                    navigator.clipboard.writeText(iconClass)
+                        .then(() => {
+                            // 显示复制成功提示
+                            const originalText = iconCard.querySelector('.copy-notice').textContent;
+                            iconCard.querySelector('.copy-notice').textContent = '已复制!';
+                            iconCard.querySelector('.copy-notice').style.background = '#4CAF50';
+                            
+                            // 3秒后恢复
+                            setTimeout(() => {
+                                iconCard.querySelector('.copy-notice').textContent = originalText;
+                                iconCard.querySelector('.copy-notice').style.background = '';
+                            }, 1500);
+                        })
+                        .catch(err => {
+                            console.error('复制失败:', err);
+                            iconCard.querySelector('.copy-notice').textContent = '复制失败!';
+                            iconCard.querySelector('.copy-notice').style.background = '#f44336';
+                            
+                            setTimeout(() => {
+                                iconCard.querySelector('.copy-notice').textContent = '点击复制类名';
+                                iconCard.querySelector('.copy-notice').style.background = '';
+                            }, 1500);
+                        });
+                }
+            });
+        }
+
+        // 更新图标总数
+        function updateIconCount() {
+            let totalCount = 0;
+            for (const category in iconsData) {
+                totalCount += iconsData[category].length;
+            }
+            document.getElementById('totalIcons').textContent = totalCount;
+        }
+    </script>
+</body>
