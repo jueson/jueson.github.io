@@ -562,15 +562,6 @@ layout: page
             </div>
         </div>
     </div>
-
-    <footer>
-        <p class="copyright text-muted">
-            Copyright &copy; Jueson 2025
-            <br>
-            Powered by Hux Blog
-        </p>
-    </footer>
-
     <script>
         // 添加交互效果
         document.addEventListener('DOMContentLoaded', function () {
@@ -672,54 +663,4 @@ layout: page
     </script>
 
 </body>
-<footer>
 
-<style>
-
-/* 无头有尾模板无首页连接强制居中 */
-
-footer .container {
-
-text-align: center;
-
-}
-
-footer .row {
-
-display: flex;
-
-justify-content: center;
-
-}
-
-footer .col-lg-8 {
-
-float: none;
-
-margin: 0 auto;
-
-}
-
-footer a[href="/"] {
-
-color: #87CEFA; /* 浅蓝色 */
-
-}
-
-</style>
-
-<div class="container">            
-    <!-- SNS Link -->
-                {% include sns-links.html center=true %}
-              <p class="copyright text-muted">
-                    Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
-
-                    <br>
-                    Powered by Hux Blog
-
-
-                </p>
-
-</div>
-
-</footer>
