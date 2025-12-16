@@ -1,69 +1,59 @@
----
-layout: d3
----
 
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.xyba.cn/tool/tvbox/static/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.xyba.cn/tool/tvbox/static/animate.min.css">
+    <link rel="stylesheet" href="https://www.xyba.cn/tool/tvbox/static/editor.css">
+<title>TVBOX配置编辑器</title>
+</head>
 <body>
-<div id="core-next-app">
-    <app-header ref="app_header" id="app-header"></app-header>
-    <main class="container">
-        <div class="main-warp">
-            <div class="post-warp">
-    <div class="title-warp">
-        <h1 class="post-title">TVBOX接口配置编辑器</h1>
+<div id="loading"
+     style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #000; opacity: 0.5; z-index:9999;">
+    <center style="position: absolute; top: 50%; left: 50%; color:#fff">请稍候...</center>
+</div>
+<div class="container">
+    <div class="page-header">
+        <h3>
+            TVBOX配置编辑器
+        </h3>            
+        <p><small>本地记录依赖浏览器缓存，清空缓存将丢失记录。不会用可下载底部提供的JSON文件，使用任意文本编辑器打开复制里面的内容，粘贴到编辑器的源码界面，然后切换回可视界面参照原有内容根据需要增减。修改完毕复制源码到JSON保存就是自己的接口了。影视资源站自己百度，很多很多。。。</small></p>
     </div>
-    <div class="page-info-warp">
-            </div>
-    <div class="content-warp">
-        <p><iframe width="100%" height="1700" src="https://www.xyba.cn/tool/tvbox/" frameborder="0" scrolling="no" allow="fullscreen"></iframe>
-<br />
-</p>
-    </div>
-</div>            <app-comment id="app-comment"></app-comment>
+    <div class="row">
+        <div class="btn-group btn-group-sm col-md-5" role="group">
+            <button type="button" class="btn btn-success" onclick="show_visual('999999')">可视</button>
+            <button type="button" class="btn btn-info" onclick="show_code('999999')">源码</button>
+            <button type="button" class="btn btn-warning" onclick="empty_diy('999999')">清空</button>
+            <button type="button" class="btn btn-primary" onclick="save_diy('999999')">保存</button>
         </div>
-        <aside>
-                    </aside>
-    </main>
+        <div class="col-md-5">
+            <label class="btn btn-primary btn-sm">
+                配置转图片 <input type="file" onchange="toImg(event)" style="display: none;">
+            </label>
+        </div>
+    </div>
+    <h4></h4>
+    <form id="diy_cfg_jf_999999" style="display: none;"></form>
+    <textarea rows="30" class="form-control" id="diy_cfg_code_999999" style="margin-top: 10px; display: none;"></textarea>    
 </div>
 </body>
-<script></script><style></style><style>
-    :root {
-        --box-border-radius: 5px;
-        --theme-color: #409eff;
-        --a-hover-color: #409eff;
-    }
-    .el-pagination.is-background .el-pager li:not(.disabled).active {
-        background-color: #409eff;
-    }
-    .el-pagination.is-background .el-pager li:not(.disabled):hover {
-        color:#409eff;
-    }
-    ::selection {
-        background-color: #3390ff;
-    }
-    .el-button--primary{
-        background-color: #409eff;
-        border-color: #409eff;
-    }
-    .el-button--primary:focus, .el-button--primary:hover{
-    background-color: #409eff;
-    border-color: #409eff;
-    opacity: .8;
-    }
-    .el-button:focus, .el-button:hover{
-    opacity: .8;
-    }
-</style>        <style>
-            .content-warp img:not(.not-shadow){box-shadow: 0 0 5px 0 rgba(0, 0, 0, .1);}        </style>
-                            <link rel="preconnect" href="https://s1.hdslb.com/"/>
-            <link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" media="all"
-                  onload="this.media='all'"/>
-            <style>
-                body {
-                    font-family: 'HarmonyOS_Regular', system-ui;
-                }
-            </style>
-            <script type="text/javascript" src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js?ver=1.0" id="gh-query-js"></script>
-<script type="text/javascript" src="https://www.xyba.cn/wp-content/themes/next/static/js/global.min.js?ver=100" id="core_next_global-js"></script>
-<script type="text/javascript" src="https://www.xyba.cn/wp-content/themes/next/static/js/single-page.min.js?ver=100" id="core_next_single_page-js"></script>
-<script type="text/javascript" src="https://www.xyba.cn/wp-content/themes/next/static/js/html2canvas.min.js?ver=100" id="html2canvas-js"></script>
-<script type="text/javascript" src="https://www.xyba.cn/wp-content/themes/next/static/js/jquery-smartphoto.min.js?ver=100" id="core_next_smart_photo-js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/jquery.min.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/bootstrap.min.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/bootstrap-notify.min.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/bootbox.min.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/index.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/underscore-min.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/jquery-ui.min.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/core-min.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/components/cipher-core-min.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/aes-min.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/mode-ecb-min.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/clipboard.min.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/jsonform.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/jsv.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/editor.js"></script>
+<script src="https://www.xyba.cn/tool/tvbox/static/jsonlint.js"></script>
+</html>
