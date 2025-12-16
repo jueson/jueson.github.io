@@ -1,21 +1,40 @@
 ---
 layout: d3
 ---
-
+<div id="core-next-app">
+    <app-header ref="app_header" id="app-header"></app-header>
     <main class="container">
         <div class="main-warp">
             <div class="post-warp">
-    <div class="title-warp">
-        <h1 class="post-title">TVBOX接口配置编辑器</h1>
-    </div>
-    <div class="page-info-warp">
+                <div class="title-warp">
+                    <h1 class="post-title">TVBOX接口配置编辑器</h1>
+                </div>
+                <div class="page-info-warp">
+                </div>
+                <div class="content-warp">
+                    <div class="content-container">
+                        <iframe 
+                            width="100%" 
+                            height="1700" 
+                            src="https://www.xyba.cn/tool/tvbox/" 
+                            frameborder="0" 
+                            scrolling="no" 
+                            allow="fullscreen"
+                        ></iframe><br />
+                        
+                        <div class="download-plane">
+                            <div class="download-plane-icon">
+                                <img 
+                                    decoding="async" 
+                                    src="https://www.xyba.cn/wp-content/themes/next/static/img/short-code/download-plane/lz.svg" 
+                                    alt="download" 
+                                    class="not-shadow" 
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-    <div class="content-warp">
-        <p><iframe width="100%" height="1700" src="https://www.xyba.cn/tool/tvbox/" frameborder="0" scrolling="no" allow="fullscreen"></iframe><br />
-</p>
-    </div>
-</div>            <app-comment id="app-comment"></app-comment>
         </div>
-        <aside>
-                    </aside>
     </main>
+</div>
