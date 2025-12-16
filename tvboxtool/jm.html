@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tvbox接口解密</title>
+    <title>加密接口解析提取</title>
     <!-- 引入Bootstrap样式库 -->
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/css/bootstrap.min.css">
     <style>
@@ -35,7 +35,7 @@
         <h1 class="text-center mb-5">全能接口解密</h1>
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="url" value="" placeholder="输入接口地址，没地址？饭太硬主页有">
-            <button class="btn btn-secondary" type="button" onclick="if (!window.__cfRLUnblockHandlers) return false; crawl()" data-cf-modified-a1402373b6145db356a4e1da-="">解密</button>
+            <button class="btn btn-secondary" type="button" onclick="crawl()">解密</button>
         </div>
        
         <div class="text-center loading" id="loading">
@@ -47,14 +47,15 @@
         <textarea class="form-control" id="result" cols="80" rows="20" readonly></textarea>
         <div class="text-center mt-3">
              <a href="/"  target="_blank"class="btn btn-primary">主页</a>
-             <button class="btn btn-warning" onclick="if (!window.__cfRLUnblockHandlers) return false; copyText()" data-cf-modified-a1402373b6145db356a4e1da-="">复制</button>
+             <button class="btn btn-warning" onclick="copyText()">复制</button>
              <!--<button class="btn btn-success" onclick="downloadJar()">下载Jar</button>-->
+            <a href="https://mp.weixin.qq.com/s/Fh-tquauHTU3n97Uc0JF0g"  target="_blank"class="btn btn-danger">饭太硬公众号</a>
             
         </div>
     </div>
     <!-- 引入Bootstrap JS库 -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.min.js" type="a1402373b6145db356a4e1da-text/javascript"></script>
-    <script type="a1402373b6145db356a4e1da-text/javascript">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0/js/bootstrap.min.js"></script>
+    <script>
         function crawl() {
             var xhr = new XMLHttpRequest();
             var url = document.getElementById('url').value;
@@ -102,5 +103,5 @@
 
 
     </script>
-<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="a1402373b6145db356a4e1da-|49" defer></script></body>
+</body>
 </html>
