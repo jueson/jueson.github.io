@@ -94,6 +94,8 @@ friends:
     { title: "色号集合", href: "https://jueson.github.io/web/color/" },
     { title: "图标集合", href: "https://jueson.github.io/web/logo/" },
     { title: "TV应用资源集合", href: "https://jueson.github.io/tvboxtool/" },
+    { title: "Tvbox配置编辑", href: "http://jueson.de5.net/tvboxtool/" },
+    { title: "Tvbox接口解密", href: "http://jueson.de5.net/tvboxtool/cat_ext/" },
     { title: "必应", href: "https://cn.bing.com/" },
     { title: "yandex", href: "https://yandex.com/" },
     { title: "baidu", href: "https://baidu.com/" },
