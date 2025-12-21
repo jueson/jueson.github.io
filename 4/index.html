@@ -327,21 +327,15 @@ text-align: center;
                 <h2><i class="fas fa-check-circle"></i> 推荐资源</h2>
 
                 <div class="solution-list">
-                    <ul>
-                        <!-- 使用Jekyll语法 -->
+                    <ul>                        <!-- 使用Jekyll语法 -->
+                        {% for friend in site.friends %}
                         <li>
-                            <a href="https://jueson.github.io/web/color/">
+                            <a href="{{friend.href}}">
                                 <i class="fas fa-external-link-alt"></i>
-                                色号集合
+                                {{friend.title}}
                             </a>
                         </li>
-
-                        <li>
-                            <a href="https://jueson.github.io/web/logo/">
-                                <i class="fas fa-external-link-alt"></i>
-                                图标集合
-                            </a>
-                        </li>
+                        {% endfor %}
 
                         <li>
                             <a href="http://kunq.me">
