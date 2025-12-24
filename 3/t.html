@@ -5,7 +5,7 @@ layout: d1
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>站点快链</title>
+    <title>站点导航</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -688,69 +688,106 @@ text-align: center;
         </div>
     </div>
 </div>
-
-            <!-- TV应用源区块 -->
+ <!-- 源区块（优化后的样式） -->
             <div class="content-block" id="tv-sources">
                 <h2><i class="fas fa-database"></i> TV应用源</h2>
-                <div class="solution-list">
-                    <h3><i class="fas fa-tv-alt"></i> IPTV源</h3>
-                    <ul>
-                        <li class="source-link">
-                            <a href="https://gh.idayer.com/https://raw.githubusercontent.com/dqtx760/1TV/refs/heads/main/index.html" target="_blank">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>https://gh.idayer.com/https://raw.githubusercontent.com/dqtx760/1TV/refs/heads/main/index.html</span>
-                            </a>
-                            <button class="copy-btn" data-text="https://gh.idayer.com/https://raw.githubusercontent.com/dqtx760/1TV/refs/heads/main/index.html">复制</button>
-                        </li>
-                        <li class="source-link">
-                            <a href="http://47.120.41.246:8899/zb.txt" target="_blank">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>http://47.120.41.246:8899/zb.txt</span>
-                            </a>
-                            <button class="copy-btn" data-text="http://47.120.41.246:8899/zb.txt">复制</button>
-                        </li>
-                        <li class="source-link">
-                            <a href="http://ax570383885.serv00.net/zy.txt" target="_blank">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>http://ax570383885.serv00.net/zy.txt</span>
-                            </a>
-                            <button class="copy-btn" data-text="http://ax570383885.serv00.net/zy.txt">复制</button>
-                        </li>
-                    </ul>
+                <div class="sources-container">
+                    <!-- IPTV源分类 -->
+                    <div class="source-category">
+                        <h3><i class="fas fa-tv-alt"></i> IPTV源</h3>
+                        <div class="source-list">
+                            <div class="source-item">
+                                <a href="https://gh.idayer.com/https://raw.githubusercontent.com/dqtx760/1TV/refs/heads/main/index.html" 
+                                   target="_blank" 
+                                   class="source-link">
+                                    <i class="fas fa-link"></i>
+                                    <span class="source-url">https://gh.idayer.com/https://raw.githubusercontent.com/dqtx760/1TV/refs/heads/main/index.html</span>
+                                </a>
+                                <button class="copy-btn" data-text="https://gh.idayer.com/https://raw.githubusercontent.com/dqtx760/1TV/refs/heads/main/index.html">
+                                    <i class="fas fa-copy"></i> 复制
+                                </button>
+                            </div>
+                            
+                            <div class="source-item">
+                                <a href="http://47.120.41.246:8899/zb.txt" 
+                                   target="_blank" 
+                                   class="source-link">
+                                    <i class="fas fa-link"></i>
+                                    <span class="source-url">http://47.120.41.246:8899/zb.txt</span>
+                                </a>
+                                <button class="copy-btn" data-text="http://47.120.41.246:8899/zb.txt">
+                                    <i class="fas fa-copy"></i> 复制
+                                </button>
+                            </div>
+                            
+                            <div class="source-item">
+                                <a href="http://ax570383885.serv00.net/zy.txt" 
+                                   target="_blank" 
+                                   class="source-link">
+                                    <i class="fas fa-link"></i>
+                                    <span class="source-url">http://ax570383885.serv00.net/zy.txt</span>
+                                </a>
+                                <button class="copy-btn" data-text="http://ax570383885.serv00.net/zy.txt">
+                                    <i class="fas fa-copy"></i> 复制
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-                    <h3><i class="fas fa-database"></i> TVBox源</h3>
-                    <ul>
-                        <li class="source-link">
-                            <a href="https://9lnk.io/5UCA" target="_blank">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>https://9lnk.io/5UCA</span>
-                            </a>
-                            <button class="copy-btn" data-text="https://9lnk.io/5UCA">复制</button>
-                        </li>
-                        <li class="source-link">
-                            <a href="https://9lnk.io/BpuF" target="_blank">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>https://9lnk.io/BpuF</span>
-                            </a>
-                            <button class="copy-btn" data-text="https://9lnk.io/BpuF">复制</button>
-                        </li>
-                        <li class="source-link">
-                            <a href="https://9lnk.io/OLxT" target="_blank">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>https://9lnk.io/OLxT</span>
-                            </a>
-                            <button class="copy-btn" data-text="https://9lnk.io/OLxT">复制</button>
-                        </li>
-                    </ul>
+                    <!-- TVBox源分类 -->
+                    <div class="source-category">
+                        <h3><i class="fas fa-database"></i> TVBox源</h3>
+                        <div class="source-list">
+                            <div class="source-item">
+                                <a href="https://9lnk.io/5UCA" 
+                                   target="_blank" 
+                                   class="source-link">
+                                    <i class="fas fa-link"></i>
+                                    <span class="source-url">https://9lnk.io/5UCA</span>
+                                </a>
+                                <button class="copy-btn" data-text="https://9lnk.io/5UCA">
+                                    <i class="fas fa-copy"></i> 复制
+                                </button>
+                            </div>
+                            
+                            <div class="source-item">
+                                <a href="https://9lnk.io/BpuF" 
+                                   target="_blank" 
+                                   class="source-link">
+                                    <i class="fas fa-link"></i>
+                                    <span class="source-url">https://9lnk.io/BpuF</span>
+                                </a>
+                                <button class="copy-btn" data-text="https://9lnk.io/BpuF">
+                                    <i class="fas fa-copy"></i> 复制
+                                </button>
+                            </div>
+                            
+                            <div class="source-item">
+                                <a href="https://9lnk.io/OLxT" 
+                                   target="_blank" 
+                                   class="source-link">
+                                    <i class="fas fa-link"></i>
+                                    <span class="source-url">https://9lnk.io/OLxT</span>
+                                </a>
+                                <button class="copy-btn" data-text="https://9lnk.io/OLxT">
+                                    <i class="fas fa-copy"></i> 复制
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="instructions">
-                        <p><strong>使用说明：</strong></p>
+                    <!-- 使用说明卡片 -->
+                    <div class="instructions-card">
+                        <h3><i class="fas fa-info-circle"></i> 使用说明</h3>
                         <p>1. 直播类软件仅支持导入IPTV源，如酷9、mytv、yourtv等。</p>
-                        <p>2. 影视类软件同时导入IPTV源与TVBox源，如OK影视，MediaMiX等。</p>
-                        <p>by: 大强同学 致此感谢！</p>
+                        <p>2. 影视类软件可同时导入IPTV源与TVBox源，如OK影视，MediaMiX等。</p>
+                        <p class="author">by: 大强同学 致此感谢！</p>
                     </div>
                 </div>
             </div>
+            
+            
+            
         </div>
     </div>
 
