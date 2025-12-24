@@ -211,7 +211,6 @@ layout: d1
         #tv-downloads .download-card-content a:hover {
             background: #e09b4a;
         }
-
         /* ========== 源区块优化样式 ========== */
         #tv-sources {
             margin-top: 15px;
@@ -252,133 +251,8 @@ layout: d1
             color: #f6ad55;
         }
 
-        /* 源项网格布局 */
-        #tv-sources .source-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 12px;
-        }
-
-        /* 单个源项样式 */
-        #tv-sources .source-item {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 8px;
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #tv-sources .source-item:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: translateX(3px);
-        }
-
-        #tv-sources .source-item:before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 4px;
-            background: #f6ad55;
-            transform: scaleY(0);
-            transform-origin: top;
-            transition: transform 0.3s ease;
-        }
-
-        #tv-sources .source-item:hover:before {
-            transform: scaleY(1);
-        }
-
-        /* 源链接样式 */
-        #tv-sources .source-link {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            overflow: hidden;
-        }
-
-        #tv-sources .source-link i {
-            color: #f6ad55;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-
-        #tv-sources .source-url {
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-size: 0.85rem;
-            color: #4a5568;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        #tv-sources .source-item:hover .source-url {
-            color: #2d3748;
-        }
-
-        /* 复制按钮样式 */
-        #tv-sources .copy-btn {
-            background: #f6ad55;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            flex-shrink: 0;
-        }
-
-        #tv-sources .copy-btn:hover {
-            background: #e09b4a;
-            transform: scale(1.05);
-        }
-
-        #tv-sources .copy-btn i {
-            font-size: 0.85rem;
-        }
-
-        /* 使用说明卡片 */
-        #tv-sources .instructions-card {
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 5px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-        }
-
-        #tv-sources .instructions-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #2b6cb0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        #tv-sources .instructions-card p {
-            font-size: 0.9rem;
-            color: #4a5568;
-            line-height: 1.5;
-            margin-bottom: 8px;
-        }
-
-        #tv-sources .instructions-card .author {
-            margin-top: 15px;
-            font-style: italic;
-            color: #718096;
-            text-align: right;
-            font-size: 0.85rem;
+        /* 单列布局 - 参考前面单列站点风格 */
+        #tv-sources .source-list {
         }
 
         /* ========== 页脚样式 ========== */
