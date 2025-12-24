@@ -4,335 +4,417 @@ layout: d1
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jueson的导航页</title>
+    <title>站点快链导航</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* ========== 全局基础样式 ========== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<style>
+    /* 全局重置与基础盒模型设置 */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        /* 页面背景渐变 */
-        body {
-            background: linear-gradient(135deg, #f5f7fa, #e4edf9, #fdf2e9);
-            color: #2d3748;
-            min-height: 100vh;
-            display: flex;
+    /* 页面背景与基础布局 - 渐变背景+弹性布局 */
+    body {
+        background: linear-gradient(135deg, #f5f7fa, #e4edf9, #fdf2e9);
+        color: #2d3748;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 主容器 - 最大宽度限制+居中 */
+    .container {
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 20px 40px;
+    }
+
+    /* 内容区域 - 块级显示 */
+    .content {
+        display: block;
+        width: 100%;
+    }
+
+    /* 内容块通用样式 - 半透明白色背景+圆角阴影 */
+    .content-block {
+        width: 100%;
+        margin-bottom: 15px;
+        background: rgba(255, 255, 255, 0);
+        border-radius: 15px;
+        padding: 30px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* 内容块悬停效果 - 上浮+阴影增强 */
+    .content-block:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 内容块标题样式 - 图标+下划线 */
+    .content-block h2 {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid rgba(43, 108, 176, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #2b6cb0;
+    }
+
+    .content-block h2 i {
+        color: #f6ad55;
+    }
+
+    /* 解决方案列表通用样式 */
+    .solution-list {
+        padding: 0;
+    }
+
+    .solution-list ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    /* 列表项样式 - 半透明白色背景+左侧装饰条 */
+    .solution-list li {
+        display: block;
+        margin-bottom: 12px;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 12px 20px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .solution-list li:last-child {
+        margin-bottom: 0;
+    }
+
+    /* 列表项左侧装饰条 - 悬停显示 */
+    .solution-list li:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 4px;
+        background: #f6ad55;
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.3s ease;
+    }
+
+    /* 列表项悬停效果 - 右移+背景加深+装饰条显示 */
+    .solution-list li:hover {
+        background: rgba(255, 255, 255, 0.85);
+        transform: translateX(5px);
+    }
+
+    .solution-list li:hover:before {
+        transform: scaleY(1);
+    }
+
+    /* 列表项链接样式 - 图标+文字 */
+    .solution-list a {
+        color: #2d3748;
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .solution-list i {
+        color: #f6ad55;
+        font-size: 1.1rem;
+    }
+
+    /* TV下载区块 - 卡片网格布局 */
+    #tv-downloads .download-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    /* 下载卡片样式 - 白色背景+阴影 */
+    #tv-downloads .download-card {
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #tv-downloads .download-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    /* 卡片图片样式 - 封面图 */
+    #tv-downloads .download-card-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* 卡片内容区域 */
+    #tv-downloads .download-card-content {
+        padding: 20px;
+    }
+
+    #tv-downloads .download-card-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #2b6cb0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    #tv-downloads .download-card-content p {
+        font-size: 0.95rem;
+        color: #4a5568;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    /* 下载按钮样式 - 橙色背景+圆角 */
+    #tv-downloads .download-card-content a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: #f6ad55;
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: 500;
+        transition: background 0.3s ease;
+    }
+
+    #tv-downloads .download-card-content a:hover {
+        background: #e09b4a;
+    }
+
+    /* 移动端下载卡片适配 - 单列显示 */
+    @media (max-width: 768px) {
+        #tv-downloads .download-cards {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* 第四内容块（TV应用资源）列表项居中显示 */
+    .content-block:nth-child(4) .solution-list a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* 第四内容块列表网格布局 - 桌面4列→平板3列→手机2列 */
+    .content-block:nth-child(4) .solution-list ul {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .content-block:nth-child(4) .solution-list li {
+        margin-bottom: 0;
+    }
+
+    @media (max-width: 1200px) and (min-width: 768px) {
+        .content-block:nth-child(4) .solution-list ul {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 767px) {
+        .content-block:nth-child(4) .solution-list ul {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .content-block:nth-child(4) .solution-list ul {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* 源区块样式 - 与前序区块间距 */
+    #sources.content-block {
+        margin-top: 15px;
+    }
+
+    /* 源分类网格布局 */
+    #sources .sources-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    /* 源分类卡片样式 */
+    #sources .source-category {
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+    }
+
+    #sources .source-category:hover {
+        transform: translateY(-3px);
+    }
+
+    #sources .source-category h3 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        color: #2b6cb0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid rgba(43, 108, 176, 0.2);
+    }
+
+    /* 源项布局 - 图标+链接+复制按钮 */
+    #sources .source-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+
+    /* 源链接框样式 - 等宽字体+省略号 */
+    #sources .source-link {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-family: monospace;
+        font-size: 0.9rem;
+        color: #2d3748;
+        border: 1px solid rgba(0,0,0,0.1);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* 复制按钮样式 - 橙色背景 */
+    #sources .copy-btn {
+        background: #f6ad55;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    #sources .copy-btn:hover {
+        background: #e09b4a;
+    }
+
+    /* 使用说明卡片样式 */
+    #sources .instructions {
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    #sources .instructions h3 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        color: #2b6cb0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid rgba(43, 108, 176, 0.2);
+    }
+
+    /* 说明文本样式 - 等宽字体+换行 */
+    #sources .instruction-text {
+        font-family: monospace;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #4a5568;
+        white-space: pre-wrap;
+    }
+
+    /* 源区块移动端适配 */
+    @media (max-width: 768px) {
+        #sources .sources-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        #sources .source-item {
             flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
         }
-
-        /* 主容器 */
-        .container {
-            max-width: 1200px;
+        
+        #sources .copy-btn {
             width: 100%;
-            margin: 0 auto;
-            padding: 0 20px 40px;
+            justify-content: center;
         }
+    }
 
-        /* 内容区域 */
-        .content {
-            display: block;
-            width: 100%;
-        }
+    /* 页脚样式 - 半透明背景+居中 */
+    footer {
+        text-align: center;
+        margin-top: 50px;
+        padding: 20px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 15px;
+        font-size: 0.9rem;
+        opacity: 0.8;
+        color: #718096;
+    }
 
-        /* ========== 内容区块通用样式 ========== */
+    /* 平板端内容块适配 - 减小内边距 */
+    @media (max-width: 768px) {
         .content-block {
-            width: 100%;
-            margin-bottom: 15px;
-            background: rgba(255, 255, 255, 0);
-            border-radius: 15px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 25px;
         }
 
-        /* 区块悬停效果 */
-        .content-block:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 区块标题样式 */
         .content-block h2 {
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(43, 108, 176, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #2b6cb0;
+            font-size: 1.4rem;
+        }
+    }
+
+    /* 手机端容器适配 - 减小左右内边距 */
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 10px 30px;
         }
 
-        .content-block h2 i {
-            color: #f6ad55;
-        }
-
-        /* ========== 列表区块通用样式 ========== */
-        .solution-list {
-            padding: 0;
-        }
-
-        .solution-list ul {
-            list-style: none;
-            padding: 0;
+        .content-block {
+            padding: 20px 15px;
         }
 
         .solution-list li {
-            display: block;
-            margin-bottom: 12px;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 12px 20px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            padding: 10px 15px;
         }
+    }
+</style>
 
-        .solution-list li:last-child {
-            margin-bottom: 0;
-        }
-
-        /* 列表项左侧装饰条 */
-        .solution-list li:before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 4px;
-            background: #f6ad55;
-            transform: scaleY(0);
-            transform-origin: top;
-            transition: transform 0.3s ease;
-        }
-
-        /* 列表项悬停效果 */
-        .solution-list li:hover {
-            background: rgba(255, 255, 255, 0.85);
-            transform: translateX(5px);
-        }
-
-        .solution-list li:hover:before {
-            transform: scaleY(1);
-        }
-
-        /* 列表链接样式 */
-        .solution-list a {
-            color: #2d3748;
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .solution-list i {
-            color: #f6ad55;
-            font-size: 1.1rem;
-        }
-
-        /* ========== TV应用资源区块（多列布局） ========== */
-        .content-block:nth-child(4) .solution-list ul {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .content-block:nth-child(4) .solution-list li {
-            margin-bottom: 0;
-        }
-
-        /* ========== TV应用下载区块样式 ========== */
-        #tv-downloads .download-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        #tv-downloads .download-card {
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        #tv-downloads .download-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        #tv-downloads .download-card-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        #tv-downloads .download-card-content {
-            padding: 20px;
-        }
-
-        #tv-downloads .download-card-content h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #2b6cb0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        #tv-downloads .download-card-content p {
-            font-size: 0.95rem;
-            color: #4a5568;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        #tv-downloads .download-card-content a {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: #f6ad55;
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 500;
-            transition: background 0.3s ease;
-        }
-
-        #tv-downloads .download-card-content a:hover {
-            background: #e09b4a;
-        }
-        /* ========== 源区块优化样式 ========== */
-        #tv-sources {
-            margin-top: 15px;
-        }
-
-        #tv-sources .sources-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        /* 源分类卡片 */
-        #tv-sources .source-category {
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        #tv-sources .source-category:hover {
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        #tv-sources .source-category h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #2b6cb0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(43, 108, 176, 0.1);
-        }
-
-        #tv-sources .source-category h3 i {
-            color: #f6ad55;
-        }
-
-        /* 单列布局 - 参考前面单列站点风格 */
-        #tv-sources .source-list {
-        }
-
-        /* ========== 页脚样式 ========== */
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 15px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            color: #718096;
-        }
-
-        /* ========== 响应式设计 ========== */
-
-        /* 平板设备 (768px以下) */
-        @media (max-width: 768px) {
-            .content-block {
-                padding: 25px;
-            }
-
-            .content-block h2 {
-                font-size: 1.4rem;
-            }
-
-            /* TV应用资源多列布局调整 */
-            .content-block:nth-child(4) .solution-list ul {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            /* TV下载卡片单列布局 */
-            #tv-downloads .download-cards {
-                grid-template-columns: 1fr;
-            }
-
-            /* 源区块响应式调整 */
-            #tv-sources .source-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            #tv-sources .source-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            
-            #tv-sources .copy-btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        /* 手机设备 (767px以下) */
-        @media (max-width: 767px) {
-            .content-block:nth-child(4) .solution-list ul {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* 小手机设备 (480px以下) */
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 10px 30px;
-            }
-
-            .content-block {
-                padding: 20px 15px;
-            }
-
-            .solution-list li {
-                padding: 10px 15px;
-            }
-
-            .content-block:nth-child(4) .solution-list ul {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -471,174 +553,181 @@ layout: d1
                     </div>
                 </div>
             </div>
-
-            <!-- 源区块（优化后的样式） -->
-            <div class="content-block" id="tv-sources">
-                <h2><i class="fas fa-database"></i> TV应用源</h2>
-                <div class="sources-container">
-                    <!-- IPTV源分类 -->
-                    <div class="source-category">
-                        <h3><i class="fas fa-tv-alt"></i> IPTV源</h3>
-                        <div class="source-grid">
-                            <div class="source-item">
-                                <div class="source-link">
-                                    <i class="fas fa-link"></i>
-                                    <span class="source-url">https://gh.idayer.com/https://raw.githubusercontent.com/dqtx760/1TV/refs/heads/main/index.html</span>
-                                </div>
-                                <button class="copy-btn" data-text="https://gh.idayer.com/https://raw.githubusercontent.com/dqtx760/1TV/refs/heads/main/index.html">
-                                    <i class="fas fa-copy"></i> 复制
-                                </button>
-                            </div>
-                            
-                            <div class="source-item">
-                                <div class="source-link">
-                                    <i class="fas fa-link"></i>
-                                    <span class="source-url">http://47.120.41.246:8899/zb.txt</span>
-                                </div>
-                                <button class="copy-btn" data-text="http://47.120.41.246:8899/zb.txt">
-                                    <i class="fas fa-copy"></i> 复制
-                                </button>
-                            </div>
-                            
-                            <div class="source-item">
-                                <div class="source-link">
-                                    <i class="fas fa-link"></i>
-                                    <span class="source-url">http://ax570383885.serv00.net/zy.txt</span>
-                                </div>
-                                <button class="copy-btn" data-text="http://ax570383885.serv00.net/zy.txt">
-                                    <i class="fas fa-copy"></i> 复制
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TVBox源分类 -->
-                    <div class="source-category">
-                        <h3><i class="fas fa-database"></i> TVBox源</h3>
-                        <div class="source-grid">
-                            <div class="source-item">
-                                <div class="source-link">
-                                    <i class="fas fa-link"></i>
-                                    <span class="source-url">https://9lnk.io/5UCA</span>
-                                </div>
-                                <button class="copy-btn" data-text="https://9lnk.io/5UCA">
-                                    <i class="fas fa-copy"></i> 复制
-                                </button>
-                            </div>
-                            
-                            <div class="source-item">
-                                <div class="source-link">
-                                    <i class="fas fa-link"></i>
-                                    <span class="source-url">https://9lnk.io/BpuF</span>
-                                </div>
-                                <button class="copy-btn" data-text="https://9lnk.io/BpuF">
-                                    <i class="fas fa-copy"></i> 复制
-                                </button>
-                            </div>
-                            
-                            <div class="source-item">
-                                <div class="source-link">
-                                    <i class="fas fa-link"></i>
-                                    <span class="source-url">https://9lnk.io/OLxT</span>
-                                </div>
-                                <button class="copy-btn" data-text="https://9lnk.io/OLxT">
-                                    <i class="fas fa-copy"></i> 复制
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 使用说明卡片 -->
-                    <div class="instructions-card">
-                        <h3><i class="fas fa-info-circle"></i> 使用说明</h3>
-                        <p>1. 直播类软件仅支持导入IPTV源，如酷9、mytv、yourtv等。</p>
-                        <p>2. 影视类软件可同时导入IPTV源与TVBox源，如OK影视，MediaMiX等。</p>
-                        <p class="author">by: 大强同学 致此感谢！</p>
-                    </div>
+<!-- 源区块（已修正id为sources以应用样式） -->
+<div class="content-block" id="sources">
+    <h2><i class="fas fa-database"></i> TV应用源</h2>
+    <div class="solution-list">
+        <!-- IPTV源分类 -->
+        <div class="source-category">
+            <h3><i class="fas fa-tv-alt"></i> IPTV源</h3>
+            <div class="source-item">
+                <div class="source-link">
+                    <a href="https://gh.idayer.com/https://raw.githubusercontent.com/dqtx760/1TV/refs/heads/main/index.html" 
+                       target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        https://gh.idayer.com/https://raw.githubusercontent.com/dqtx760/1TV/refs/heads/main/index.html
+                    </a>
                 </div>
+                <button class="copy-btn" data-text="https://gh.idayer.com/https://raw.githubusercontent.com/dqtx760/1TV/refs/heads/main/index.html">
+                    <i class="fas fa-copy"></i> 复制
+                </button>
+            </div>
+            <div class="source-item">
+                <div class="source-link">
+                    <a href="http://47.120.41.246:8899/zb.txt" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        http://47.120.41.246:8899/zb.txt
+                    </a>
+                </div>
+                <button class="copy-btn" data-text="http://47.120.41.246:8899/zb.txt">
+                    <i class="fas fa-copy"></i> 复制
+                </button>
+            </div>
+            <div class="source-item">
+                <div class="source-link">
+                    <a href="http://ax570383885.serv00.net/zy.txt" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        http://ax570383885.serv00.net/zy.txt
+                    </a>
+                </div>
+                <button class="copy-btn" data-text="http://ax570383885.serv00.net/zy.txt">
+                    <i class="fas fa-copy"></i> 复制
+                </button>
             </div>
         </div>
-    </div>
 
-    <script>
-        // 页面加载完成后执行的代码
-        document.addEventListener('DOMContentLoaded', function () {
-            // ========== 复制功能实现 ==========
-            const copyButtons = document.querySelectorAll('.copy-btn');
-            copyButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const textToCopy = this.getAttribute('data-text');
+        <!-- TVBox源分类 -->
+        <div class="source-category">
+            <h3><i class="fas fa-database"></i> TVBox源</h3>
+            <div class="source-item">
+                <div class="source-link">
+                    <a href="https://9lnk.io/5UCA" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        https://9lnk.io/5UCA
+                    </a>
+                </div>
+                <button class="copy-btn" data-text="https://9lnk.io/5UCA">
+                    <i class="fas fa-copy"></i> 复制
+                </button>
+            </div>
+            <div class="source-item">
+                <div class="source-link">
+                    <a href="https://9lnk.io/BpuF" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        https://9lnk.io/BpuF
+                    </a>
+                </div>
+                <button class="copy-btn" data-text="https://9lnk.io/BpuF">
+                    <i class="fas fa-copy"></i> 复制
+                </button>
+            </div>
+            <div class="source-item">
+                <div class="source-link">
+                    <a href="https://9lnk.io/OLxT" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        https://9lnk.io/OLxT
+                    </a>
+                </div>
+                <button class="copy-btn" data-text="https://9lnk.io/OLxT">
+                    <i class="fas fa-copy"></i> 复制
+                </button>
+            </div>
+        </div>
+
+        <!-- 使用说明 -->
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> 使用说明</h3>
+            <p><strong>注意事项：</strong></p>
+            <p>1. 直播类软件仅支持导入IPTV源（如酷9、mytv、yourtv等）</p>
+            <p>2. 影视类软件可同时导入IPTV源与TVBox源（如OK影视、MediaMiX等）</p>
+            <p style="margin-top: 10px; color: #718096;">by: 大强同学 致此感谢！</p>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+<script>
+    // 页面DOM加载完成后执行初始化
+    document.addEventListener('DOMContentLoaded', function () {
+        // === 复制功能实现 ===
+        const copyButtons = document.querySelectorAll('.copy-btn');
+        copyButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                // 获取待复制的链接文本
+                const textToCopy = this.getAttribute('data-text');
+
+                // 优先使用现代Clipboard API
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(textToCopy)
+                        .then(() => showCopySuccess(this))  // 复制成功反馈
+                        .catch(err => handleCopyError(err, this));  // 错误处理
+                } else {
+                    // 降级方案：传统execCommand复制
+                    const textArea = document.createElement('textarea');
+                    textArea.value = textToCopy;
+                    document.body.appendChild(textArea);
+                    textArea.select();
                     
-                    // 使用现代 Clipboard API
-                    if (navigator.clipboard && navigator.clipboard.writeText) {
-                        navigator.clipboard.writeText(textToCopy)
-                            .then(() => {
-                                // 复制成功反馈
-                                const originalText = this.textContent;
-                                this.innerHTML = '<i class="fas fa-check"></i> 已复制';
-                                this.style.backgroundColor = '#38a169';
-                                
-                                // 2秒后恢复原始状态
-                                setTimeout(() => {
-                                    this.innerHTML = '<i class="fas fa-copy"></i> 复制';
-                                    this.style.backgroundColor = '';
-                                }, 2000);
-                            })
-                            .catch(err => {
-                                console.error('复制失败:', err);
-                                alert('复制失败，请手动复制');
-                            });
-                    } else {
-                        // 传统方法作为备选
-                        const textArea = document.createElement('textarea');
-                        textArea.value = textToCopy;
-                        document.body.appendChild(textArea);
-                        textArea.select();
-                        
-                        try {
-                            document.execCommand('copy');
-                            const originalText = this.textContent;
-                            this.innerHTML = '<i class="fas fa-check"></i> 已复制';
-                            this.style.backgroundColor = '#38a169';
-                            
-                            setTimeout(() => {
-                                this.innerHTML = '<i class="fas fa-copy"></i> 复制';
-                                this.style.backgroundColor = '';
-                            }, 2000);
-                        } catch (err) {
-                            console.error('复制失败:', err);
-                            alert('复制失败，请手动复制');
-                        }
-                        
-                        document.body.removeChild(textArea);
+                    try {
+                        document.execCommand('copy');
+                        showCopySuccess(this);  // 复制成功反馈
+                    } catch (err) {
+                        handleCopyError(err, this);  // 错误处理
                     }
-                });
-            });
-            
-            // ========== 滚动动画效果 ==========
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            // 观察所有内容区块
-            const contentBlocks = document.querySelectorAll('.content-block');
-            contentBlocks.forEach(block => {
-                block.style.opacity = '0';
-                block.style.transform = 'translateY(20px)';
-                block.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(block);
+                    
+                    document.body.removeChild(textArea);  // 清理临时元素
+                }
             });
         });
-    </script>
+
+        // 显示复制成功状态
+        function showCopySuccess(button) {
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> 已复制';
+            button.style.backgroundColor = '#38a169';  // 成功绿色
+            
+            // 2秒后恢复原状
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+                button.style.backgroundColor = '';
+            }, 2000);
+        }
+
+        // 处理复制错误
+        function handleCopyError(err, button) {
+            console.error('复制失败:', err);
+            alert('复制失败，请手动复制');
+        }
+
+        // === 滚动动画效果 ===
+        const observerOptions = {
+            threshold: 0.1,  // 元素可见10%时触发
+            rootMargin: '0px 0px -50px 0px'  // 底部提前50px触发
+        };
+
+        // 创建交叉观察器实例
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 元素进入视口时显示
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 观察所有内容块并初始化动画状态
+        const contentBlocks = document.querySelectorAll('.content-block');
+        contentBlocks.forEach(block => {
+            // 初始隐藏状态
+            block.style.opacity = '0';
+            block.style.transform = 'translateY(20px)';
+            block.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(block);  // 注册观察
+        });
+    });
+</script>
+
 </body>
 
