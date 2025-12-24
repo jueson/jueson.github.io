@@ -1,7 +1,6 @@
 ---
 layout: d1
 ---
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +14,7 @@ layout: d1
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        
+
         body {
             background: linear-gradient(135deg, #f5f7fa, #e4edf9, #fdf2e9);
             color: #2d3748;
@@ -24,7 +23,7 @@ layout: d1
             flex-direction: column;
         }
 
-        
+
         .container {
             max-width: 1200px;
             width: 100%;
@@ -32,13 +31,13 @@ layout: d1
             padding: 0 20px 40px;
         }
 
-        
+
         .content {
             display: block;
             width: 100%;
         }
 
-        
+
         .content-block {
             width: 100%;
             margin-bottom: 15px;
@@ -70,7 +69,7 @@ layout: d1
             color: #f6ad55;
         }
 
-        
+
         .solution-list {
             padding: 0;
         }
@@ -95,7 +94,7 @@ layout: d1
             margin-bottom: 0;
         }
 
-        
+
         .solution-list li:before {
             content: "";
             position: absolute;
@@ -223,7 +222,7 @@ text-align: center;
             margin-bottom: 0;
         }
 
-       
+
         @media (max-width: 1200px) and (min-width: 768px) {
             .content-block:nth-child(4) .solution-list ul {
                 grid-template-columns: repeat(3, 1fr);
@@ -365,7 +364,7 @@ text-align: center;
 
 
 
-       
+
         footer {
             text-align: center;
             margin-top: 50px;
@@ -378,7 +377,7 @@ text-align: center;
             color: #718096;
         }
 
-        
+
         @media (max-width: 768px) {
             .content-block {
                 padding: 25px;
@@ -414,7 +413,7 @@ text-align: center;
             <p></p>
         </div>
         <div class="content">
-            <!-- 推荐资源区块 -->
+            <!-- 推荐单列站点区块 -->
             <div class="content-block">
                 <h2><i class="fas fa-check-circle"></i> 推荐资源</h2>
 
@@ -474,7 +473,7 @@ text-align: center;
                 </div>
             </div>
 
-            <!-- 学习路径区块 -->
+            <!-- 学习单列站点区块 -->
             <div class="content-block">
                 <h2><i class="fas fa-book"></i> 学习路径</h2>
 
@@ -493,7 +492,7 @@ text-align: center;
                 </div>
             </div>
 
-            <!-- 开发工具区块 -->
+            <!-- 工具单列站点区块 -->
             <div class="content-block">
                 <h2><i class="fas fa-tools"></i> 开发工具</h2>
 
@@ -511,7 +510,7 @@ text-align: center;
                 </div>
             </div>
 
-            <!-- TV应用资源区块 -->
+            <!-- 多列站点区 -->
             <div class="content-block">
                 <h2><i class="fas fa-tv"></i> TV应用资源</h2>
                 <div class="solution-list">
@@ -549,13 +548,11 @@ text-align: center;
                     </ul>
                 </div>
             </div>
-        </div>
-    </div>
+            
+            
+            
 
-
-
-
-<!-- 原TV应用资源区块结束后，新增以下内容 -->
+<!-- 下载区块 -->
 <div class="content-block" id="tv-downloads">
     <h2><i class="fas fa-download"></i> TV应用下载</h2>
     <div class="download-cards">
@@ -597,7 +594,7 @@ text-align: center;
     </div>
 </div>
 
-            <!-- TV应用源区块 -->
+            <!-- 源区块 -->
             <div class="content-block" id="tv-sources">
                 <h2><i class="fas fa-database"></i> TV应用源</h2>
                 <div class="solution-list">
@@ -661,6 +658,17 @@ text-align: center;
             </div>
         </div>
     </div>
+            
+            
+            
+            
+            
+        </div>
+    </div>
+
+
+
+
 
     <script>
         // 添加交互效果
@@ -762,4 +770,3 @@ text-align: center;
         });
     </script>
 </body>
-</html>
