@@ -4,7 +4,7 @@ layout: d1
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>站点导航</title>
+    <title>导航页</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -243,7 +243,6 @@ text-align: center;
 
 
 
-
 #sources.content-block {
     margin-top: 15px; /* 与前序区块保持间距 */
 }
@@ -343,26 +342,23 @@ text-align: center;
     white-space: pre-wrap;
 }
 
-
+/* 移动端适配 */
 @media (max-width: 768px) {
     #sources .sources-grid {
         grid-template-columns: 1fr;
     }
-
+    
     #sources .source-item {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
     }
-
+    
     #sources .copy-btn {
         width: 100%;
         justify-content: center;
     }
 }
-
-
-
 
 
         footer {
