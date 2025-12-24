@@ -287,43 +287,55 @@ layout: d1
         border-bottom: 2px solid rgba(43, 108, 176, 0.2);
     }
 
-    /* 源项布局 - 图标+链接+复制按钮 */
-    #sources .source-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 15px;
-    }
+/* 源项布局 - 图标+链接+复制按钮 */
+#sources .source-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
 
-    /* 源链接框样式 - 等宽字体+省略号 */
-    #sources .source-link {
-        flex: 1;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 12px 15px;
-        border-radius: 8px;
-        font-family: monospace;
-        font-size: 0.9rem;
-        color: #2d3748;
-        border: 1px solid rgba(0,0,0,0.1);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+/* 源链接框样式 - 等宽字体+省略号（核心修正） */
+#sources .source-link {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: #2d3748;
+    border: 1px solid rgba(0,0,0,0.1);
+    overflow: hidden;       /* 隐藏溢出内容 */
+    text-overflow: ellipsis;/* 溢出显示省略号 */
+    white-space: nowrap;    /* 强制单行显示 */
+}
 
-    /* 复制按钮样式 - 橙色背景 */
-    #sources .copy-btn {
-        background: #f6ad55;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 30px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
+/* 关键修正：让链接填充父容器宽度，确保截断生效 */
+#sources .source-link a {
+    display: block;         /* 转为块级元素，填充父容器 */
+    color: inherit;         /* 继承父元素颜色 */
+    text-decoration: none;  /* 去掉下划线（可选） */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 复制按钮样式 - 橙色背景 */
+#sources .copy-btn {
+    background: #f6ad55;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;    /* 按钮文字不换行 */
+}
+
 
     #sources .copy-btn:hover {
         background: #e09b4a;
