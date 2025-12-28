@@ -3,26 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TVBox配置编辑器专业版</title>
+    <title>TVBox接口编辑器增强版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #3498db;
-            --primary-dark: #2980b9;
             --secondary: #2c3e50;
-            --secondary-dark: #1a252f;
             --success: #2ecc71;
-            --success-dark: #27ae60;
             --warning: #f39c12;
-            --warning-dark: #d68910;
             --danger: #e74c3c;
-            --danger-dark: #c0392b;
             --light: #ecf0f1;
             --dark: #34495e;
             --gray: #95a5a6;
-            --gray-light: #bdc3c7;
-            --card-bg: rgba(44, 62, 80, 0.85);
-            --card-border: rgba(255, 255, 255, 0.1);
         }
         
         * {
@@ -37,7 +29,6 @@
             color: var(--light);
             min-height: 100vh;
             padding: 20px;
-            font-size: 14px;
         }
         
         .container {
@@ -48,41 +39,62 @@
         header {
             text-align: center;
             padding: 20px 0;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
         
         h1 {
-            font-size: 2rem;
-            margin-bottom: 5px;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
             background: linear-gradient(to right, #3498db, #2ecc71);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: inline-block;
         }
         
         .subtitle {
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
         
-        .main-layout {
+        .main-content {
             display: flex;
             flex-direction: column;
             gap: 20px;
+            margin-bottom: 30px;
         }
         
-        .top-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            background: var(--card-bg);
+        .input-section, .output-section {
+            background: rgba(44, 62, 80, 0.7);
             border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-title i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .btn {
-            padding: 8px 12px;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -90,8 +102,7 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
+            gap: 8px;
         }
         
         .btn-primary {
@@ -99,17 +110,9 @@
             color: white;
         }
         
-        .btn-primary:hover {
-            background: var(--primary-dark);
-        }
-        
         .btn-success {
             background: var(--success);
             color: white;
-        }
-        
-        .btn-success:hover {
-            background: var(--success-dark);
         }
         
         .btn-warning {
@@ -117,17 +120,9 @@
             color: white;
         }
         
-        .btn-warning:hover {
-            background: var(--warning-dark);
-        }
-        
         .btn-danger {
             background: var(--danger);
             color: white;
-        }
-        
-        .btn-danger:hover {
-            background: var(--danger-dark);
         }
         
         .btn-secondary {
@@ -135,62 +130,233 @@
             color: white;
         }
         
-        .btn-sm {
-            padding: 4px 8px;
-            font-size: 0.8rem;
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
         }
         
-        .content-area {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        @media (max-width: 768px) {
-            .content-area {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .panel {
-            background: var(--card-bg);
-            border-radius: 10px;
+        textarea {
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
             padding: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: white;
+            font-family: monospace;
+            resize: vertical;
+        }
+        
+        .editor-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
             max-height: 600px;
             overflow-y: auto;
         }
         
-        .panel-header {
+        .editor-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--card-border);
         }
         
-        .panel-title {
-            font-size: 1.1rem;
+        .editor-title {
+            font-size: 1.2rem;
             font-weight: 600;
+        }
+        
+        .editor-controls {
             display: flex;
+            gap: 10px;
+        }
+        
+        .editor-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .editor-table th {
+            background: rgba(52, 152, 219, 0.3);
+            padding: 10px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+        }
+        
+        .editor-table td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .editor-table tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .editor-table tr:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        .editor-table input, .editor-table select, .editor-table textarea {
+            width: 100%;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: white;
+        }
+        
+        .editor-table textarea {
+            height: 60px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .action-cell {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .action-btn {
+            padding: 5px 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .json-display {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            padding: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .json-key {
+            color: #3498db;
+        }
+        
+        .json-string {
+            color: #2ecc71;
+        }
+        
+        .json-number {
+            color: #f39c12;
+        }
+        
+        .json-boolean {
+            color: #9b59b6;
+        }
+        
+        .json-null {
+            color: #7f8c8d;
+        }
+        
+        .json-punctuation {
+            color: #ecf0f1;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .modal-content {
+            background: rgba(44, 62, 80, 0.95);
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: white;
+        }
+        
+        .site-group {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .site-group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .site-group-title {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 5px;
+            background: var(--success);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            background: var(--danger);
+        }
+        
+        .notification.warning {
+            background: var(--warning);
         }
         
         .tab-container {
             display: flex;
-            flex-wrap: wrap;
-            border-bottom: 1px solid var(--card-border);
-            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
         }
         
         .tab {
-            padding: 8px 12px;
+            padding: 10px 20px;
             cursor: pointer;
             border-bottom: 3px solid transparent;
-            font-size: 0.85rem;
-            white-space: nowrap;
         }
         
         .tab.active {
@@ -206,360 +372,78 @@
             display: block;
         }
         
-        .compact-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.8rem;
-        }
-        
-        .compact-table th {
-            background: rgba(52, 152, 219, 0.2);
-            padding: 8px;
-            text-align: left;
-            position: sticky;
-            top: 0;
-        }
-        
-        .compact-table td {
-            padding: 8px;
-            border-bottom: 1px solid var(--card-border);
-        }
-        
-        .compact-table tr:hover {
-            background: rgba(52, 152, 219, 0.1);
-        }
-        
-        .compact-input {
-            width: 100%;
-            padding: 6px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--card-border);
-            border-radius: 4px;
-            color: white;
-            font-size: 0.85rem;
-        }
-        
-        .compact-textarea {
-            width: 100%;
-            height: 60px;
-            padding: 6px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--card-border);
-            border-radius: 4px;
-            color: white;
-            font-family: monospace;
-            font-size: 0.8rem;
-            resize: vertical;
-        }
-        
-        .action-cell {
+        .field-row {
             display: flex;
-            gap: 4px;
-        }
-        
-        .action-btn {
-            padding: 3px 6px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.75rem;
-        }
-        
-        .item-group {
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
             background: rgba(0, 0, 0, 0.2);
-            border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        
-        .item-name {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 0.9rem;
-        }
-        
-        .item-details {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        
-        .detail-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .detail-label {
-            min-width: 60px;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-        
-        .detail-value {
-            flex: 1;
-            font-size: 0.8rem;
-            word-break: break-all;
-        }
-        
-        .locked-section {
-            background: rgba(243, 156, 18, 0.1);
-            border: 1px solid rgba(243, 156, 18, 0.3);
-            border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .lock-control {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .lock-icon {
-            color: var(--warning);
-        }
-        
-        .unlock-icon {
-            color: var(--gray);
-        }
-        
-        .json-display {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 6px;
-            padding: 10px;
-            font-family: monospace;
-            font-size: 0.8rem;
-            white-space: pre-wrap;
-            word-break: break-all;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        
-        .json-key { color: #3498db; }
-        .json-string { color: #2ecc71; }
-        .json-number { color: #f39c12; }
-        .json-boolean { color: #9b59b6; }
-        .json-null { color: #7f8c8d; }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-        
-        .modal-content {
-            background: var(--card-bg);
-            margin: 5% auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80%;
-            overflow-y: auto;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .close {
-            color: var(--gray);
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        .close:hover {
-            color: white;
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 12px 20px;
             border-radius: 5px;
-            background: var(--success);
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transform: translateX(200%);
-            transition: transform 0.3s ease;
-            z-index: 1001;
-            font-size: 0.85rem;
         }
         
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .notification.error {
-            background: var(--danger);
-        }
-        
-        .notification.warning {
-            background: var(--warning);
-        }
-        
-        .section-collapsible {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 6px;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 15px;
-            background: rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-        }
-        
-        .section-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .field-label {
+            min-width: 120px;
             font-weight: 600;
         }
         
-        .section-content {
-            padding: 15px;
-            display: none;
-        }
-        
-        .section-content.expanded {
-            display: block;
-        }
-        
-        .collapsible-icon {
-            transition: transform 0.3s;
-        }
-        
-        .collapsible-icon.expanded {
-            transform: rotate(180deg);
-        }
-        
-        .batch-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .batch-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-        
-        .batch-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 8px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .batch-item:hover {
-            background: rgba(0, 0, 0, 0.3);
-        }
-        
-        .batch-item.selected {
-            background: rgba(52, 152, 219, 0.3);
-        }
-        
-        .batch-item-name {
+        .field-input {
             flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
         
-        .empty-state {
-            text-align: center;
-            padding: 30px;
-            color: var(--gray);
+        .field-actions {
+            min-width: 60px;
+            display: flex;
+            gap: 5px;
         }
         
-        input[type="file"] {
-            display: none;
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-tv"></i> TVBox配置编辑器</h1>
-            <p class="subtitle">专业版 - 支持细粒度编辑和锁定功能</p>
+            <h1><i class="fas fa-tv"></i> TVBox接口编辑器增强版</h1>
+            <p class="subtitle">支持细粒度编辑站点配置，批量操作和行级编辑</p>
         </header>
         
-        <div class="main-layout">
-            <div class="top-controls">
-                <button class="btn btn-primary" id="pasteBtn">
-                    <i class="fas fa-paste"></i> 粘贴配置
-                </button>
-                <button class="btn btn-primary" id="fileBtn">
-                    <i class="fas fa-file-upload"></i> 上传文件
-                </button>
-                <button class="btn btn-success" id="loadExampleBtn">
-                    <i class="fas fa-lightbulb"></i> 加载示例
-                </button>
-                <button class="btn btn-warning" id="parseBtn">
-                    <i class="fas fa-code"></i> 解析JSON
-                </button>
-                <button class="btn btn-danger" id="clearBtn">
-                    <i class="fas fa-trash"></i> 清空
-                </button>
-                <button class="btn btn-success" id="generateBtn">
-                    <i class="fas fa-cogs"></i> 生成配置
-                </button>
-                <button class="btn btn-primary" id="copyBtn">
-                    <i class="fas fa-copy"></i> 复制
-                </button>
-                <button class="btn btn-warning" id="downloadBtn">
-                    <i class="fas fa-download"></i> 下载
-                </button>
-            </div>
-            
-            <div class="content-area">
-                <div class="panel" id="inputPanel">
-                    <div class="panel-header">
-                        <div class="panel-title"><i class="fas fa-edit"></i> 配置编辑</div>
+        <div class="main-content">
+            <div class="input-section">
+                <div class="section-title">
+                    <i class="fas fa-edit"></i>
+                    <h2>输入配置</h2>
+                </div>
+                
+                <div class="tab-container">
+                    <div class="tab active" data-tab="input-tab">JSON输入</div>
+                    <div class="tab" data-tab="sites-tab">站点管理</div>
+                    <div class="tab" data-tab="parses-tab">解析管理</div>
+                    <div class="tab" data-tab="groups-tab">批量操作</div>
+                </div>
+                
+                <div class="tab-content active" id="input-tab">
+                    <div class="btn-group">
+                        <button class="btn btn-primary" id="pasteBtn">
+                            <i class="fas fa-paste"></i> 从剪贴板粘贴
+                        </button>
+                        <button class="btn btn-primary" id="fileBtn">
+                            <i class="fas fa-file-upload"></i> 上传JSON文件
+                        </button>
+                        <button class="btn btn-success" id="loadExampleBtn">
+                            <i class="fas fa-lightbulb"></i> 加载示例
+                        </button>
+                        <button class="btn btn-danger" id="clearBtn">
+                            <i class="fas fa-trash"></i> 清空
+                        </button>
+                        <button class="btn btn-warning" id="parseBtn">
+                            <i class="fas fa-code"></i> 解析JSON
+                        </button>
                     </div>
                     
-                    <div class="tab-container">
-                        <div class="tab active" data-tab="json-input">JSON输入</div>
-                        <div class="tab" data-tab="vod-sources">点播源</div>
-                        <div class="tab" data-tab="live-sources">直播源</div>
-                        <div class="tab" data-tab="parsers">解析地址</div>
-                        <div class="tab" data-tab="vip-parsers">VIP解析标识</div>
-                        <div class="tab" data-tab="ijk-config">IJK解码配置</div>
-                        <div class="tab" data-tab="ads-filter">广告过滤</div>
-                        <div class="tab" data-tab="appearance">外观设置</div>
-                    </div>
-                    
-                    <div class="tab-content active" id="json-input">
-                        <textarea class="compact-textarea" id="jsonInput" style="height: 200px;" placeholder='在此粘贴TVBox JSON配置或上传文件...'>{
+                    <textarea id="jsonInput" placeholder='在此粘贴TVBox JSON配置或上传文件...'>{
   "sites": [
     {
       "key": "蓝鹰",
@@ -600,884 +484,833 @@
         "version": "120"
       }
     }
-  ],
-  "wallpaper": "http://127.0.0.1:9978/proxy?do=wall",
-  "logo": "https://example.com/logo.jpg",
-  "spider": "https://example.com/spider.jpg"
+  ]
 }</textarea>
-                    </div>
-                    
-                    <div class="tab-content" id="vod-sources">
-                        <div class="batch-actions">
-                            <button class="btn btn-success btn-sm" id="addVodSourceBtn">
-                                <i class="fas fa-plus"></i> 添加
-                            </button>
-                            <button class="btn btn-danger btn-sm" id="deleteVodSourcesBtn">
-                                <i class="fas fa-trash"></i> 批量删除
-                            </button>
-                        </div>
-                        <div id="vodSourcesList">
-                            <!-- 点播源列表将通过JS动态添加 -->
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="live-sources">
-                        <div class="batch-actions">
-                            <button class="btn btn-success btn-sm" id="addLiveSourceBtn">
-                                <i class="fas fa-plus"></i> 添加
-                            </button>
-                        </div>
-                        <div id="liveSourcesList">
-                            <!-- 直播源列表将通过JS动态添加 -->
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="parsers">
-                        <div class="batch-actions">
-                            <button class="btn btn-success btn-sm" id="addParserBtn">
-                                <i class="fas fa-plus"></i> 添加
-                            </button>
-                        </div>
-                        <table class="compact-table">
-                            <thead>
-                                <tr>
-                                    <th>名称</th>
-                                    <th>类型</th>
-                                    <th>URL</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody id="parsersTable">
-                                <!-- 解析器表格将通过JS动态添加 -->
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <div class="tab-content" id="vip-parsers">
-                        <div class="empty-state">
-                            <i class="fas fa-crown fa-2x" style="margin-bottom: 10px;"></i>
-                            <p>VIP解析标识管理</p>
-                            <p style="font-size: 0.8rem; margin-top: 5px;">用于标识需要VIP的解析地址</p>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="ijk-config">
-                        <div class="empty-state">
-                            <i class="fas fa-microchip fa-2x" style="margin-bottom: 10px;"></i>
-                            <p>IJK解码配置</p>
-                            <p style="font-size: 0.8rem; margin-top: 5px;">配置软硬解码参数</p>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="ads-filter">
-                        <div class="empty-state">
-                            <i class="fas fa-filter fa-2x" style="margin-bottom: 10px;"></i>
-                            <p>广告过滤规则</p>
-                            <p style="font-size: 0.8rem; margin-top: 5px;">配置广告过滤规则和正则表达式</p>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="appearance">
-                        <div class="section-collapsible" id="wallpaperSection">
-                            <div class="section-header">
-                                <div class="section-title">
-                                    <i class="fas fa-image"></i> 壁纸设置
-                                </div>
-                                <div class="lock-control">
-                                    <input type="checkbox" id="lockWallpaper" class="lock-checkbox">
-                                    <label for="lockWallpaper" style="cursor: pointer;">
-                                        <i class="fas fa-lock lock-icon" id="wallpaperLockIcon"></i>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="section-content">
-                                <input type="text" class="compact-input" id="wallpaperInput" placeholder="壁纸URL">
-                            </div>
-                        </div>
-                        
-                        <div class="section-collapsible" id="logoSection">
-                            <div class="section-header">
-                                <div class="section-title">
-                                    <i class="fas fa-signature"></i> Logo设置
-                                </div>
-                                <div class="lock-control">
-                                    <input type="checkbox" id="lockLogo" class="lock-checkbox">
-                                    <label for="lockLogo" style="cursor: pointer;">
-                                        <i class="fas fa-lock lock-icon" id="logoLockIcon"></i>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="section-content">
-                                <input type="text" class="compact-input" id="logoInput" placeholder="Logo URL">
-                            </div>
-                        </div>
-                        
-                        <div class="section-collapsible" id="spiderSection">
-                            <div class="section-header">
-                                <div class="section-title">
-                                    <i class="fas fa-spider"></i> Spider设置
-                                </div>
-                                <div class="lock-control">
-                                    <input type="checkbox" id="lockSpider" class="lock-checkbox">
-                                    <label for="lockSpider" style="cursor: pointer;">
-                                        <i class="fas fa-lock lock-icon" id="spiderLockIcon"></i>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="section-content">
-                                <input type="text" class="compact-input" id="spiderInput" placeholder="Spider URL">
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
-                <div class="panel" id="outputPanel">
-                    <div class="panel-header">
-                        <div class="panel-title"><i class="fas fa-code"></i> 输出预览</div>
-                    </div>
-                    <div class="json-display" id="jsonOutput">
-                        <div class="empty-state">
-                            <i class="fas fa-code fa-2x" style="margin-bottom: 10px;"></i>
-                            <p>JSON输出预览</p>
-                            <p style="font-size: 0.8rem; margin-top: 5px;">点击"生成配置"查看结果</p>
+                <div class="tab-content" id="sites-tab">
+                    <div class="editor-header">
+                        <div class="editor-title">站点编辑器 - 支持行级编辑</div>
+                        <div class="editor-controls">
+                            <button class="btn btn-success" id="addSiteBtn">
+                                <i class="fas fa-plus"></i> 添加站点
+                            </button>
+                            <button class="btn btn-secondary" id="batchAddBtn">
+                                <i class="fas fa-layer-group"></i> 批量添加
+                            </button>
                         </div>
                     </div>
+                    
+                    <table class="editor-table">
+                        <thead>
+                            <tr>
+                                <th>操作</th>
+                                <th>名称</th>
+                                <th>KEY</th>
+                                <th>API</th>
+                                <th>类型</th>
+                                <th>扩展配置</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sitesTable">
+                            <!-- 站点数据将通过JS动态添加 -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="tab-content" id="parses-tab">
+                    <div class="editor-header">
+                        <div class="editor-title">解析器编辑器</div>
+                        <div class="editor-controls">
+                            <button class="btn btn-success" id="addParseBtn">
+                                <i class="fas fa-plus"></i> 添加解析器
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <table class="editor-table">
+                        <thead>
+                            <tr>
+                                <th>操作</th>
+                                <th>名称</th>
+                                <th>类型</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="parsesTable">
+                            <!-- 解析器数据将通过JS动态添加 -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="tab-content" id="groups-tab">
+                    <div class="editor-header">
+                        <div class="editor-title">批量操作站点组</div>
+                        <div class="editor-controls">
+                            <button class="btn btn-success" id="addGroupBtn">
+                                <i class="fas fa-plus"></i> 添加站点组
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="siteGroupsContainer">
+                        <!-- 站点组将通过JS动态添加 -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="output-section">
+                <div class="section-title">
+                    <i class="fas fa-code"></i>
+                    <h2>输出配置</h2>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-success" id="generateBtn">
+                        <i class="fas fa-cogs"></i> 生成配置
+                    </button>
+                    <button class="btn btn-primary" id="copyBtn">
+                        <i class="fas fa-copy"></i> 复制全部
+                    </button>
+                    <button class="btn btn-warning" id="downloadBtn">
+                        <i class="fas fa-download"></i> 下载文件
+                    </button>
+                    <button class="btn btn-secondary" id="validateBtn">
+                        <i class="fas fa-check"></i> 验证JSON
+                    </button>
+                </div>
+                
+                <div class="json-display" id="jsonOutput"></div>
+            </div>
+        </div>
+        
+        <div class="modal" id="groupModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>批量添加站点组</h3>
+                    <span class="close">&times;</span>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <p>输入站点组JSON数组（可以一次添加多个站点）：</p>
+                    <textarea id="groupJsonInput" style="width: 100%; height: 300px;" placeholder='例如：
+[
+  {
+    "key": "新站点1",
+    "name": "新站点1｜APP",
+    "type": 3,
+    "quickSearch": 1,
+    "api": "csp_NewGuard",
+    "ext": {
+      "site": "https://example.com/site1.txt",
+      "dataKey": "examplekey1",
+      "dataIv": "exampleiv1"
+    }
+  },
+  {
+    "key": "新站点2",
+    "name": "新站点2｜APP",
+    "type": 3,
+    "quickSearch": 1,
+    "api": "csp_NewGuard2",
+    "ext": {
+      "site": "https://example.com/site2.txt",
+      "dataKey": "examplekey2",
+      "dataIv": "exampleiv2"
+    }
+  }
+]'></textarea>
+                </div>
+                <div style="text-align: right;">
+                    <button class="btn btn-primary" id="addGroupConfirmBtn">添加站点组</button>
                 </div>
             </div>
         </div>
+        
+        <div class="notification" id="notification">操作成功！</div>
+        
+        <input type="file" id="fileInput" accept=".json" style="display: none;">
     </div>
-    
-    <div class="modal" id="batchModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>批量操作</h3>
-                <span class="close">&times;</span>
-            </div>
-            <div style="margin-bottom: 15px;">
-                <p>选择要操作的站点：</p>
-                <div class="batch-group" id="batchSelection">
-                    <!-- 批量选择列表 -->
-                </div>
-            </div>
-            <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                <button class="btn btn-danger" id="deleteSelectedBtn">删除选中</button>
-                <button class="btn btn-primary" id="cancelBatchBtn">取消</button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="notification" id="notification">操作成功！</div>
-    
-    <input type="file" id="fileInput" accept=".json" style="display: none;">
     
     <script>
-        // 主应用类
-        class TVBoxEditor {
-            constructor() {
-                this.currentData = {
-                    sites: [],
-                    parses: [],
-                    wallpaper: "",
-                    logo: "",
-                    spider: "",
-                    doh: [],
-                    ads: [],
-                    lives: [],
-                    ijk: [],
-                    proxy: [],
-                    rules: []
-                };
-                
-                this.lockedItems = {
-                    wallpaper: false,
-                    logo: false,
-                    spider: false
-                };
-                
-                this.selectedSites = new Set();
-                this.init();
-            }
+        // DOM元素
+        const jsonInput = document.getElementById('jsonInput');
+        const jsonOutput = document.getElementById('jsonOutput');
+        const pasteBtn = document.getElementById('pasteBtn');
+        const fileBtn = document.getElementById('fileBtn');
+        const fileInput = document.getElementById('fileInput');
+        const loadExampleBtn = document.getElementById('loadExampleBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const parseBtn = document.getElementById('parseBtn');
+        const generateBtn = document.getElementById('generateBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const validateBtn = document.getElementById('validateBtn');
+        const addSiteBtn = document.getElementById('addSiteBtn');
+        const addParseBtn = document.getElementById('addParseBtn');
+        const batchAddBtn = document.getElementById('batchAddBtn');
+        const addGroupBtn = document.getElementById('addGroupBtn');
+        const sitesTable = document.getElementById('sitesTable');
+        const parsesTable = document.getElementById('parsesTable');
+        const siteGroupsContainer = document.getElementById('siteGroupsContainer');
+        const notification = document.getElementById('notification');
+        const groupModal = document.getElementById('groupModal');
+        const groupJsonInput = document.getElementById('groupJsonInput');
+        const addGroupConfirmBtn = document.getElementById('addGroupConfirmBtn');
+        const closeModalBtn = document.querySelector('.close');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        // 当前编辑的JSON数据
+        let currentData = {
+            sites: [],
+            parses: [],
+            spider: "",
+            wallpaper: "",
+            logo: "",
+            doh: [],
+            ads: [],
+            lives: [],
+            ijk: [],
+            proxy: [],
+            rules: []
+        };
+        
+        // 初始化
+        function init() {
+            // 事件监听
+            pasteBtn.addEventListener('click', handlePaste);
+            fileBtn.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileUpload);
+            loadExampleBtn.addEventListener('click', loadExample);
+            clearBtn.addEventListener('click', clearAll);
+            parseBtn.addEventListener('click', parseJson);
+            generateBtn.addEventListener('click', generateOutput);
+            copyBtn.addEventListener('click', copyToClipboard);
+            downloadBtn.addEventListener('click', downloadJson);
+            validateBtn.addEventListener('click', validateJson);
+            addSiteBtn.addEventListener('click', addNewSite);
+            addParseBtn.addEventListener('click', addNewParse);
+            batchAddBtn.addEventListener('click', showGroupModal);
+            addGroupBtn.addEventListener('click', showGroupModal);
+            addGroupConfirmBtn.addEventListener('click', addSiteGroup);
+            closeModalBtn.addEventListener('click', hideGroupModal);
             
-            init() {
-                this.bindEvents();
-                this.loadExample();
-            }
-            
-            bindEvents() {
-                // 主控制按钮
-                document.getElementById('pasteBtn').addEventListener('click', () => this.handlePaste());
-                document.getElementById('fileBtn').addEventListener('click', () => document.getElementById('fileInput').click());
-                document.getElementById('fileInput').addEventListener('change', (e) => this.handleFileUpload(e));
-                document.getElementById('loadExampleBtn').addEventListener('click', () => this.loadExample());
-                document.getElementById('parseBtn').addEventListener('click', () => this.parseJson());
-                document.getElementById('clearBtn').addEventListener('click', () => this.clearAll());
-                document.getElementById('generateBtn').addEventListener('click', () => this.generateOutput());
-                document.getElementById('copyBtn').addEventListener('click', () => this.copyToClipboard());
-                document.getElementById('downloadBtn').addEventListener('click', () => this.downloadJson());
-                
-                // 标签页切换
-                document.querySelectorAll('.tab').forEach(tab => {
-                    tab.addEventListener('click', (e) => this.switchTab(e.target.getAttribute('data-tab')));
+            // 标签页切换
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    switchTab(tabId);
                 });
-                
-                // 折叠面板
-                document.querySelectorAll('.section-header').forEach(header => {
-                    header.addEventListener('click', (e) => this.toggleSection(e.currentTarget));
-                });
-                
-                // 锁定功能
-                document.querySelectorAll('.lock-checkbox').forEach(checkbox => {
-                    checkbox.addEventListener('change', (e) => this.toggleLock(e.target));
-                });
-                
-                // 模态框
-                document.querySelector('.close').addEventListener('click', () => this.hideModal());
-                document.getElementById('cancelBatchBtn').addEventListener('click', () => this.hideModal());
-                document.getElementById('deleteSelectedBtn').addEventListener('click', () => this.deleteSelectedSites());
-                
-                // 点播源操作
-                document.getElementById('addVodSourceBtn').addEventListener('click', () => this.addVodSource());
-                document.getElementById('deleteVodSourcesBtn').addEventListener('click', () => this.showBatchModal());
-                
-                // 直播源操作
-                document.getElementById('addLiveSourceBtn').addEventListener('click', () => this.addLiveSource());
-                
-                // 解析器操作
-                document.getElementById('addParserBtn').addEventListener('click', () => this.addParser());
-                
-                // 点击模态框外部关闭
-                window.addEventListener('click', (e) => {
-                    if (e.target === document.getElementById('batchModal')) {
-                        this.hideModal();
-                    }
-                });
-            }
+            });
             
-            switchTab(tabId) {
-                document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-                
-                document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
-                document.getElementById(tabId).classList.add('active');
-                
-                if (tabId === 'vod-sources') {
-                    this.renderVodSources();
-                } else if (tabId === 'live-sources') {
-                    this.renderLiveSources();
-                } else if (tabId === 'parsers') {
-                    this.renderParsersTable();
+            // 点击模态框外部关闭
+            window.addEventListener('click', (e) => {
+                if (e.target === groupModal) {
+                    hideGroupModal();
                 }
-            }
+            });
             
-            toggleSection(header) {
-                const content = header.nextElementSibling;
-                const icon = header.querySelector('.collapsible-icon') || 
-                             header.querySelector('.fa-chevron-down') || 
-                             header.querySelector('.fa-chevron-up');
-                
-                if (content.classList.contains('expanded')) {
-                    content.classList.remove('expanded');
-                    if (icon) icon.classList.remove('expanded');
-                } else {
-                    content.classList.add('expanded');
-                    if (icon) icon.classList.add('expanded');
-                }
-            }
+            // 加载示例数据
+            loadExample();
+        }
+        
+        // 切换标签页
+        function switchTab(tabId) {
+            // 移除所有活动标签
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
             
-            toggleLock(checkbox) {
-                const id = checkbox.id.replace('lock', '').toLowerCase();
-                this.lockedItems[id] = checkbox.checked;
-                const icon = document.getElementById(`${id}LockIcon`);
-                
-                if (checkbox.checked) {
-                    icon.classList.remove('fa-unlock');
-                    icon.classList.add('fa-lock', 'lock-icon');
-                } else {
-                    icon.classList.remove('fa-lock', 'lock-icon');
-                    icon.classList.add('fa-unlock', 'unlock-icon');
-                }
-                
-                this.showNotification(`${id}已${checkbox.checked ? '锁定' : '解锁'}`, 'success');
-            }
-            
-            async handlePaste() {
-                try {
-                    const text = await navigator.clipboard.readText();
-                    document.getElementById('jsonInput').value = text;
-                    this.showNotification('已从剪贴板粘贴内容');
-                } catch (err) {
-                    this.showNotification('无法访问剪贴板，请手动粘贴', 'error');
-                }
-            }
-            
-            handleFileUpload(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-                
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const content = e.target.result;
-                    document.getElementById('jsonInput').value = content;
-                    
-                    // 如果项目被锁定，保护这些值
-                    this.parseJson(true);
-                    this.showNotification(`已加载文件: ${file.name}`);
-                };
-                reader.readAsText(file);
-                
-                event.target.value = '';
-            }
-            
-            loadExample() {
-                const exampleJson = {
-                    "wallpaper": "http://127.0.0.1:9978/proxy?do=wall",
-                    "logo": "https://example.com/logo.jpg",
-                    "spider": "https://example.com/spider.jpg",
-                    "sites": [
-                        {
-                            "key": "蓝鹰",
-                            "name": "蓝鹰｜APP",
-                            "type": 3,
-                            "quickSearch": 1,
-                            "api": "csp_AppQi",
-                            "ext": {
-                                "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/lanyingxmy.txt",
-                                "dataKey": "ca94b06ca359d80e",
-                                "dataIv": "ca94b06ca359d80e",
-                                "version": "120"
-                            }
-                        },
-                        {
-                            "key": "开心",
-                            "name": "开心｜APP",
-                            "type": 3,
-                            "quickSearch": 1,
-                            "api": "csp_AppQi",
-                            "ext": {
-                                "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/gw.txt",
-                                "dataKey": "ca94b06ca3c7d80e",
-                                "dataIv": "ca94b06ca3c7d80e",
-                                "ua": "okhttp/3.10.0"
-                            }
-                        },
-                        {
-                            "key": "仓鼠",
-                            "name": "仓鼠｜APP",
-                            "type": 3,
-                            "quickSearch": 1,
-                            "api": "csp_AppQi",
-                            "ext": {
-                                "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/ceshi421.txt",
-                                "dataKey": "da61247f5b662597",
-                                "dataIv": "da61247f5b662597",
-                                "version": "120"
-                            }
-                        }
-                    ],
-                    "parses": [
-                        {"name": "聚合1", "type": 3, "url": "Demo"},
-                        {"name": "ikun", "type": 0, "url": "https://jx.hls.one/?url="}
-                    ],
-                    "lives": [
-                        {"name": "测试直播", "type": 0, "url": "http://example.com/live.m3u8"}
-                    ]
-                };
-                
-                document.getElementById('jsonInput').value = JSON.stringify(exampleJson, null, 2);
-                this.parseJson();
-                this.showNotification('已加载示例配置');
-            }
-            
-            parseJson(preserveLocked = false) {
-                try {
-                    const jsonText = document.getElementById('jsonInput').value.trim();
-                    if (!jsonText) {
-                        this.showNotification('请输入JSON数据', 'error');
-                        return;
-                    }
-                    
-                    const parsedData = JSON.parse(jsonText);
-                    
-                    // 保存锁定项的值
-                    const lockedValues = {};
-                    if (preserveLocked) {
-                        Object.keys(this.lockedItems).forEach(key => {
-                            if (this.lockedItems[key] && this.currentData[key]) {
-                                lockedValues[key] = this.currentData[key];
-                            }
-                        });
-                    }
-                    
-                    // 更新当前数据
-                    Object.keys(this.currentData).forEach(key => {
-                        if (parsedData[key] !== undefined) {
-                            this.currentData[key] = parsedData[key];
-                        }
-                    });
-                    
-                    // 恢复锁定的值
-                    Object.keys(lockedValues).forEach(key => {
-                        this.currentData[key] = lockedValues[key];
-                    });
-                    
-                    // 更新UI
-                    this.updateUIFromData();
-                    this.showNotification('JSON解析成功');
-                    
-                } catch (e) {
-                    this.showNotification(`JSON解析错误: ${e.message}`, 'error');
-                }
-            }
-            
-            updateUIFromData() {
-                // 更新锁定项的值
-                if (this.currentData.wallpaper) {
-                    document.getElementById('wallpaperInput').value = this.currentData.wallpaper;
-                }
-                if (this.currentData.logo) {
-                    document.getElementById('logoInput').value = this.currentData.logo;
-                }
-                if (this.currentData.spider) {
-                    document.getElementById('spiderInput').value = this.currentData.spider;
-                }
-                
-                // 渲染各个部分
-                this.renderVodSources();
-                this.renderLiveSources();
-                this.renderParsersTable();
-            }
-            
-            renderVodSources() {
-                const container = document.getElementById('vodSourcesList');
-                if (!this.currentData.sites || this.currentData.sites.length === 0) {
-                    container.innerHTML = '<div class="empty-state">暂无点播源数据</div>';
-                    return;
-                }
-                
-                let html = '';
-                this.currentData.sites.forEach((site, index) => {
-                    const siteName = site.name || `站点${index + 1}`;
-                    const siteKey = site.key || '无key';
-                    const siteApi = site.api || '无API';
-                    const siteUrl = site.ext && site.ext.site ? site.ext.site : '无URL';
-                    
-                    html += `
-                        <div class="item-group">
-                            <div class="item-header">
-                                <div class="item-name">${siteName}</div>
-                                <div>
-                                    <button class="btn btn-secondary btn-sm" onclick="editor.editVodSource(${index})" title="编辑">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm" onclick="editor.deleteVodSource(${index})" title="删除">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="item-details">
-                                <div class="detail-row">
-                                    <span class="detail-label">KEY:</span>
-                                    <span class="detail-value">${siteKey}</span>
-                                </div>
-                                <div class="detail-row">
-                                    <span class="detail-label">API:</span>
-                                    <span class="detail-value">${siteApi}</span>
-                                </div>
-                                <div class="detail-row">
-                                    <span class="detail-label">URL:</span>
-                                    <span class="detail-value" style="font-size: 0.75rem;">${siteUrl}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                container.innerHTML = html;
-            }
-            
-            renderLiveSources() {
-                const container = document.getElementById('liveSourcesList');
-                if (!this.currentData.lives || this.currentData.lives.length === 0) {
-                    container.innerHTML = '<div class="empty-state">暂无直播源数据</div>';
-                    return;
-                }
-                
-                let html = '';
-                this.currentData.lives.forEach((live, index) => {
-                    const liveName = live.name || `直播源${index + 1}`;
-                    const liveType = live.type || 0;
-                    const liveUrl = live.url || '无URL';
-                    
-                    html += `
-                        <div class="item-group">
-                            <div class="item-header">
-                                <div class="item-name">${liveName}</div>
-                                <div>
-                                    <button class="btn btn-secondary btn-sm" onclick="editor.editLiveSource(${index})">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm" onclick="editor.deleteLiveSource(${index})">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="item-details">
-                                <div class="detail-row">
-                                    <span class="detail-label">类型:</span>
-                                    <span class="detail-value">${liveType}</span>
-                                </div>
-                                <div class="detail-row">
-                                    <span class="detail-label">URL:</span>
-                                    <span class="detail-value" style="font-size: 0.75rem;">${liveUrl}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                container.innerHTML = html;
-            }
-            
-            renderParsersTable() {
-                const table = document.getElementById('parsersTable');
-                if (!this.currentData.parses || this.currentData.parses.length === 0) {
-                    table.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">暂无解析器数据</td></tr>';
-                    return;
-                }
-                
-                let html = '';
-                this.currentData.parses.forEach((parser, index) => {
-                    html += `
-                        <tr>
-                            <td><input type="text" class="compact-input" value="${parser.name || ''}" onchange="editor.updateParserField(${index}, 'name', this.value)"></td>
-                            <td><input type="number" class="compact-input" value="${parser.type || 0}" onchange="editor.updateParserField(${index}, 'type', this.value)"></td>
-                            <td><input type="text" class="compact-input" value="${parser.url || ''}" onchange="editor.updateParserField(${index}, 'url', this.value)"></td>
-                            <td class="action-cell">
-                                <button class="action-btn btn-danger" onclick="editor.deleteParser(${index})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-                });
-                
-                table.innerHTML = html;
-            }
-            
-            addVodSource() {
-                const newSite = {
-                    key: `新站点${this.currentData.sites.length + 1}`,
-                    name: "新点播源",
-                    type: 3,
-                    api: "csp_NewGuard",
-                    ext: {
-                        site: "https://example.com/site.txt",
-                        dataKey: "examplekey",
-                        dataIv: "exampleiv"
-                    }
-                };
-                
-                if (!this.currentData.sites) this.currentData.sites = [];
-                this.currentData.sites.push(newSite);
-                this.updateJsonInput();
-                this.renderVodSources();
-                this.showNotification('已添加新点播源');
-            }
-            
-            editVodSource(index) {
-                if (this.currentData.sites && this.currentData.sites[index]) {
-                    const site = this.currentData.sites[index];
-                    const newName = prompt('请输入新的站点名称:', site.name || '');
-                    if (newName !== null) {
-                        this.currentData.sites[index].name = newName;
-                        this.updateJsonInput();
-                        this.renderVodSources();
-                        this.showNotification('已更新站点名称');
-                    }
-                }
-            }
-            
-            deleteVodSource(index) {
-                if (this.currentData.sites && this.currentData.sites[index]) {
-                    if (confirm('确定要删除这个点播源吗？')) {
-                        this.currentData.sites.splice(index, 1);
-                        this.updateJsonInput();
-                        this.renderVodSources();
-                        this.showNotification('已删除点播源');
-                    }
-                }
-            }
-            
-            addLiveSource() {
-                const newLive = {
-                    name: `新直播源${this.currentData.lives.length + 1}`,
-                    type: 0,
-                    url: "http://example.com/live.m3u8"
-                };
-                
-                if (!this.currentData.lives) this.currentData.lives = [];
-                this.currentData.lives.push(newLive);
-                this.updateJsonInput();
-                this.renderLiveSources();
-                this.showNotification('已添加新直播源');
-            }
-            
-            editLiveSource(index) {
-                if (this.currentData.lives && this.currentData.lives[index]) {
-                    const live = this.currentData.lives[index];
-                    const newUrl = prompt('请输入新的直播源URL:', live.url || '');
-                    if (newUrl !== null) {
-                        this.currentData.lives[index].url = newUrl;
-                        this.updateJsonInput();
-                        this.renderLiveSources();
-                        this.showNotification('已更新直播源URL');
-                    }
-                }
-            }
-            
-            deleteLiveSource(index) {
-                if (this.currentData.lives && this.currentData.lives[index]) {
-                    if (confirm('确定要删除这个直播源吗？')) {
-                        this.currentData.lives.splice(index, 1);
-                        this.updateJsonInput();
-                        this.renderLiveSources();
-                        this.showNotification('已删除直播源');
-                    }
-                }
-            }
-            
-            addParser() {
-                const newParser = {
-                    name: `新解析器${this.currentData.parses.length + 1}`,
-                    type: 0,
-                    url: "https://example.com/jx/?url="
-                };
-                
-                if (!this.currentData.parses) this.currentData.parses = [];
-                this.currentData.parses.push(newParser);
-                this.updateJsonInput();
-                this.renderParsersTable();
-                this.showNotification('已添加新解析器');
-            }
-            
-            updateParserField(index, field, value) {
-                if (this.currentData.parses && this.currentData.parses[index]) {
-                    this.currentData.parses[index][field] = value;
-                    this.updateJsonInput();
-                }
-            }
-            
-            deleteParser(index) {
-                if (this.currentData.parses && this.currentData.parses[index]) {
-                    if (confirm('确定要删除这个解析器吗？')) {
-                        this.currentData.parses.splice(index, 1);
-                        this.updateJsonInput();
-                        this.renderParsersTable();
-                        this.showNotification('已删除解析器');
-                    }
-                }
-            }
-            
-            showBatchModal() {
-                const container = document.getElementById('batchSelection');
-                container.innerHTML = '';
-                
-                if (!this.currentData.sites || this.currentData.sites.length === 0) {
-                    container.innerHTML = '<div style="text-align: center; padding: 20px; color: #ccc;">暂无站点数据</div>';
-                } else {
-                    this.selectedSites.clear();
-                    
-                    this.currentData.sites.forEach((site, index) => {
-                        const siteName = site.name || `站点${index + 1}`;
-                        const div = document.createElement('div');
-                        div.className = 'batch-item';
-                        div.innerHTML = `
-                            <input type="checkbox" id="site-${index}" data-index="${index}">
-                            <label for="site-${index}" class="batch-item-name">${siteName}</label>
-                        `;
-                        div.querySelector('input').addEventListener('change', (e) => {
-                            if (e.target.checked) {
-                                this.selectedSites.add(parseInt(e.target.dataset.index));
-                                div.classList.add('selected');
-                            } else {
-                                this.selectedSites.delete(parseInt(e.target.dataset.index));
-                                div.classList.remove('selected');
-                            }
-                        });
-                        container.appendChild(div);
-                    });
-                }
-                
-                document.getElementById('batchModal').style.display = 'block';
-            }
-            
-            hideModal() {
-                document.getElementById('batchModal').style.display = 'none';
-            }
-            
-            deleteSelectedSites() {
-                if (this.selectedSites.size === 0) {
-                    this.showNotification('请先选择要删除的站点', 'warning');
-                    return;
-                }
-                
-                if (confirm(`确定要删除选中的 ${this.selectedSites.size} 个站点吗？`)) {
-                    // 从大到小排序，避免删除时索引变化
-                    const indices = Array.from(this.selectedSites).sort((a, b) => b - a);
-                    indices.forEach(index => {
-                        this.currentData.sites.splice(index, 1);
-                    });
-                    
-                    this.updateJsonInput();
-                    this.renderVodSources();
-                    this.hideModal();
-                    this.showNotification(`已删除 ${indices.length} 个站点`);
-                }
-            }
-            
-            updateJsonInput() {
-                // 更新锁定项的值
-                if (!this.lockedItems.wallpaper) {
-                    this.currentData.wallpaper = document.getElementById('wallpaperInput').value;
-                }
-                if (!this.lockedItems.logo) {
-                    this.currentData.logo = document.getElementById('logoInput').value;
-                }
-                if (!this.lockedItems.spider) {
-                    this.currentData.spider = document.getElementById('spiderInput').value;
-                }
-                
-                document.getElementById('jsonInput').value = JSON.stringify(this.currentData, null, 2);
-            }
-            
-            generateOutput() {
-                try {
-                    this.parseJson();
-                    const jsonString = JSON.stringify(this.currentData, null, 2);
-                    const highlighted = this.syntaxHighlight(jsonString);
-                    document.getElementById('jsonOutput').innerHTML = highlighted;
-                    this.showNotification('配置已生成');
-                } catch (e) {
-                    document.getElementById('jsonOutput').innerHTML = `<div style="color: #e74c3c;">JSON格式错误: ${e.message}</div>`;
-                    this.showNotification('JSON格式错误', 'error');
-                }
-            }
-            
-            syntaxHighlight(json) {
-                json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-                    let cls = 'json-number';
-                    if (/^"/.test(match)) {
-                        if (/:$/.test(match)) {
-                            cls = 'json-key';
-                        } else {
-                            cls = 'json-string';
-                        }
-                    } else if (/true|false/.test(match)) {
-                        cls = 'json-boolean';
-                    } else if (/null/.test(match)) {
-                        cls = 'json-null';
-                    }
-                    return '<span class="' + cls + '">' + match + '</span>';
-                });
-            }
-            
-            clearAll() {
-                document.getElementById('jsonInput').value = '';
-                document.getElementById('jsonOutput').innerHTML = '<div class="empty-state">JSON输出预览</div>';
-                document.getElementById('vodSourcesList').innerHTML = '';
-                document.getElementById('liveSourcesList').innerHTML = '';
-                document.getElementById('parsersTable').innerHTML = '';
-                
-                this.currentData = {
-                    sites: [],
-                    parses: [],
-                    wallpaper: "",
-                    logo: "",
-                    spider: "",
-                    doh: [],
-                    ads: [],
-                    lives: [],
-                    ijk: [],
-                    proxy: [],
-                    rules: []
-                };
-                
-                this.showNotification('已清空所有内容');
-            }
-            
-            copyToClipboard() {
-                const output = document.getElementById('jsonOutput').textContent;
-                if (!output || output.includes('JSON输出预览')) {
-                    this.showNotification('没有内容可复制', 'error');
-                    return;
-                }
-                
-                const textArea = document.createElement('textarea');
-                textArea.value = output;
-                document.body.appendChild(textArea);
-                textArea.select();
-                
-                try {
-                    document.execCommand('copy');
-                    this.showNotification('已复制到剪贴板');
-                } catch (err) {
-                    this.showNotification('复制失败', 'error');
-                }
-                
-                document.body.removeChild(textArea);
-            }
-            
-            downloadJson() {
-                if (!document.getElementById('jsonInput').value.trim()) {
-                    this.showNotification('没有内容可下载', 'error');
-                    return;
-                }
-                
-                try {
-                    this.parseJson();
-                    const data = JSON.stringify(this.currentData, null, 2);
-                    const blob = new Blob([data], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'tvbox_config.json';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                    
-                    this.showNotification('文件已下载');
-                } catch (e) {
-                    this.showNotification('下载失败，JSON格式错误', 'error');
-                }
-            }
-            
-            showNotification(message, type = 'success') {
-                const notification = document.getElementById('notification');
-                notification.textContent = message;
-                notification.className = 'notification show';
-                
-                if (type === 'error') {
-                    notification.classList.add('error');
-                } else if (type === 'warning') {
-                    notification.classList.add('warning');
-                } else {
-                    notification.classList.remove('error', 'warning');
-                }
-                
-                setTimeout(() => {
-                    notification.className = 'notification';
-                }, 3000);
+            // 激活当前标签
+            document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+        
+        // 处理粘贴
+        async function handlePaste() {
+            try {
+                const text = await navigator.clipboard.readText();
+                jsonInput.value = text;
+                showNotification('已从剪贴板粘贴内容');
+            } catch (err) {
+                showNotification('无法访问剪贴板，请手动粘贴', 'error');
             }
         }
         
-        // 初始化编辑器
-        const editor = new TVBoxEditor();
+        // 处理文件上传
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                jsonInput.value = e.target.result;
+                showNotification(`已加载文件: ${file.name}`);
+            };
+            reader.readAsText(file);
+            
+            // 重置input以允许再次选择同一文件
+            event.target.value = '';
+        }
         
-        // 暴露全局方法
-        window.editor = editor;
+        // 加载示例
+        function loadExample() {
+            const exampleJson = {
+                "spider": "https://gh-proxy.com/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/OK/lib/ok1.jpg;md5;83e2ccc1e3c050154d8390b60f1a2ae2",
+                "wallpaper": "http://127.0.0.1:9978/proxy?do=wall",
+                "logo": "https://storage.7x24cc.com/storage-server/presigned/ss1/a6-online-fileupload/newMediaImage/ACB34B_773_photo_2022-09-14_00-00-57_20251204145106336newMediaImage.jpg",
+                "sites": [
+                    {
+                        "key": "蓝鹰",
+                        "name": "蓝鹰｜APP",
+                        "type": 3,
+                        "quickSearch": 1,
+                        "api": "csp_AppQi",
+                        "ext": {
+                            "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/lanyingxmy.txt",
+                            "dataKey": "ca94b06ca359d80e",
+                            "dataIv": "ca94b06ca359d80e",
+                            "version": "120"
+                        }
+                    },
+                    {
+                        "key": "开心",
+                        "name": "开心｜APP",
+                        "type": 3,
+                        "quickSearch": 1,
+                        "api": "csp_AppQi",
+                        "ext": {
+                            "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/gw.txt",
+                            "dataKey": "ca94b06ca3c7d80e",
+                            "dataIv": "ca94b06ca3c7d80e",
+                            "ua": "okhttp/3.10.0"
+                        }
+                    },
+                    {
+                        "key": "仓鼠",
+                        "name": "仓鼠｜APP",
+                        "type": 3,
+                        "quickSearch": 1,
+                        "api": "csp_AppQi",
+                        "ext": {
+                            "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/ceshi421.txt",
+                            "dataKey": "da61247f5b662597",
+                            "dataIv": "da61247f5b662597",
+                            "version": "120"
+                        }
+                    }
+                ],
+                "parses": [
+                    {"name": "聚合1", "type": 3, "url": "Demo"},
+                    {"name": "聚合0", "type": 3, "url": "Web"},
+                    {"name": "ikun", "type": 0, "url": "https://jx.hls.one/?url="}
+                ],
+                "doh": [
+                    {"name": "Google", "url": "https://dns.google/dns-query", "ips": ["8.8.4.4", "8.8.8.8"]}
+                ],
+                "ads": ["mozai.4gtv.tv"],
+                "lives": [
+                    {"name": "MIGU", "type": 0, "url": "http://127.0.0.1:9978/proxy?do=live&url=https%3A%2F%2Fbc.188766.xyz%2F%3Fip%3D%26mishitong%3Dtrue%26mima%3Dmianfeibuhuaqian%26json%3Dtrue", "playerType": 2, "timeout": 10, "ua": "bingcha/1.1(mianfeifenxiang)"}
+                ],
+                "ijk": [
+                    {"group": "软解码", "options": [{"category": 4, "name": "opensles", "value": "0"}]}
+                ],
+                "proxy": ["raw.githubusercontent.com", "googlevideo.com"],
+                "rules": [
+                    {"name": "cl", "hosts": ["magnet"], "regex": ["最新", "直播", "更新"]}
+                ]
+            };
+            
+            jsonInput.value = JSON.stringify(exampleJson, null, 2);
+            parseJson();
+            showNotification('已加载示例配置');
+        }
+        
+        // 清空所有
+        function clearAll() {
+            jsonInput.value = '';
+            jsonOutput.innerHTML = '';
+            sitesTable.innerHTML = '';
+            parsesTable.innerHTML = '';
+            siteGroupsContainer.innerHTML = '';
+            showNotification('已清空所有内容');
+        }
+        
+        // 解析JSON
+        function parseJson() {
+            try {
+                const jsonText = jsonInput.value.trim();
+                if (!jsonText) {
+                    showNotification('请输入JSON数据', 'error');
+                    return;
+                }
+                
+                currentData = JSON.parse(jsonText);
+                
+                // 确保必要字段存在
+                if (!currentData.sites) currentData.sites = [];
+                if (!currentData.parses) currentData.parses = [];
+                if (!currentData.doh) currentData.doh = [];
+                if (!currentData.ads) currentData.ads = [];
+                if (!currentData.lives) currentData.lives = [];
+                if (!currentData.ijk) currentData.ijk = [];
+                if (!currentData.proxy) currentData.proxy = [];
+                if (!currentData.rules) currentData.rules = [];
+                
+                renderSitesTable();
+                renderParsesTable();
+                renderSiteGroups();
+                showNotification('JSON解析成功');
+            } catch (e) {
+                showNotification(`JSON解析错误: ${e.message}`, 'error');
+            }
+        }
+        
+        // 渲染站点表格
+        function renderSitesTable() {
+            sitesTable.innerHTML = '';
+            
+            if (!currentData.sites || currentData.sites.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="6" style="text-align: center; padding: 20px;">暂无站点数据</td>`;
+                sitesTable.appendChild(row);
+                return;
+            }
+            
+            currentData.sites.forEach((site, index) => {
+                const row = document.createElement('tr');
+                const extText = site.ext ? JSON.stringify(site.ext, null, 2) : '';
+                
+                row.innerHTML = `
+                    <td class="action-cell">
+                        <button class="action-btn btn-primary" onclick="editSite(${index})" title="编辑">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn btn-danger" onclick="deleteSite(${index})" title="删除">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td><input type="text" value="${site.name || ''}" onchange="updateSiteField(${index}, 'name', this.value)" style="width: 100%;"></td>
+                    <td><input type="text" value="${site.key || ''}" onchange="updateSiteField(${index}, 'key', this.value)" style="width: 100%;"></td>
+                    <td><input type="text" value="${site.api || ''}" onchange="updateSiteField(${index}, 'api', this.value)" style="width: 100%;"></td>
+                    <td><input type="number" value="${site.type || 3}" onchange="updateSiteField(${index}, 'type', parseInt(this.value) || 3)" style="width: 100%;"></td>
+                    <td><textarea onchange="updateSiteField(${index}, 'ext', this.value)" style="width: 100%; height: 60px; font-family: monospace; font-size: 0.8rem;">${extText}</textarea></td>
+                `;
+                
+                sitesTable.appendChild(row);
+            });
+        }
+        
+        // 渲染解析器表格
+        function renderParsesTable() {
+            parsesTable.innerHTML = '';
+            
+            if (!currentData.parses || currentData.parses.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="4" style="text-align: center; padding: 20px;">暂无解析器数据</td>`;
+                parsesTable.appendChild(row);
+                return;
+            }
+            
+            currentData.parses.forEach((parse, index) => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td class="action-cell">
+                        <button class="action-btn btn-primary" onclick="editParse(${index})" title="编辑">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn btn-danger" onclick="deleteParse(${index})" title="删除">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                    <td><input type="text" value="${parse.name || ''}" onchange="updateParseField(${index}, 'name', this.value)" style="width: 100%;"></td>
+                    <td><input type="number" value="${parse.type || 0}" onchange="updateParseField(${index}, 'type', parseInt(this.value) || 0)" style="width: 100%;"></td>
+                    <td><input type="text" value="${parse.url || ''}" onchange="updateParseField(${index}, 'url', this.value)" style="width: 100%;"></td>
+                `;
+                
+                parsesTable.appendChild(row);
+            });
+        }
+        
+        // 渲染站点组
+        function renderSiteGroups() {
+            siteGroupsContainer.innerHTML = '';
+            
+            if (!currentData.sites || currentData.sites.length === 0) {
+                siteGroupsContainer.innerHTML = '<p style="text-align: center; padding: 20px; color: #ccc;">暂无站点组数据</p>';
+                return;
+            }
+            
+            // 将站点分组显示，每3个一组
+            for (let i = 0; i < currentData.sites.length; i += 3) {
+                const group = currentData.sites.slice(i, i + 3);
+                const groupIndex = Math.floor(i / 3);
+                
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'site-group';
+                
+                let groupHtml = `
+                    <div class="site-group-header">
+                        <div class="site-group-title">站点组 ${groupIndex + 1}</div>
+                        <div>
+                            <button class="btn btn-danger" onclick="deleteSiteGroup(${groupIndex})" style="padding: 5px 10px; font-size: 0.9rem;">
+                                <i class="fas fa-trash"></i> 删除整组
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                group.forEach((site, idx) => {
+                    const siteIndex = i + idx;
+                    groupHtml += `
+                        <div class="field-row">
+                            <div class="field-label">站点 ${idx + 1}</div>
+                            <div class="field-input">
+                                <input type="text" value="${site.name || ''}" onchange="updateSiteField(${siteIndex}, 'name', this.value)" placeholder="站点名称" style="width: 100%;">
+                            </div>
+                            <div class="field-actions">
+                                <button class="action-btn btn-primary" onclick="editSite(${siteIndex})" title="编辑">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-danger" onclick="deleteSite(${siteIndex})" title="删除">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-label">API</div>
+                            <div class="field-input">
+                                <input type="text" value="${site.api || ''}" onchange="updateSiteField(${siteIndex}, 'api', this.value)" placeholder="API名称" style="width: 100%;">
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-label">站点URL</div>
+                            <div class="field-input">
+                                <input type="text" value="${site.ext && site.ext.site ? site.ext.site : ''}" onchange="updateExtField(${siteIndex}, 'site', this.value)" placeholder="站点URL" style="width: 100%;">
+                            </div>
+                        </div>
+                        ${idx < group.length - 1 ? '<hr style="margin: 10px 0; border-color: rgba(255,255,255,0.1);">' : ''}
+                    `;
+                });
+                
+                groupDiv.innerHTML = groupHtml;
+                siteGroupsContainer.appendChild(groupDiv);
+            }
+        }
+        
+        // 更新站点字段
+        function updateSiteField(index, field, value) {
+            if (currentData.sites && currentData.sites[index]) {
+                currentData.sites[index][field] = value;
+                updateJsonInput();
+                showNotification(`已更新站点 ${index + 1} 的 ${field} 字段`);
+            }
+        }
+        
+        // 更新扩展字段
+        function updateExtField(siteIndex, field, value) {
+            if (currentData.sites && currentData.sites[siteIndex]) {
+                if (!currentData.sites[siteIndex].ext) {
+                    currentData.sites[siteIndex].ext = {};
+                }
+                currentData.sites[siteIndex].ext[field] = value;
+                updateJsonInput();
+                showNotification(`已更新站点 ${siteIndex + 1} 的 ext.${field} 字段`);
+            }
+        }
+        
+        // 更新解析器字段
+        function updateParseField(index, field, value) {
+            if (currentData.parses && currentData.parses[index]) {
+                currentData.parses[index][field] = value;
+                updateJsonInput();
+                showNotification(`已更新解析器 ${index + 1} 的 ${field} 字段`);
+            }
+        }
+        
+        // 更新JSON输入框
+        function updateJsonInput() {
+            jsonInput.value = JSON.stringify(currentData, null, 2);
+        }
+        
+        // 添加新站点
+        function addNewSite() {
+            const newSite = {
+                key: `新站点${currentData.sites.length + 1}`,
+                name: "新站点",
+                type: 3,
+                api: "csp_NewGuard",
+                searchable: 1,
+                changeable: 1,
+                ext: {
+                    site: "https://example.com/site.txt",
+                    dataKey: "examplekey",
+                    dataIv: "exampleiv"
+                }
+            };
+            
+            if (!currentData.sites) currentData.sites = [];
+            currentData.sites.push(newSite);
+            updateJsonInput();
+            renderSitesTable();
+            renderSiteGroups();
+            showNotification('已添加新站点');
+        }
+        
+        // 添加新解析器
+        function addNewParse() {
+            const newParse = {
+                name: `新解析器${currentData.parses.length + 1}`,
+                type: 0,
+                url: "https://example.com/jx/?url="
+            };
+            
+            if (!currentData.parses) currentData.parses = [];
+            currentData.parses.push(newParse);
+            updateJsonInput();
+            renderParsesTable();
+            showNotification('已添加新解析器');
+        }
+        
+        // 编辑站点
+        function editSite(index) {
+            if (currentData.sites && currentData.sites[index]) {
+                const site = currentData.sites[index];
+                const newJson = prompt(`编辑站点 ${index + 1} 的完整JSON:`, JSON.stringify(site, null, 2));
+                
+                if (newJson) {
+                    try {
+                        const parsedSite = JSON.parse(newJson);
+                        currentData.sites[index] = parsedSite;
+                        updateJsonInput();
+                        renderSitesTable();
+                        renderSiteGroups();
+                        showNotification(`已更新站点 ${index + 1}`);
+                    } catch (e) {
+                        showNotification(`JSON格式错误: ${e.message}`, 'error');
+                    }
+                }
+            }
+        }
+        
+        // 编辑解析器
+        function editParse(index) {
+            if (currentData.parses && currentData.parses[index]) {
+                const parse = currentData.parses[index];
+                const newJson = prompt(`编辑解析器 ${index + 1} 的完整JSON:`, JSON.stringify(parse, null, 2));
+                
+                if (newJson) {
+                    try {
+                        const parsedParse = JSON.parse(newJson);
+                        currentData.parses[index] = parsedParse;
+                        updateJsonInput();
+                        renderParsesTable();
+                        showNotification(`已更新解析器 ${index + 1}`);
+                    } catch (e) {
+                        showNotification(`JSON格式错误: ${e.message}`, 'error');
+                    }
+                }
+            }
+        }
+        
+        // 删除站点
+        function deleteSite(index) {
+            if (currentData.sites && currentData.sites[index]) {
+                if (confirm(`确定要删除站点 "${currentData.sites[index].name}" 吗？`)) {
+                    currentData.sites.splice(index, 1);
+                    updateJsonInput();
+                    renderSitesTable();
+                    renderSiteGroups();
+                    showNotification('已删除站点');
+                }
+            }
+        }
+        
+        // 删除解析器
+        function deleteParse(index) {
+            if (currentData.parses && currentData.parses[index]) {
+                if (confirm(`确定要删除解析器 "${currentData.parses[index].name}" 吗？`)) {
+                    currentData.parses.splice(index, 1);
+                    updateJsonInput();
+                    renderParsesTable();
+                    showNotification('已删除解析器');
+                }
+            }
+        }
+        
+        // 删除站点组
+        function deleteSiteGroup(groupIndex) {
+            if (!currentData.sites || currentData.sites.length === 0) return;
+            
+            const startIndex = groupIndex * 3;
+            const endIndex = Math.min(startIndex + 3, currentData.sites.length);
+            
+            if (confirm(`确定要删除站点组 ${groupIndex + 1}（包含 ${endIndex - startIndex} 个站点）吗？`)) {
+                currentData.sites.splice(startIndex, endIndex - startIndex);
+                updateJsonInput();
+                renderSitesTable();
+                renderSiteGroups();
+                showNotification(`已删除站点组 ${groupIndex + 1}`);
+            }
+        }
+        
+        // 显示批量添加模态框
+        function showGroupModal() {
+            groupModal.style.display = 'block';
+        }
+        
+        // 隐藏批量添加模态框
+        function hideGroupModal() {
+            groupModal.style.display = 'none';
+        }
+        
+        // 添加站点组
+        function addSiteGroup() {
+            try {
+                const groupJson = groupJsonInput.value.trim();
+                if (!groupJson) {
+                    showNotification('请输入站点组JSON数据', 'error');
+                    return;
+                }
+                
+                const sites = JSON.parse(groupJson);
+                if (!Array.isArray(sites)) {
+                    showNotification('请输入站点数组', 'error');
+                    return;
+                }
+                
+                if (!currentData.sites) currentData.sites = [];
+                currentData.sites.push(...sites);
+                updateJsonInput();
+                renderSitesTable();
+                renderSiteGroups();
+                hideGroupModal();
+                showNotification(`已添加 ${sites.length} 个站点`);
+            } catch (e) {
+                showNotification(`JSON格式错误: ${e.message}`, 'error');
+            }
+        }
+        
+        // 生成输出
+        function generateOutput() {
+            try {
+                parseJson(); // 先解析以确保数据最新
+                jsonOutput.innerHTML = syntaxHighlight(JSON.stringify(currentData, null, 2));
+                showNotification('配置已生成');
+            } catch (e) {
+                jsonOutput.innerHTML = `<div style="color: #e74c3c;">JSON格式错误: ${e.message}</div>`;
+                showNotification('JSON格式错误', 'error');
+            }
+        }
+        
+        // JSON语法高亮
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                let cls = 'json-number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+        
+        // 验证JSON
+        function validateJson() {
+            try {
+                JSON.parse(jsonInput.value);
+                showNotification('JSON格式有效');
+            } catch (e) {
+                showNotification(`JSON格式无效: ${e.message}`, 'error');
+            }
+        }
+        
+        // 复制到剪贴板
+        function copyToClipboard() {
+            if (!jsonOutput.textContent) {
+                showNotification('没有内容可复制', 'error');
+                return;
+            }
+            
+            const textArea = document.createElement('textarea');
+            textArea.value = jsonOutput.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showNotification('已复制到剪贴板');
+            } catch (err) {
+                showNotification('复制失败', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        // 下载JSON文件
+        function downloadJson() {
+            if (!jsonInput.value.trim()) {
+                showNotification('没有内容可下载', 'error');
+                return;
+            }
+            
+            try {
+                const data = JSON.parse(jsonInput.value);
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'tvbox_config.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showNotification('文件已下载');
+            } catch (e) {
+                showNotification('下载失败，JSON格式错误', 'error');
+            }
+        }
+        
+        // 显示通知
+        function showNotification(message, type = 'success') {
+            notification.textContent = message;
+            notification.className = 'notification show';
+            
+            if (type === 'error') {
+                notification.classList.add('error');
+            } else if (type === 'warning') {
+                notification.classList.add('warning');
+            } else {
+                notification.classList.remove('error', 'warning');
+            }
+            
+            setTimeout(() => {
+                notification.className = 'notification';
+            }, 3000);
+        }
+        
+        // 初始化应用
+        window.onload = init;
+        
+        // 暴露函数给全局作用域
+        window.updateSiteField = updateSiteField;
+        window.updateExtField = updateExtField;
+        window.updateParseField = updateParseField;
+        window.editSite = editSite;
+        window.editParse = editParse;
+        window.deleteSite = deleteSite;
+        window.deleteParse = deleteParse;
+        window.deleteSiteGroup = deleteSiteGroup;
     </script>
 </body>
 </html>
