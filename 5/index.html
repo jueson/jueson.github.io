@@ -12,7 +12,7 @@
             --danger-color: #e74c3c;
             --warning-color: #f39c12;
             --light-bg: #f8f9fa;
-            --dark-bg: #343a40;
+            --dark-bg: #2c3e50;
             --border-color: #dee2e6;
         }
         
@@ -27,45 +27,45 @@
             background-color: #f0f2f5;
             color: #333;
             line-height: 1.6;
-            padding: 20px;
+            padding: 10px;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
         
         header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 20px;
+            padding: 12px 20px;
             text-align: center;
         }
         
         h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
         }
         
         .subtitle {
-            font-size: 1rem;
+            font-size: 0.9rem;
             opacity: 0.9;
         }
         
         .main-content {
             display: flex;
-            min-height: 600px;
+            min-height: 650px;
         }
         
         .sidebar {
-            width: 250px;
+            width: 200px;
             background: var(--dark-bg);
             color: white;
-            padding: 20px 0;
+            padding: 15px 0;
         }
         
         .module-list {
@@ -73,10 +73,11 @@
         }
         
         .module-item {
-            padding: 12px 20px;
+            padding: 10px 15px;
             cursor: pointer;
             transition: all 0.3s;
-            border-left: 4px solid transparent;
+            border-left: 3px solid transparent;
+            font-size: 0.9rem;
         }
         
         .module-item:hover {
@@ -85,64 +86,66 @@
         
         .module-item.active {
             background: rgba(255, 255, 255, 0.15);
-            border-left: 4px solid var(--primary-color);
+            border-left: 3px solid var(--primary-color);
         }
         
         .editor-area {
             flex: 1;
-            padding: 20px;
+            padding: 15px;
             overflow-y: auto;
-            max-height: 700px;
+            max-height: 650px;
         }
         
         .editor-section {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
             border-bottom: 1px solid var(--border-color);
         }
         
         .section-title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
             color: var(--primary-color);
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
         
         .section-title i {
-            margin-right: 10px;
+            margin-right: 8px;
         }
         
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             font-weight: 500;
+            font-size: 0.9rem;
         }
         
         input[type="text"], textarea {
             width: 100%;
-            padding: 10px;
+            padding: 8px 10px;
             border: 1px solid var(--border-color);
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 0.9rem;
         }
         
         textarea {
-            min-height: 100px;
+            min-height: 80px;
             resize: vertical;
             font-family: monospace;
         }
         
         .btn {
-            padding: 8px 15px;
+            padding: 6px 12px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 0.85rem;
             font-weight: 500;
             transition: all 0.3s;
         }
@@ -169,20 +172,20 @@
         
         .btn:hover {
             opacity: 0.9;
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
         
         .btn-group {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 8px;
+            margin-top: 8px;
         }
         
         .group-container {
             border: 1px solid var(--border-color);
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 15px;
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 12px;
             position: relative;
         }
         
@@ -190,43 +193,38 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .group-title {
             font-weight: bold;
             color: var(--secondary-color);
+            font-size: 0.9rem;
         }
         
         .group-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 8px;
         }
         
-        .lock-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            color: #777;
-        }
-        
-        .lock-btn.locked {
-            color: var(--warning-color);
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .add-group-btn {
             background: var(--success-color);
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 4px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            margin: 0 0 15px 0;
+            margin: 0 0 10px 0;
+            font-size: 0.85rem;
         }
         
         .add-group-btn i {
@@ -234,7 +232,7 @@
         }
         
         .footer {
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             background: var(--light-bg);
             border-top: 1px solid var(--border-color);
@@ -243,24 +241,25 @@
         .action-buttons {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
         }
         
         .action-btn {
-            padding: 12px 25px;
-            font-size: 16px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
         }
         
         .notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 5px;
+            top: 15px;
+            right: 15px;
+            padding: 12px 20px;
+            border-radius: 4px;
             background: var(--success-color);
             color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             transform: translateX(150%);
             transition: transform 0.3s ease;
             z-index: 1000;
@@ -280,18 +279,28 @@
         
         .input-methods {
             display: flex;
+            flex-direction: column;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .input-method-row {
+            display: flex;
+            gap: 10px;
         }
         
         .input-method {
             flex: 1;
-            padding: 15px;
+            padding: 10px;
             border: 2px dashed var(--border-color);
-            border-radius: 5px;
+            border-radius: 4px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .input-method:hover {
@@ -300,14 +309,27 @@
         }
         
         .input-method i {
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
             color: var(--primary-color);
+        }
+        
+        .paste-container {
+            position: relative;
+            flex: 2;
+        }
+        
+        .reload-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            padding: 4px 8px;
+            font-size: 0.8rem;
         }
         
         .two-column-input {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         
         .two-column-input .form-group {
@@ -315,55 +337,56 @@
         }
         
         .compact-input {
-            font-size: 12px;
-            min-height: 60px;
+            font-size: 0.8rem;
+            min-height: 50px;
         }
         
         .full-json-input {
-            min-height: 120px;
-            font-size: 12px;
+            min-height: 100px;
+            font-size: 0.8rem;
         }
         
         .output-area {
-            margin-top: 20px;
+            margin-top: 15px;
             border: 1px solid var(--border-color);
-            border-radius: 5px;
-            padding: 15px;
+            border-radius: 4px;
+            padding: 12px;
         }
         
         .output-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .output-title {
             font-weight: bold;
             color: var(--secondary-color);
+            font-size: 0.9rem;
         }
         
         .output-content {
             background: #f8f9fa;
             border-radius: 4px;
-            padding: 10px;
+            padding: 8px;
             font-family: monospace;
             white-space: pre-wrap;
             word-break: break-all;
-            max-height: 300px;
+            max-height: 250px;
             overflow-y: auto;
+            font-size: 0.8rem;
         }
         
-        .paste-container {
-            position: relative;
+        .batch-actions {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
         }
         
-        .reload-btn {
-            position: absolute;
-            right: 10px;
-            top: 10px;
+        .batch-btn {
             padding: 5px 10px;
-            font-size: 12px;
+            font-size: 0.8rem;
         }
         
         @media (max-width: 768px) {
@@ -375,7 +398,7 @@
                 width: 100%;
             }
             
-            .input-methods {
+            .input-method-row {
                 flex-direction: column;
             }
             
@@ -384,7 +407,13 @@
             }
             
             .action-buttons {
-                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-btn {
+                width: 100%;
+                max-width: 300px;
             }
         }
     </style>
@@ -404,34 +433,35 @@
                     <li class="module-item" data-module="sites"><i class="fas fa-film"></i> 点播模块</li>
                     <li class="module-item" data-module="lives"><i class="fas fa-satellite"></i> 直播模块</li>
                     <li class="module-item" data-module="parses"><i class="fas fa-code"></i> 解析模块</li>
-                    <li class="module-item" data-module="custom"><i class="fas fa-user-cog"></i> 自定义模块</li>
                     <li class="module-item" data-module="others"><i class="fas fa-sliders-h"></i> 其他设置</li>
-                    <li class="module-item" data-module="advanced"><i class="fas fa-tools"></i> 高级设置</li>
+                    <li class="module-item" data-module="extra"><i class="fas fa-plus-circle"></i> 其他模块</li>
                 </ul>
             </div>
             
             <div class="editor-area">
                 <div class="input-methods">
-                    <div class="input-method" id="paste-method">
-                        <i class="fas fa-paste"></i>
-                        <p>粘贴JSON内容</p>
-                        <div class="paste-container">
-                            <textarea id="json-paste" placeholder="在此处粘贴JSON内容..."></textarea>
+                    <div class="input-method-row">
+                        <div class="input-method paste-container" id="paste-method">
+                            <i class="fas fa-paste"></i>
+                            <p>粘贴JSON内容</p>
+                            <textarea id="json-paste" placeholder="在此处粘贴JSON内容..." style="height: 120px;"></textarea>
                             <button class="btn btn-primary reload-btn" id="reload-json">
                                 <i class="fas fa-redo"></i> 重新加载
                             </button>
                         </div>
                     </div>
-                    <div class="input-method" id="file-method">
-                        <i class="fas fa-file-upload"></i>
-                        <p>上传JSON文件</p>
-                        <input type="file" id="file-input" accept=".json">
-                    </div>
-                    <div class="input-method" id="url-method">
-                        <i class="fas fa-link"></i>
-                        <p>从URL加载</p>
-                        <input type="text" id="url-input" placeholder="输入JSON文件URL">
-                        <button class="btn btn-primary" id="load-url">加载</button>
+                    <div class="input-method-row">
+                        <div class="input-method" id="file-method">
+                            <i class="fas fa-file-upload"></i>
+                            <p>上传JSON文件</p>
+                            <input type="file" id="file-input" accept=".json" style="margin-top: 5px;">
+                        </div>
+                        <div class="input-method" id="url-method">
+                            <i class="fas fa-link"></i>
+                            <p>从URL加载</p>
+                            <input type="text" id="url-input" placeholder="输入JSON文件URL" style="margin: 5px 0;">
+                            <button class="btn btn-primary" id="load-url" style="width: 100%;">加载</button>
+                        </div>
                     </div>
                 </div>
                 
@@ -459,13 +489,24 @@
                     </div>
                     
                     <div class="btn-group">
-                        <button class="btn btn-primary" id="save-general">保存设置</button>
-                        <button class="btn btn-warning" id="reset-general">重置</button>
+                        <button class="btn btn-warning" id="lock-general">
+                            <i class="fas fa-lock"></i> 锁定设置
+                        </button>
                     </div>
                 </div>
                 
                 <div id="sites-editor" class="editor-section hidden">
-                    <h2 class="section-title"><i class="fas fa-film"></i> 点播模块 (sites)</h2>
+                    <h2 class="section-title">
+                        <i class="fas fa-film"></i> 点播模块 (sites)
+                        <div class="batch-actions">
+                            <button class="btn btn-danger batch-btn" id="batch-delete-sites">
+                                <i class="fas fa-trash"></i> 批量删除
+                            </button>
+                            <button class="btn btn-warning batch-btn" id="batch-lock-sites">
+                                <i class="fas fa-lock"></i> 批量锁定
+                            </button>
+                        </div>
+                    </h2>
                     
                     <button class="add-group-btn" id="add-site-group">
                         <i class="fas fa-plus"></i> 添加站点组
@@ -477,7 +518,17 @@
                 </div>
                 
                 <div id="lives-editor" class="editor-section hidden">
-                    <h2 class="section-title"><i class="fas fa-satellite"></i> 直播模块 (lives)</h2>
+                    <h2 class="section-title">
+                        <i class="fas fa-satellite"></i> 直播模块 (lives)
+                        <div class="batch-actions">
+                            <button class="btn btn-danger batch-btn" id="batch-delete-lives">
+                                <i class="fas fa-trash"></i> 批量删除
+                            </button>
+                            <button class="btn btn-warning batch-btn" id="batch-lock-lives">
+                                <i class="fas fa-lock"></i> 批量锁定
+                            </button>
+                        </div>
+                    </h2>
                     
                     <button class="add-group-btn" id="add-live-group">
                         <i class="fas fa-plus"></i> 添加直播源
@@ -489,7 +540,17 @@
                 </div>
                 
                 <div id="parses-editor" class="editor-section hidden">
-                    <h2 class="section-title"><i class="fas fa-code"></i> 解析模块 (parses)</h2>
+                    <h2 class="section-title">
+                        <i class="fas fa-code"></i> 解析模块 (parses)
+                        <div class="batch-actions">
+                            <button class="btn btn-danger batch-btn" id="batch-delete-parses">
+                                <i class="fas fa-trash"></i> 批量删除
+                            </button>
+                            <button class="btn btn-warning batch-btn" id="batch-lock-parses">
+                                <i class="fas fa-lock"></i> 批量锁定
+                            </button>
+                        </div>
+                    </h2>
                     
                     <button class="add-group-btn" id="add-parse-group">
                         <i class="fas fa-plus"></i> 添加解析源
@@ -500,74 +561,67 @@
                     </div>
                 </div>
                 
-                <div id="custom-editor" class="editor-section hidden">
-                    <h2 class="section-title"><i class="fas fa-user-cog"></i> 自定义模块</h2>
-                    
-                    <div class="form-group">
-                        <label for="custom-json">自定义JSON配置</label>
-                        <textarea id="custom-json" placeholder='在此处添加自定义的JSON配置，例如：
-{
-  "customSetting1": "value1",
-  "customSetting2": ["item1", "item2"]
-}'></textarea>
-                    </div>
-                    
-                    <div class="btn-group">
-                        <button class="btn btn-primary" id="save-custom">保存设置</button>
-                        <button class="btn btn-warning" id="reset-custom">重置</button>
-                    </div>
-                </div>
-                
                 <div id="others-editor" class="editor-section hidden">
                     <h2 class="section-title"><i class="fas fa-sliders-h"></i> 其他设置</h2>
                     
                     <div class="form-group">
                         <label for="hosts">Hosts</label>
-                        <textarea id="hosts" placeholder="每行一个host映射"></textarea>
+                        <textarea id="hosts" placeholder="每行一个host映射" style="height: 80px;"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="doh">DOH设置</label>
-                        <textarea id="doh" placeholder="DNS over HTTPS配置"></textarea>
+                        <textarea id="doh" placeholder="DNS over HTTPS配置" style="height: 100px;"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="flags">Flags</label>
-                        <textarea id="flags" placeholder="每行一个flag"></textarea>
+                        <textarea id="flags" placeholder="每行一个flag" style="height: 80px;"></textarea>
                     </div>
-                    
-                    <div class="btn-group">
-                        <button class="btn btn-primary" id="save-others">保存设置</button>
-                        <button class="btn btn-warning" id="reset-others">重置</button>
-                    </div>
-                </div>
-                
-                <div id="advanced-editor" class="editor-section hidden">
-                    <h2 class="section-title"><i class="fas fa-tools"></i> 高级设置</h2>
                     
                     <div class="form-group">
                         <label for="rules">规则 (rules)</label>
-                        <textarea id="rules" placeholder="规则配置"></textarea>
+                        <textarea id="rules" placeholder="规则配置" style="height: 100px;"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="ijk">IJK播放器设置</label>
-                        <textarea id="ijk" placeholder="IJK播放器配置"></textarea>
+                        <textarea id="ijk" placeholder="IJK播放器配置" style="height: 100px;"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="proxy">代理设置</label>
-                        <textarea id="proxy" placeholder="代理配置"></textarea>
+                        <textarea id="proxy" placeholder="代理配置" style="height: 80px;"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="ads">广告过滤</label>
-                        <textarea id="ads" placeholder="广告域名列表"></textarea>
+                        <textarea id="ads" placeholder="广告域名列表" style="height: 80px;"></textarea>
                     </div>
                     
                     <div class="btn-group">
-                        <button class="btn btn-primary" id="save-advanced">保存设置</button>
-                        <button class="btn btn-warning" id="reset-advanced">重置</button>
+                        <button class="btn btn-warning" id="lock-others">
+                            <i class="fas fa-lock"></i> 锁定设置
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="extra-editor" class="editor-section hidden">
+                    <h2 class="section-title"><i class="fas fa-plus-circle"></i> 其他模块</h2>
+                    
+                    <div class="form-group">
+                        <label for="extra-json">其他/自定义JSON配置</label>
+                        <textarea id="extra-json" placeholder='在此处添加其他自定义的JSON配置，例如：
+{
+  "customSetting1": "value1",
+  "customSetting2": ["item1", "item2"]
+}' style="height: 300px;"></textarea>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-warning" id="lock-extra">
+                            <i class="fas fa-lock"></i> 锁定设置
+                        </button>
                     </div>
                 </div>
             </div>
@@ -587,7 +641,7 @@
                 <button class="btn btn-danger action-btn" id="encrypt-json">
                     <i class="fas fa-lock"></i> 简单加密
                 </button>
-                <button class="btn btn-warning action-btn" id="clear-all">
+                <button class="btn btn-danger action-btn" id="clear-all">
                     <i class="fas fa-trash"></i> 清空所有
                 </button>
             </div>
@@ -822,11 +876,32 @@
             // 复制输出
             document.getElementById('copy-output').addEventListener('click', copyOutput);
             
-            // 保存通用设置
-            document.getElementById('save-general').addEventListener('click', saveGeneralSettings);
+            // 锁定通用设置
+            document.getElementById('lock-general').addEventListener('click', lockGeneralSettings);
             
-            // 重置通用设置
-            document.getElementById('reset-general').addEventListener('click', resetGeneralSettings);
+            // 批量删除站点
+            document.getElementById('batch-delete-sites').addEventListener('click', batchDeleteSites);
+            
+            // 批量锁定站点
+            document.getElementById('batch-lock-sites').addEventListener('click', batchLockSites);
+            
+            // 批量删除直播
+            document.getElementById('batch-delete-lives').addEventListener('click', batchDeleteLives);
+            
+            // 批量锁定直播
+            document.getElementById('batch-lock-lives').addEventListener('click', batchLockLives);
+            
+            // 批量删除解析
+            document.getElementById('batch-delete-parses').addEventListener('click', batchDeleteParses);
+            
+            // 批量锁定解析
+            document.getElementById('batch-lock-parses').addEventListener('click', batchLockParses);
+            
+            // 锁定其他设置
+            document.getElementById('lock-others').addEventListener('click', lockOthersSettings);
+            
+            // 锁定其他模块
+            document.getElementById('lock-extra').addEventListener('click', lockExtraSettings);
             
             // 添加站点组
             document.getElementById('add-site-group').addEventListener('click', addSiteGroup);
@@ -836,24 +911,6 @@
             
             // 添加解析源
             document.getElementById('add-parse-group').addEventListener('click', addParseGroup);
-            
-            // 保存自定义设置
-            document.getElementById('save-custom').addEventListener('click', saveCustomSettings);
-            
-            // 重置自定义设置
-            document.getElementById('reset-custom').addEventListener('click', resetCustomSettings);
-            
-            // 保存其他设置
-            document.getElementById('save-others').addEventListener('click', saveOthersSettings);
-            
-            // 重置其他设置
-            document.getElementById('reset-others').addEventListener('click', resetOthersSettings);
-            
-            // 保存高级设置
-            document.getElementById('save-advanced').addEventListener('click', saveAdvancedSettings);
-            
-            // 重置高级设置
-            document.getElementById('reset-advanced').addEventListener('click', resetAdvancedSettings);
         }
         
         // 加载JSON数据到编辑器
@@ -876,23 +933,21 @@
             // 填充解析
             populateParses(data.parses || []);
             
-            // 填充自定义设置
-            if (data.custom) {
-                document.getElementById('custom-json').value = JSON.stringify(data.custom, null, 2);
-            } else {
-                document.getElementById('custom-json').value = '';
-            }
-            
             // 填充其他设置
             document.getElementById('hosts').value = Array.isArray(data.hosts) ? data.hosts.join('\n') : '';
             document.getElementById('doh').value = JSON.stringify(data.doh || [], null, 2);
             document.getElementById('flags').value = Array.isArray(data.flags) ? data.flags.join('\n') : '';
-            
-            // 填充高级设置
             document.getElementById('rules').value = JSON.stringify(data.rules || [], null, 2);
             document.getElementById('ijk').value = JSON.stringify(data.ijk || [], null, 2);
             document.getElementById('proxy').value = Array.isArray(data.proxy) ? data.proxy.join('\n') : '';
             document.getElementById('ads').value = Array.isArray(data.ads) ? data.ads.join('\n') : '';
+            
+            // 填充其他模块
+            if (data.extra) {
+                document.getElementById('extra-json').value = JSON.stringify(data.extra, null, 2);
+            } else {
+                document.getElementById('extra-json').value = '';
+            }
             
             showNotification('数据加载成功！');
         }
@@ -923,12 +978,18 @@
         // 添加站点组
         function addSiteGroup() {
             const container = document.getElementById('sites-container');
-            const groupId = Date.now();
+            const groupId = `site-${Date.now()}`;
             
             const groupHtml = `
-                <div class="group-container" id="site-group-${groupId}">
+                <div class="group-container" id="${groupId}">
                     <div class="group-header">
                         <div class="group-title">站点组 ${container.children.length + 1}</div>
+                        <div class="group-actions">
+                            <div class="checkbox-container">
+                                <input type="checkbox" class="group-checkbox" id="checkbox-${groupId}">
+                                <label for="checkbox-${groupId}">选择</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="two-column-input">
                         <div class="form-group">
@@ -954,38 +1015,10 @@
                         <label>其他设置 (无需最外层{})</label>
                         <textarea class="site-extras compact-input" placeholder='"indexs": 1, "searchable": 0, "quickSearch": 0, "changeable": 0' oninput="autoSaveModule('sites')"></textarea>
                     </div>
-                    <div class="group-actions">
-                        <button class="btn btn-danger delete-group" data-group="${groupId}">
-                            <i class="fas fa-trash"></i> 删除
-                        </button>
-                        <button class="lock-btn" data-group="${groupId}">
-                            <i class="fas fa-lock-open"></i> 锁定
-                        </button>
-                    </div>
                 </div>
             `;
             
             container.insertAdjacentHTML('beforeend', groupHtml);
-            
-            // 添加删除事件
-            document.querySelector(`#site-group-${groupId} .delete-group`).addEventListener('click', function() {
-                document.getElementById(`site-group-${groupId}`).remove();
-                autoSaveModule('sites');
-            });
-            
-            // 添加锁定事件
-            document.querySelector(`#site-group-${groupId} .lock-btn`).addEventListener('click', function() {
-                const icon = this.querySelector('i');
-                if (icon.classList.contains('fa-lock-open')) {
-                    icon.classList.remove('fa-lock-open');
-                    icon.classList.add('fa-lock');
-                    this.classList.add('locked');
-                } else {
-                    icon.classList.remove('fa-lock');
-                    icon.classList.add('fa-lock-open');
-                    this.classList.remove('locked');
-                }
-            });
         }
         
         // 填充站点数据
@@ -1017,6 +1050,12 @@
                     <div class="group-container" id="${groupId}">
                         <div class="group-header">
                             <div class="group-title">${site.name || '站点组'}</div>
+                            <div class="group-actions">
+                                <div class="checkbox-container">
+                                    <input type="checkbox" class="group-checkbox" id="checkbox-${groupId}">
+                                    <label for="checkbox-${groupId}">选择</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="two-column-input">
                             <div class="form-group">
@@ -1042,38 +1081,10 @@
                             <label>其他设置 (无需最外层{})</label>
                             <textarea class="site-extras compact-input" placeholder='"key": "value"' oninput="autoSaveModule('sites')">${extrasStr}</textarea>
                         </div>
-                        <div class="group-actions">
-                            <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                <i class="fas fa-trash"></i> 删除
-                            </button>
-                            <button class="lock-btn locked" data-group="${groupId}">
-                                <i class="fas fa-lock"></i> 解锁
-                            </button>
-                        </div>
                     </div>
                 `;
                 
                 container.insertAdjacentHTML('beforeend', groupHtml);
-                
-                // 添加删除事件
-                document.querySelector(`#${groupId} .delete-group`).addEventListener('click', function() {
-                    document.getElementById(groupId).remove();
-                    autoSaveModule('sites');
-                });
-                
-                // 添加锁定事件
-                document.querySelector(`#${groupId} .lock-btn`).addEventListener('click', function() {
-                    const icon = this.querySelector('i');
-                    if (icon.classList.contains('fa-lock-open')) {
-                        icon.classList.remove('fa-lock-open');
-                        icon.classList.add('fa-lock');
-                        this.classList.add('locked');
-                    } else {
-                        icon.classList.remove('fa-lock');
-                        icon.classList.add('fa-lock-open');
-                        this.classList.remove('locked');
-                    }
-                });
             });
         }
         
@@ -1087,12 +1098,18 @@
         // 添加直播源
         function addLiveGroup() {
             const container = document.getElementById('lives-container');
-            const groupId = Date.now();
+            const groupId = `live-${Date.now()}`;
             
             const groupHtml = `
-                <div class="group-container" id="live-group-${groupId}">
+                <div class="group-container" id="${groupId}">
                     <div class="group-header">
                         <div class="group-title">直播源 ${container.children.length + 1}</div>
+                        <div class="group-actions">
+                            <div class="checkbox-container">
+                                <input type="checkbox" class="group-checkbox" id="checkbox-${groupId}">
+                                <label for="checkbox-${groupId}">选择</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>名称</label>
@@ -1106,38 +1123,10 @@
                         <label>其他设置 (无需最外层{})</label>
                         <textarea class="live-extras compact-input" placeholder='"type": 0' oninput="autoSaveModule('lives')"></textarea>
                     </div>
-                    <div class="group-actions">
-                        <button class="btn btn-danger delete-group" data-group="${groupId}">
-                            <i class="fas fa-trash"></i> 删除
-                        </button>
-                        <button class="lock-btn" data-group="${groupId}">
-                            <i class="fas fa-lock-open"></i> 锁定
-                        </button>
-                    </div>
                 </div>
             `;
             
             container.insertAdjacentHTML('beforeend', groupHtml);
-            
-            // 添加删除事件
-            document.querySelector(`#live-group-${groupId} .delete-group`).addEventListener('click', function() {
-                document.getElementById(`live-group-${groupId}`).remove();
-                autoSaveModule('lives');
-            });
-            
-            // 添加锁定事件
-            document.querySelector(`#live-group-${groupId} .lock-btn`).addEventListener('click', function() {
-                const icon = this.querySelector('i');
-                if (icon.classList.contains('fa-lock-open')) {
-                    icon.classList.remove('fa-lock-open');
-                    icon.classList.add('fa-lock');
-                    this.classList.add('locked');
-                } else {
-                    icon.classList.remove('fa-lock');
-                    icon.classList.add('fa-lock-open');
-                    this.classList.remove('locked');
-                }
-            });
         }
         
         // 填充直播数据
@@ -1165,6 +1154,12 @@
                     <div class="group-container" id="${groupId}">
                         <div class="group-header">
                             <div class="group-title">${live.name || '直播源'}</div>
+                            <div class="group-actions">
+                                <div class="checkbox-container">
+                                    <input type="checkbox" class="group-checkbox" id="checkbox-${groupId}">
+                                    <label for="checkbox-${groupId}">选择</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>名称</label>
@@ -1178,38 +1173,10 @@
                             <label>其他设置 (无需最外层{})</label>
                             <textarea class="live-extras compact-input" placeholder='"type": 0' oninput="autoSaveModule('lives')">${extrasStr}</textarea>
                         </div>
-                        <div class="group-actions">
-                            <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                <i class="fas fa-trash"></i> 删除
-                            </button>
-                            <button class="lock-btn locked" data-group="${groupId}">
-                                <i class="fas fa-lock"></i> 解锁
-                            </button>
-                        </div>
                     </div>
                 `;
                 
                 container.insertAdjacentHTML('beforeend', groupHtml);
-                
-                // 添加删除事件
-                document.querySelector(`#${groupId} .delete-group`).addEventListener('click', function() {
-                    document.getElementById(groupId).remove();
-                    autoSaveModule('lives');
-                });
-                
-                // 添加锁定事件
-                document.querySelector(`#${groupId} .lock-btn`).addEventListener('click', function() {
-                    const icon = this.querySelector('i');
-                    if (icon.classList.contains('fa-lock-open')) {
-                        icon.classList.remove('fa-lock-open');
-                        icon.classList.add('fa-lock');
-                        this.classList.add('locked');
-                    } else {
-                        icon.classList.remove('fa-lock');
-                        icon.classList.add('fa-lock-open');
-                        this.classList.remove('locked');
-                    }
-                });
             });
         }
         
@@ -1223,49 +1190,27 @@
         // 添加解析源
         function addParseGroup() {
             const container = document.getElementById('parses-container');
-            const groupId = Date.now();
+            const groupId = `parse-${Date.now()}`;
             
             const groupHtml = `
-                <div class="group-container" id="parse-group-${groupId}">
+                <div class="group-container" id="${groupId}">
                     <div class="group-header">
                         <div class="group-title">解析源 ${container.children.length + 1}</div>
+                        <div class="group-actions">
+                            <div class="checkbox-container">
+                                <input type="checkbox" class="group-checkbox" id="checkbox-${groupId}">
+                                <label for="checkbox-${groupId}">选择</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>完整配置 (JSON格式)</label>
                         <textarea class="parse-full full-json-input" placeholder='{"name": "VIP1", "type": 0, "url": "https://jx.xmflv.com/?url="}' oninput="autoSaveModule('parses')"></textarea>
                     </div>
-                    <div class="group-actions">
-                        <button class="btn btn-danger delete-group" data-group="${groupId}">
-                            <i class="fas fa-trash"></i> 删除
-                        </button>
-                        <button class="lock-btn" data-group="${groupId}">
-                            <i class="fas fa-lock-open"></i> 锁定
-                        </button>
-                    </div>
                 </div>
             `;
             
             container.insertAdjacentHTML('beforeend', groupHtml);
-            
-            // 添加删除事件
-            document.querySelector(`#parse-group-${groupId} .delete-group`).addEventListener('click', function() {
-                document.getElementById(`parse-group-${groupId}`).remove();
-                autoSaveModule('parses');
-            });
-            
-            // 添加锁定事件
-            document.querySelector(`#parse-group-${groupId} .lock-btn`).addEventListener('click', function() {
-                const icon = this.querySelector('i');
-                if (icon.classList.contains('fa-lock-open')) {
-                    icon.classList.remove('fa-lock-open');
-                    icon.classList.add('fa-lock');
-                    this.classList.add('locked');
-                } else {
-                    icon.classList.remove('fa-lock');
-                    icon.classList.add('fa-lock-open');
-                    this.classList.remove('locked');
-                }
-            });
         }
         
         // 填充解析数据
@@ -1280,43 +1225,21 @@
                     <div class="group-container" id="${groupId}">
                         <div class="group-header">
                             <div class="group-title">${parse.name || '解析源'}</div>
+                            <div class="group-actions">
+                                <div class="checkbox-container">
+                                    <input type="checkbox" class="group-checkbox" id="checkbox-${groupId}">
+                                    <label for="checkbox-${groupId}">选择</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>完整配置 (JSON格式)</label>
                             <textarea class="parse-full full-json-input" placeholder='{"name": "VIP1", "type": 0, "url": "https://jx.xmflv.com/?url="}' oninput="autoSaveModule('parses')">${JSON.stringify(parse, null, 2)}</textarea>
                         </div>
-                        <div class="group-actions">
-                            <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                <i class="fas fa-trash"></i> 删除
-                            </button>
-                            <button class="lock-btn locked" data-group="${groupId}">
-                                <i class="fas fa-lock"></i> 解锁
-                            </button>
-                        </div>
                     </div>
                 `;
                 
                 container.insertAdjacentHTML('beforeend', groupHtml);
-                
-                // 添加删除事件
-                document.querySelector(`#${groupId} .delete-group`).addEventListener('click', function() {
-                    document.getElementById(groupId).remove();
-                    autoSaveModule('parses');
-                });
-                
-                // 添加锁定事件
-                document.querySelector(`#${groupId} .lock-btn`).addEventListener('click', function() {
-                    const icon = this.querySelector('i');
-                    if (icon.classList.contains('fa-lock-open')) {
-                        icon.classList.remove('fa-lock-open');
-                        icon.classList.add('fa-lock');
-                        this.classList.add('locked');
-                    } else {
-                        icon.classList.remove('fa-lock');
-                        icon.classList.add('fa-lock-open');
-                        this.classList.remove('locked');
-                    }
-                });
             });
         }
         
@@ -1426,8 +1349,8 @@
             localStorage.setItem('tvbox_json', JSON.stringify(currentData));
         }
         
-        // 保存通用设置
-        function saveGeneralSettings() {
+        // 锁定通用设置
+        function lockGeneralSettings() {
             const spider = document.getElementById('spider').value;
             const wallpaper = document.getElementById('wallpaper').value;
             const logo = document.getElementById('logo').value;
@@ -1445,86 +1368,98 @@
             // 保存回缓存
             localStorage.setItem('tvbox_json', JSON.stringify(currentData));
             
-            showNotification('通用设置已保存！');
+            showNotification('通用设置已锁定！');
         }
         
-        // 重置通用设置
-        function resetGeneralSettings() {
-            if (confirm('确定要重置通用设置吗？')) {
-                document.getElementById('spider').value = '';
-                document.getElementById('wallpaper').value = '';
-                document.getElementById('logo').value = '';
-                document.getElementById('warningText').value = '';
-                showNotification('通用设置已重置！');
+        // 批量删除站点
+        function batchDeleteSites() {
+            const checkboxes = document.querySelectorAll('#sites-container .group-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showNotification('请先选择要删除的站点组！', true);
+                return;
+            }
+            
+            if (confirm(`确定要删除选中的 ${checkboxes.length} 个站点组吗？`)) {
+                check.forEach(checkbox => {
+                    const group = checkbox.closest('.group-container');
+                    if (group) {
+                        group.remove();
+                    }
+                });
+                
+                autoSaveModule('sites');
+                showNotification(`已删除 ${checkboxes.length} 个站点组！`);
             }
         }
         
-        // 保存自定义设置
-        function saveCustomSettings() {
-            const customText = document.getElementById('custom-json').value;
-            
-            // 获取当前缓存数据
-            let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
-            
-            // 更新数据
-            if (customText.trim()) {
-                try {
-                    const customObj = JSON.parse(customText);
-                    currentData.custom = customObj;
-                } catch (e) {
-                    showNotification('自定义JSON格式错误: ' + e.message, true);
-                    return;
-                }
-            } else {
-                delete currentData.custom;
-            }
-            
-            // 保存回缓存
-            localStorage.setItem('tvbox_json', JSON.stringify(currentData));
-            
-            showNotification('自定义设置已保存！');
+        // 批量锁定站点
+        function batchLockSites() {
+            autoSaveModule('sites');
+            const groups = document.querySelectorAll('#sites-container .group-container');
+            showNotification(`已锁定 ${groups.length} 个站点组！`);
         }
         
-        // 重置自定义设置
-        function resetCustomSettings() {
-            if (confirm('确定要重置自定义设置吗？')) {
-                document.getElementById('custom-json').value = '';
-                showNotification('自定义设置已重置！');
+        // 批量删除直播
+        function batchDeleteLives() {
+            const checkboxes = document.querySelectorAll('#lives-container .group-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showNotification('请先选择要删除的直播源！', true);
+                return;
+            }
+            
+            if (confirm(`确定要删除选中的 ${checkboxes.length} 个直播源吗？`)) {
+                checkboxes.forEach(checkbox => {
+                    const group = checkbox.closest('.group-container');
+                    if (group) {
+                        group.remove();
+                    }
+                });
+                
+                autoSaveModule('lives');
+                showNotification(`已删除 ${checkboxes.length} 个直播源！`);
             }
         }
         
-        // 保存其他设置
-        function saveOthersSettings() {
+        // 批量锁定直播
+        function batchLockLives() {
+            autoSaveModule('lives');
+            const groups = document.querySelectorAll('#lives-container .group-container');
+            showNotification(`已锁定 ${groups.length} 个直播源！`);
+        }
+        
+        // 批量删除解析
+        function batchDeleteParses() {
+            const checkboxes = document.querySelectorAll('#parses-container .group-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showNotification('请先选择要删除的解析源！', true);
+                return;
+            }
+            
+            if (confirm(`确定要删除选中的 ${checkboxes.length} 个解析源吗？`)) {
+                checkboxes.forEach(checkbox => {
+                    const group = checkbox.closest('.group-container');
+                    if (group) {
+                        group.remove();
+                    }
+                });
+                
+                autoSaveModule('parses');
+                showNotification(`已删除 ${checkboxes.length} 个解析源！`);
+            }
+        }
+        
+        // 批量锁定解析
+        function batchLockParses() {
+            autoSaveModule('parses');
+            const groups = document.querySelectorAll('#parses-container .group-container');
+            showNotification(`已锁定 ${groups.length} 个解析源！`);
+        }
+        
+        // 锁定其他设置
+        function lockOthersSettings() {
             const hosts = document.getElementById('hosts').value.split('\n').filter(line => line.trim());
             const doh = document.getElementById('doh').value;
             const flags = document.getElementById('flags').value.split('\n').filter(line => line.trim());
-            
-            // 获取当前缓存数据
-            let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
-            
-            // 更新数据
-            currentData.hosts = hosts;
-            currentData.doh = doh ? JSON.parse(doh) : [];
-            currentData.flags = flags;
-            
-            // 保存回缓存
-            localStorage.setItem('tvbox_json', JSON.stringify(currentData));
-            
-            showNotification('其他设置已保存！');
-        }
-        
-        // 重置其他设置
-        function resetOthersSettings() {
-            if (confirm('确定要重置其他设置吗？')) {
-                document.getElementById('hosts').value = '';
-                document.getElementById('doh').value = '';
-                document.getElementById('flags').value = '';
-                showNotification('其他设置已重置！');
-            }
-        }
-        
-        // 保存高级设置
-        function saveAdvancedSettings() {
             const rules = document.getElementById('rules').value;
             const ijk = document.getElementById('ijk').value;
             const proxy = document.getElementById('proxy').value.split('\n').filter(line => line.trim());
@@ -1534,6 +1469,9 @@
             let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
             
             // 更新数据
+            currentData.hosts = hosts;
+            currentData.doh = doh ? JSON.parse(doh) : [];
+            currentData.flags = flags;
             currentData.rules = rules ? JSON.parse(rules) : [];
             currentData.ijk = ijk ? JSON.parse(ijk) : [];
             currentData.proxy = proxy;
@@ -1542,18 +1480,33 @@
             // 保存回缓存
             localStorage.setItem('tvbox_json', JSON.stringify(currentData));
             
-            showNotification('高级设置已保存！');
+            showNotification('其他设置已锁定！');
         }
         
-        // 重置高级设置
-        function resetAdvancedSettings() {
-            if (confirm('确定要重置高级设置吗？')) {
-                document.getElementById('rules').value = '';
-                document.getElementById('ijk').value = '';
-                document.getElementById('proxy').value = '';
-                document.getElementById('ads').value = '';
-                showNotification('高级设置已重置！');
+        // 锁定其他模块
+        function lockExtraSettings() {
+            const extraText = document.getElementById('extra-json').value;
+            
+            // 获取当前缓存数据
+            let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
+            
+            // 更新数据
+            if (extraText.trim()) {
+                try {
+                    const extraObj = JSON.parse(extraText);
+                    currentData.extra = extraObj;
+                } catch (e) {
+                    showNotification('自定义JSON格式错误: ' + e.message, true);
+                    return;
+                }
+            } else {
+                delete currentData.extra;
             }
+            
+            // 保存回缓存
+            localStorage.setItem('tvbox_json', JSON.stringify(currentData));
+            
+            showNotification('其他模块已锁定！');
         }
         
         // 格式化JSON
@@ -1653,19 +1606,17 @@
                 document.getElementById('lives-container').innerHTML = '';
                 document.getElementById('parses-container').innerHTML = '';
                 
-                // 清空自定义设置
-                document.getElementById('custom-json').value = '';
-                
                 // 清空其他设置
                 document.getElementById('hosts').value = '';
                 document.getElementById('doh').value = '';
                 document.getElementById('flags').value = '';
-                
-                // 清空高级设置
                 document.getElementById('rules').value = '';
                 document.getElementById('ijk').value = '';
                 document.getElementById('proxy').value = '';
                 document.getElementById('ads').value = '';
+                
+                // 清空其他模块
+                document.getElementById('extra-json').value = '';
                 
                 // 清空粘贴框
                 document.getElementById('json-paste').value = '';
