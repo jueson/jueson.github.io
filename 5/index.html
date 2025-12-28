@@ -97,7 +97,7 @@
         
         .editor-section {
             margin-bottom: 30px;
-  padding-bottom: 20px;
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
         }
         
@@ -198,6 +198,12 @@
             color: var(--secondary-color);
         }
         
+        .group-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
         .lock-btn {
             background: none;
             border: none;
@@ -219,7 +225,7 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            margin: 10px 0;
+            margin: 0 0 15px 0;
         }
         
         .add-group-btn i {
@@ -317,6 +323,36 @@
             font-size: 12px;
         }
         
+        .output-area {
+            margin-top: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 15px;
+        }
+        
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .output-title {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .output-content {
+            background: #f8f9fa;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
         @media (max-width: 768px) {
             .main-content {
                 flex-direction: column;
@@ -332,6 +368,10 @@
             
             .two-column-input {
                 flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -408,13 +448,13 @@
                 <div id="sites-editor" class="editor-section hidden">
                     <h2 class="section-title"><i class="fas fa-film"></i> 点播模块 (sites)</h2>
                     
-                    <div id="sites-container">
-                        <!-- 站点组将通过JS动态添加 -->
-                    </div>
-                    
                     <button class="add-group-btn" id="add-site-group">
                         <i class="fas fa-plus"></i> 添加站点组
                     </button>
+                    
+                    <div id="sites-container">
+                        <!-- 站点组将通过JS动态添加 -->
+                    </div>
                     
                     <div class="btn-group">
                         <button class="btn btn-primary" id="save-sites">保存设置</button>
@@ -425,13 +465,13 @@
                 <div id="lives-editor" class="editor-section hidden">
                     <h2 class="section-title"><i class="fas fa-satellite"></i> 直播模块 (lives)</h2>
                     
-                    <div id="lives-container">
-                        <!-- 直播组将通过JS动态添加 -->
-                    </div>
-                    
                     <button class="add-group-btn" id="add-live-group">
                         <i class="fas fa-plus"></i> 添加直播源
                     </button>
+                    
+                    <div id="lives-container">
+                        <!-- 直播组将通过JS动态添加 -->
+                    </div>
                     
                     <div class="btn-group">
                         <button class="btn btn-primary" id="save-lives">保存设置</button>
@@ -442,13 +482,13 @@
                 <div id="parses-editor" class="editor-section hidden">
                     <h2 class="section-title"><i class="fas fa-code"></i> 解析模块 (parses)</h2>
                     
-                    <div id="parses-container">
-                        <!-- 解析组将通过JS动态添加 -->
-                    </div>
-                    
                     <button class="add-group-btn" id="add-parse-group">
                         <i class="fas fa-plus"></i> 添加解析源
                     </button>
+                    
+                    <div id="parses-container">
+                        <!-- 解析组将通过JS动态添加 -->
+                    </div>
                     
                     <div class="btn-group">
                         <button class="btn btn-primary" id="save-parses">保存设置</button>
@@ -525,6 +565,21 @@
                 <button class="btn btn-danger action-btn" id="encrypt-json">
                     <i class="fas fa-lock"></i> 简单加密
                 </button>
+                <button class="btn btn-warning action-btn" id="clear-all">
+                    <i class="fas fa-trash"></i> 清空所有
+                </button>
+            </div>
+            
+            <div class="output-area">
+                <div class="output-header">
+                    <div class="output-title">输出结果</div>
+                    <button class="btn btn-primary" id="copy-output">
+                        <i class="fas fa-copy"></i> 复制输出
+                    </button>
+                </div>
+                <div class="output-content" id="output-content">
+                    格式化或加密后的内容将显示在这里...
+                </div>
             </div>
         </div>
     </div>
@@ -614,6 +669,7 @@
         const moduleItems = document.querySelectorAll('.module-item');
         const editorSections = document.querySelectorAll('.editor-section');
         const notification = document.getElementById('notification');
+        const outputContent = document.getElementById('output-content');
         
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
@@ -717,6 +773,12 @@
             
             // 加密JSON
             document.getElementById('encrypt-json').addEventListener('click', encryptJson);
+            
+            // 清空所有
+            document.getElementById('clear-all').addEventListener('click', clearAll);
+            
+            // 复制输出
+            document.getElementById('copy-output').addEventListener('click', copyOutput);
             
             // 保存通用设置
             document.getElementById('save-general').addEventListener('click', saveGeneralSettings);
@@ -830,9 +892,14 @@
                 <div class="group-container" id="site-group-${groupId}">
                     <div class="group-header">
                         <div class="group-title">站点组 ${container.children.length + 1}</div>
-                        <button class="lock-btn" data-group="${groupId}">
-                            <i class="fas fa-lock-open"></i>
-                        </button>
+                        <div class="group-actions">
+                            <button class="btn btn-danger delete-group" data-group="${groupId}">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                            <button class="lock-btn" data-group="${groupId}">
+                                <i class="fas fa-lock-open"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="two-column-input">
                         <div class="form-group">
@@ -857,11 +924,6 @@
                     <div class="form-group">
                         <label>其他设置 (无需最外层{})</label>
                         <textarea class="site-extras compact-input" placeholder='"indexs": 1, "searchable": 0, "quickSearch": 0, "changeable": 0'></textarea>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-danger delete-group" data-group="${groupId}">
-                            <i class="fas fa-trash"></i> 删除
-                        </button>
                     </div>
                 </div>
             `;
@@ -917,9 +979,14 @@
                     <div class="group-container" id="${groupId}">
                         <div class="group-header">
                             <div class="group-title">${site.name || '站点组'}</div>
-                            <button class="lock-btn locked" data-group="${groupId}">
-                                <i class="fas fa-lock"></i>
-                            </button>
+                            <div class="group-actions">
+                                <button class="btn btn-danger delete-group" data-group="${groupId}">
+                                    <i class="fas fa-trash"></i> 删除
+                                </button>
+                                <button class="lock-btn locked" data-group="${groupId}">
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="two-column-input">
                             <div class="form-group">
@@ -944,11 +1011,6 @@
                         <div class="form-group">
                             <label>其他设置 (无需最外层{})</label>
                             <textarea class="site-extras compact-input" placeholder='"key": "value"'>${extrasStr}</textarea>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                <i class="fas fa-trash"></i> 删除
-                            </button>
                         </div>
                     </div>
                 `;
@@ -992,9 +1054,14 @@
                 <div class="group-container" id="live-group-${groupId}">
                     <div class="group-header">
                         <div class="group-title">直播源 ${container.children.length + 1}</div>
-                        <button class="lock-btn" data-group="${groupId}">
-                            <i class="fas fa-lock-open"></i>
-                        </button>
+                        <div class="group-actions">
+                            <button class="btn btn-danger delete-group" data-group="${groupId}">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                            <button class="lock-btn" data-group="${groupId}">
+                                <i class="fas fa-lock-open"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>名称</label>
@@ -1007,11 +1074,6 @@
                     <div class="form-group">
                         <label>其他设置 (无需最外层{})</label>
                         <textarea class="live-extras compact-input" placeholder='"type": 0'></textarea>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-danger delete-group" data-group="${groupId}">
-                            <i class="fas fa-trash"></i> 删除
-                        </button>
                     </div>
                 </div>
             `;
@@ -1063,9 +1125,14 @@
                     <div class="group-container" id="${groupId}">
                         <div class="group-header">
                             <div class="group-title">${live.name || '直播源'}</div>
-                            <button class="lock-btn locked" data-group="${groupId}">
-                                <i class="fas fa-lock"></i>
-                            </button>
+                            <div class="group-actions">
+                                <button class="btn btn-danger delete-group" data-group="${groupId}">
+                                    <i class="fas fa-trash"></i> 删除
+                                </button>
+                                <button class="lock-btn locked" data-group="${groupId}">
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>名称</label>
@@ -1078,11 +1145,6 @@
                         <div class="form-group">
                             <label>其他设置 (无需最外层{})</label>
                             <textarea class="live-extras compact-input" placeholder='"type": 0'>${extrasStr}</textarea>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                <i class="fas fa-trash"></i> 删除
-                            </button>
                         </div>
                     </div>
                 `;
@@ -1126,18 +1188,18 @@
                 <div class="group-container" id="parse-group-${groupId}">
                     <div class="group-header">
                         <div class="group-title">解析源 ${container.children.length + 1}</div>
-                        <button class="lock-btn" data-group="${groupId}">
-                            <i class="fas fa-lock-open"></i>
-                        </button>
+                        <div class="group-actions">
+                            <button class="btn btn-danger delete-group" data-group="${groupId}">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                            <button class="lock-btn" data-group="${groupId}">
+                                <i class="fas fa-lock-open"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>完整配置 (JSON格式)</label>
                         <textarea class="parse-full full-json-input" placeholder='{"name": "VIP1", "type": 0, "url": "https://jx.xmflv.com/?url="}'></textarea>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-danger delete-group" data-group="${groupId}">
-                            <i class="fas fa-trash"></i> 删除
-                        </button>
                     </div>
                 </div>
             `;
@@ -1176,18 +1238,18 @@
                     <div class="group-container" id="${groupId}">
                         <div class="group-header">
                             <div class="group-title">${parse.name || '解析源'}</div>
-                            <button class="lock-btn locked" data-group="${groupId}">
-                                <i class="fas fa-lock"></i>
-                            </button>
+                            <div class="group-actions">
+                                <button class="btn btn-danger delete-group" data-group="${groupId}">
+                                    <i class="fas fa-trash"></i> 删除
+                                </button>
+                                <button class="lock-btn locked" data-group="${groupId}">
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>完整配置 (JSON格式)</label>
                             <textarea class="parse-full full-json-input" placeholder='{"name": "VIP1", "type": 0, "url": "https://jx.xmflv.com/?url="}'>${JSON.stringify(parse, null, 2)}</textarea>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                <i class="fas fa-trash"></i> 删除
-                            </button>
                         </div>
                     </div>
                 `;
@@ -1472,12 +1534,7 @@
                 try {
                     const jsonObj = JSON.parse(cachedData);
                     const formattedJson = JSON.stringify(jsonObj, null, 2);
-                    
-                    // 创建新窗口显示格式化结果
-                    const newWindow = window.open();
-                    newWindow.document.write('<pre>' + formattedJson + '</pre>');
-                    newWindow.document.title = '格式化JSON结果';
-                    
+                    outputContent.textContent = formattedJson;
                     showNotification('JSON已格式化！');
                 } catch (e) {
                     showNotification('JSON格式化错误: ' + e.message, true);
@@ -1540,18 +1597,64 @@
                 try {
                     // 简单加密：Base64编码
                     const encoded = btoa(encodeURIComponent(cachedData));
-                    
-                    // 创建新窗口显示加密结果
-                    const newWindow = window.open();
-                    newWindow.document.write('<pre>' + encoded + '</pre>');
-                    newWindow.document.title = '加密JSON结果';
-                    
+                    outputContent.textContent = encoded;
                     showNotification('JSON已加密（Base64）！');
                 } catch (e) {
                     showNotification('加密失败: ' + e.message, true);
                 }
             } else {
                 showNotification('没有可用的JSON数据', true);
+            }
+        }
+        
+        // 清空所有
+        function clearAll() {
+            if (confirm('确定要清空所有数据吗？此操作不可撤销！')) {
+                localStorage.removeItem('tvbox_json');
+                
+                // 重置所有输入框
+                document.getElementById('spider').value = '';
+                document.getElementById('wallpaper').value = '';
+                document.getElementById('logo').value = '';
+                document.getElementById('warningText').value = '';
+                
+                // 清空所有模块
+                document.getElementById('sites-container').innerHTML = '';
+                document.getElementById('lives-container').innerHTML = '';
+                document.getElementById('parses-container').innerHTML = '';
+                
+                // 清空其他设置
+                document.getElementById('hosts').value = '';
+                document.getElementById('doh').value = '';
+                document.getElementById('flags').value = '';
+                
+                // 清空高级设置
+                document.getElementById('rules').value = '';
+                document.getElementById('ijk').value = '';
+                document.getElementById('proxy').value = '';
+                document.getElementById('ads').value = '';
+                
+                // 重新初始化
+                addSiteGroup();
+                addLiveGroup();
+                addParseGroup();
+                
+                // 清空输出区域
+                outputContent.textContent = '格式化或加密后的内容将显示在这里...';
+                
+                showNotification('所有数据已清空！');
+            }
+        }
+        
+        // 复制输出
+        function copyOutput() {
+            const text = outputContent.textContent;
+            if (text && text !== '格式化或加密后的内容将显示在这里...') {
+                navigator.clipboard.writeText(text)
+                    .then(() => showNotification('输出内容已复制到剪贴板！'))
+                    .catch(err => showNotification('复制失败: ' + err, true));
+            } else {
+                showNotification('没有可复制的内容', true);
             }
         }
         
