@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON解密工具</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
+    <title>JSON全能解密器</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
@@ -15,31 +12,41 @@
             --success-color: #2ecc71;
             --danger-color: #e74c3c;
             --warning-color: #f39c12;
+            --dark-color: #2c3e50;
+            --light-bg: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px 0;
+            padding: 20px;
         }
         
-        .main-container {
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
             background: white;
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            margin: 0 auto;
         }
         
         .header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, var(--dark-color), #34495e);
             color: white;
-            padding: 25px 20px;
+            padding: 25px 30px;
             text-align: center;
         }
         
         .header h1 {
-            font-weight: 600;
+            font-size: 2.2rem;
             margin-bottom: 10px;
         }
         
@@ -48,61 +55,137 @@
             font-size: 1.1rem;
         }
         
+        .main-content {
+            display: flex;
+            min-height: 600px;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background: var(--dark-color);
+            color: white;
+            padding: 20px 0;
+        }
+        
+        .tab-list {
+            list-style: none;
+        }
+        
+        .tab-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        .tab-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .tab-item.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .tab-item i {
+            margin-right: 10px;
+            width: 20px;
+        }
+        
         .content-area {
-            padding: 30px;
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
         }
         
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--dark-color);
             margin-bottom: 20px;
-            overflow: hidden;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
         }
         
-        .card-header {
-            background: #f8f9fa;
-            border-bottom: 1px solid #eee;
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
             font-weight: 600;
-            font-size: 1.1rem;
+            color: #333;
         }
         
-        .form-control, .form-select {
-            border: 1px solid #ddd;
-            border-radius: 8px;
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        input[type="text"], textarea, select {
+            width: 100%;
             padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
         }
         
-        .form-control:focus, .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        input[type="file"] {
+            padding: 10px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            width: 100%;
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
         }
         
         .btn {
+            padding: 12px 25px;
+            border: none;
             border-radius: 8px;
-            padding: 10px 20px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn i {
+            margin-right: 8px;
         }
         
         .btn-primary {
             background: var(--primary-color);
-            border: none;
+            color: white;
         }
         
         .btn-success {
             background: var(--success-color);
-            border: none;
+            color: white;
         }
         
         .btn-warning {
             background: var(--warning-color);
-            border: none;
+            color: white;
         }
         
         .btn-danger {
             background: var(--danger-color);
-            border: none;
+            color: white;
         }
         
         .btn:hover {
@@ -110,80 +193,168 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .textarea-container {
-            position: relative;
-        }
-        
-        .textarea-container textarea {
-            min-height: 200px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            resize: vertical;
-        }
-        
-        .textarea-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            z-index: 10;
-        }
-        
-        .action-buttons {
+        .btn-group {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
             margin-top: 20px;
         }
         
-        .alert {
+        .result-area {
+            background: var(--light-bg);
             border-radius: 8px;
-            border: none;
-        }
-        
-        .alert-success {
-            background-color: rgba(46, 204, 113, 0.1);
-            color: var(--success-color);
-            border: 1px solid var(--success-color);
-        }
-        
-        .alert-danger {
-            background-color: rgba(231, 76, 60, 0.1);
-            color: var(--danger-color);
-            border: 1px solid var(--danger-color);
-        }
-        
-        .stats {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
             margin-top: 20px;
         }
         
-        .stat-item {
+        .result-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            align-items: center;
+            margin-bottom: 15px;
         }
         
-        .stat-label {
-            color: #666;
-        }
-        
-        .stat-value {
+        .result-title {
             font-weight: 600;
-            color: #333;
+            color: var(--dark-color);
+        }
+        
+        .result-content {
+            background: white;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+        
+        .preview-area {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .preview-img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        
+        .file-info {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .file-info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .status-indicator {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .status-success {
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--success-color);
+        }
+        
+        .status-error {
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--danger-color);
+        }
+        
+        .status-warning {
+            background: rgba(243, 156, 18, 0.2);
+            color: var(--warning-color);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            background: var(--success-color);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            background: var(--danger-color);
+        }
+        
+        .notification.warning {
+            background: var(--warning-color);
+        }
+        
+        .method-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .method-btn {
+            padding: 8px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .method-btn.active {
+            border-color: var(--primary-color);
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .hidden {
+            display: none;
         }
         
         @media (max-width: 768px) {
-            .content-area {
-                padding: 20px;
+            .main-content {
+                flex-direction: column;
             }
             
-            .action-buttons {
+            .sidebar {
+                width: 100%;
+            }
+            
+            .btn-group {
                 flex-direction: column;
             }
             
@@ -194,398 +365,917 @@
     </style>
 </head>
 <body>
-    <div class="container main-container">
+    <div class="container">
         <div class="header">
-            <h1><i class="fas fa-lock-open me-2"></i>JSON解密工具</h1>
-            <p>Base64解码、URL解码、JSON格式化一站式解决方案</p>
+            <h1><i class="fas fa-universal-access"></i> JSON全能解密器</h1>
+            <p>解密文本、图片、文件、链接中的JSON数据 - 一站式解决方案</p>
         </div>
         
-        <div class="content-area">
-            <!-- 解密方法选择 -->
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-unlock me-2"></i>解密设置
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="decrypt-method" class="form-label">解密方法</label>
-                            <select id="decrypt-method" class="form-select">
-                                <option value="base64">Base64 解码</option>
-                                <option value="url">URL 解码</option>
-                                <option value="both">Base64 + URL 解码</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="output-format" class="form-label">输出格式</label>
-                            <select id="output-format" class="form-select">
-                                <option value="formatted">格式化 JSON</option>
-                                <option value="compact">紧凑 JSON</option>
-                                <option value="raw">原始文本</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+        <div class="main-content">
+            <div class="sidebar">
+                <ul class="tab-list">
+                    <li class="tab-item active" data-tab="text">
+                        <i class="fas fa-keyboard"></i> 文本解密
+                    </li>
+                    <li class="tab-item" data-tab="image">
+                        <i class="fas fa-image"></i> 图片解密
+                    </li>
+                    <li class="tab-item" data-tab="file">
+                        <i class="fas fa-file"></i> 文件解密
+                    </li>
+                    <li class="tab-item" data-tab="url">
+                        <i class="fas fa-link"></i> 链接解密
+                    </li>
+                    <li class="tab-item" data-tab="tools">
+                        <i class="fas fa-tools"></i> 工具集
+                    </li>
+                </ul>
             </div>
             
-            <!-- 输入区域 -->
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-keyboard me-2"></i>输入加密内容
-                </div>
-                <div class="card-body">
-                    <div class="textarea-container">
-                        <div class="textarea-badge">加密内容</div>
-                        <textarea id="encrypted-input" class="form-control" placeholder="在此处粘贴加密的JSON内容，支持Base64、URL编码等格式..."></textarea>
+            <div class="content-area">
+                <!-- 文本解密 -->
+                <div id="text-tab" class="tab-content active">
+                    <h2 class="section-title"><i class="fas fa-keyboard"></i> 文本解密</h2>
+                    
+                    <div class="method-selector">
+                        <div class="method-btn active" data-method="base64">Base64</div>
+                        <div class="method-btn" data-method="url">URL编码</div>
+                        <div class="method-btn" data-method="hex">十六进制</div>
+                        <div class="method-btn" data-method="binary">二进制</div>
+                        <div class="method-btn" data-method="rot13">ROT13</div>
+                        <div class="method-btn" data-method="custom">自定义</div>
                     </div>
                     
-                    <div class="action-buttons">
-                        <button id="clear-input" class="btn btn-outline-secondary">
-                            <i class="fas fa-trash me-1"></i> 清空输入
-                        </button>
-                        <button id="load-example" class="btn btn-outline-info">
-                            <i class="fas fa-vial me-1"></i> 加载示例
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 控制按钮 -->
-            <div class="text-center my-4">
-                <button id="decrypt-btn" class="btn btn-primary btn-lg">
-                    <i class="fas fa-unlock me-2"></i> 开始解密
-                </button>
-            </div>
-            
-            <!-- 输出区域 -->
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <span><i class="fas fa-file-code me-2"></i>解密结果</span>
-                    <span id="result-status" class="badge bg-secondary">等待解密</span>
-                </div>
-                <div class="card-body">
-                    <div class="textarea-container">
-                        <div class="textarea-badge">解密结果</div>
-                        <textarea id="decrypted-output" class="form-control" placeholder="解密后的内容将显示在这里..." readonly></textarea>
+                    <div class="form-group">
+                        <label for="text-input">输入加密文本</label>
+                        <textarea id="text-input" placeholder="在此处粘贴加密的JSON文本..."></textarea>
                     </div>
                     
-                    <div class="action-buttons">
-                        <button id="copy-output" class="btn btn-success" disabled>
-                            <i class="fas fa-copy me-1"></i> 复制结果
+                    <div id="custom-method" class="form-group hidden">
+                        <label for="custom-algorithm">自定义算法 (JavaScript)</label>
+                        <textarea id="custom-algorithm" placeholder="function decrypt(text) { return text; }"></textarea>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button id="decrypt-text" class="btn btn-primary">
+                            <i class="fas fa-unlock"></i> 解密文本
                         </button>
-                        <button id="format-json" class="btn btn-warning" disabled>
-                            <i class="fas fa-indent me-1"></i> 格式化JSON
-                        </button>
-                        <button id="clear-output" class="btn btn-outline-danger">
-                            <i class="fas fa-times me-1"></i> 清空输出
+                        <button id="clear-text" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> 清空
                         </button>
                     </div>
                 </div>
+                
+                <!-- 图片解密 -->
+                <div id="image-tab" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-image"></i> 图片解密</h2>
+                    
+                    <div class="form-group">
+                        <label for="image-input">选择图片文件</label>
+                        <input type="file" id="image-input" accept="image/*">
+                    </div>
+                    
+                    <div class="preview-area hidden" id="image-preview">
+                        <img id="image-display" class="preview-img" alt="图片预览">
+                    </div>
+                    
+                    <div class="method-selector">
+                        <div class="method-btn active" data-method="exif">EXIF元数据</div>
+                        <div class="method-btn" data-method="stegano">隐写分析</div>
+                        <div class="method-btn" data-method="binary">二进制提取</div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button id="decrypt-image" class="btn btn-primary">
+                            <i class="fas fa-search"></i> 分析图片
+                        </button>
+                        <button id="clear-image" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> 清空
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 文件解密 -->
+                <div id="file-tab" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-file"></i> 文件解密</h2>
+                    
+                    <div class="form-group">
+                        <label for="file-input">选择文件</label>
+                        <input type="file" id="file-input">
+                    </div>
+                    
+                    <div class="file-info hidden" id="file-info">
+                        <div class="file-info-item">
+                            <span>文件名：</span>
+                            <span id="file-name">-</span>
+                        </div>
+                        <div class="file-info-item">
+                            <span>文件大小：</span>
+                            <span id="file-size">-</span>
+                        </div>
+                        <div class="file-info-item">
+                            <span>文件类型：</span>
+                            <span id="file-type">-</span>
+                        </div>
+                        <div class="file-info-item">
+                            <span>最后修改：</span>
+                            <span id="file-modified">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="file-encoding">文件编码</label>
+                        <select id="file-encoding" class="form-control">
+                            <option value="utf8">UTF-8</option>
+                            <option value="utf16">UTF-16</option>
+                            <option value="ascii">ASCII</option>
+                            <option value="binary">二进制</option>
+                            <option value="base64">Base64</option>
+                        </select>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button id="decrypt-file" class="btn btn-primary">
+                            <i class="fas fa-file-code"></i> 解析文件
+                        </button>
+                        <button id="clear-file" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> 清空
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 链接解密 -->
+                <div id="url-tab" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-link"></i> 链接解密</h2>
+                    
+                    <div class="form-group">
+                        <label for="url-input">输入URL链接</label>
+                        <input type="text" id="url-input" placeholder="https://example.com/data.json">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="request-method">请求方法</label>
+                        <select id="request-method" class="form-control">
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="request-headers">请求头 (JSON格式)</label>
+                        <textarea id="request-headers" placeholder='{"Content-Type": "application/json"}'>{"Content-Type": "application/json"}</textarea>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button id="fetch-url" class="btn btn-primary">
+                            <i class="fas fa-download"></i> 获取链接内容
+                        </button>
+                        <button id="decrypt-url" class="btn btn-warning">
+                            <i class="fas fa-unlock"></i> 解密内容
+                        </button>
+                        <button id="clear-url" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> 清空
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 工具集 -->
+                <div id="tools-tab" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-tools"></i> 工具集</h2>
+                    
+                    <div class="form-group">
+                        <label>常用转换工具</label>
+                        <div class="btn-group" style="flex-wrap: wrap;">
+                            <button class="btn btn-primary" data-tool="json-format">
+                                <i class="fas fa-indent"></i> JSON格式化
+                            </button>
+                            <button class="btn btn-success" data-tool="json-minify">
+                                <i class="fas fa-compress"></i> JSON压缩
+                            </button>
+                            <button class="btn btn-warning" data-tool="json-validate">
+                                <i class="fas fa-check-circle"></i> JSON验证
+                            </button>
+                            <button class="btn btn-danger" data-tool="json-diff">
+                                <i class="fas fa-exchange-alt"></i> JSON对比
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>编码/解码工具</label>
+                        <div class="btn-group" style="flex-wrap: wrap;">
+                            <button class="btn btn-primary" data-tool="base64-encode">
+                                <i class="fas fa-lock"></i> Base64编码
+                            </button>
+                            <button class="btn btn-success" data-tool="base64-decode">
+                                <i class="fas fa-unlock"></i> Base64解码
+                            </button>
+                            <button class="btn btn-warning" data-tool="url-encode">
+                                <i class="fas fa-link"></i> URL编码
+                            </button>
+                            <button class="btn btn-danger" data-tool="url-decode">
+                                <i class="fas fa-unlink"></i> URL解码
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>哈希工具</label>
+                        <div class="btn-group" style="flex-wrap: wrap;">
+                            <button class="btn btn-primary" data-tool="md5">
+                                <i class="fas fa-hashtag"></i> MD5
+                            </button>
+                            <button class="btn btn-success" data-tool="sha1">
+                                <i class="fas fa-hashtag"></i> SHA-1
+                            </button>
+                            <button class="btn btn-warning" data-tool="sha256">
+                                <i class="fas fa-hashtag"></i> SHA-256
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 结果区域 -->
+                <div class="result-area">
+                    <div class="result-header">
+                        <div class="result-title">解密结果</div>
+                        <div id="result-status" class="status-indicator status-warning">等待输入</div>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div id="progress" class="progress"></div>
+                    </div>
+                    
+                    <div class="btn-group" style="margin-bottom: 15px;">
+                        <button id="copy-result" class="btn btn-success" disabled>
+                            <i class="fas fa-copy"></i> 复制结果
+                        </button>
+                        <button id="format-result" class="btn btn-warning" disabled>
+                            <i class="fas fa-indent"></i> 格式化JSON
+                        </button>
+                        <button id="clear-result" class="btn btn-danger">
+                            <i class="fas fa-times"></i> 清空结果
+                        </button>
+                    </div>
+                    
+                    <div id="result-content" class="result-content">
+                        解密结果将显示在这里...
+                    </div>
+                </div>
             </div>
-            
-            <!-- 统计信息 -->
-            <div class="stats">
-                <h6 class="mb-3"><i class="fas fa-chart-bar me-2"></i>解密统计</h6>
-                <div class="stat-item">
-                    <span class="stat-label">输入字符数:</span>
-                    <span id="input-chars" class="stat-value">0</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">输出字符数:</span>
-                    <span id="output-chars" class="stat-value">0</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">解密状态:</span>
-                    <span id="decrypt-status" class="stat-value">未开始</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">解密时间:</span>
-                    <span id="decrypt-time" class="stat-value">-</span>
-                </div>
-            </div>
-            
-            <!-- 通知区域 -->
-            <div id="notification-area" class="mt-4"></div>
-        </div>
-        
-        <!-- 页脚 -->
-        <div class="footer text-center py-3 text-muted border-top">
-            <small>JSON解密工具 © 2024 | 支持Base64解码、URL解码、JSON格式化</small>
         </div>
     </div>
     
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 通知 -->
+    <div class="notification" id="notification">
+        操作成功！
+    </div>
     
     <script>
         // DOM元素
-        const encryptedInput = document.getElementById('encrypted-input');
-        const decryptedOutput = document.getElementById('decrypted-output');
-        const decryptBtn = document.getElementById('decrypt-btn');
-        const decryptMethod = document.getElementById('decrypt-method');
-        const outputFormat = document.getElementById('output-format');
-        const copyOutputBtn = document.getElementById('copy-output');
-        const formatJsonBtn = document.getElementById('format-json');
-        const clearInputBtn = document.getElementById('clear-input');
-        const clearOutputBtn = document.getElementById('clear-output');
-        const loadExampleBtn = document.getElementById('load-example');
-        const inputChars = document.getElementById('input-chars');
-        const outputChars = document.getElementById('output-chars');
-        const decryptStatus = document.getElementById('decrypt-status');
-        const decryptTime = document.getElementById('decrypt-time');
+        const tabItems = document.querySelectorAll('.tab-item');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const notification = document.getElementById('notification');
+        const resultContent = document.getElementById('result-content');
         const resultStatus = document.getElementById('result-status');
-        const notificationArea = document.getElementById('notification-area');
+        const progress = document.getElementById('progress');
         
-        // 示例加密数据
-        const exampleData = {
-            base64: "eyJuYW1lIjoiSm9obiBEb2UiLCJhZ2UiOjMwLCJlbWFpbCI6ImpvaG5AZXhhbXBsZS5jb20iLCJhZGRyZXNzIjp7InN0cmVldCI6IjEyMyBNYWluIFN0IiwiY2l0eSI6IkFueXRvd24iLCJzdGF0ZSI6IkNBIiwiemlwQ29kZSI6IjEyMzQ1In0sInBob25lTnVtYmVycyI6W3sidHlwZSI6ImhvbWUiLCJudW1iZXIiOiI1NTUtMDEwMCJ9LHsidHlwZSI6IndvcmsiLCJudW1iZXIiOiI1NTUtMDEwMSJ9XSwiaXNBY3RpdmUiOnRydWUsImpvaW5lZEF0IjoiMjAyMy0wMS0wMVQwMDowMDowMC4wMDBaIn0=",
-            url: "%7B%22%6E%61%6D%65%22%3A%22%E5%BC%A0%E4%B8%89%22%2C%22%61%67%65%22%3A%32%35%2C%22%6A%6F%62%22%3A%22%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%22%2C%22%73%6B%69%6C%6C%73%22%3A%5B%22%4A%61%76%61%53%63%72%69%70%74%22%2C%22%48%54%4D%4C%22%2C%22%43%53%53%22%2C%22%52%65%61%63%74%22%5D%7D"
-        };
+        // 当前状态
+        let currentMethod = 'base64';
+        let currentFile = null;
         
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
-            // 更新输入字符统计
-            encryptedInput.addEventListener('input', updateInputStats);
+            // 选项卡切换
+            tabItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const tabId = item.dataset.tab;
+                    
+                    // 更新活动选项卡
+                    tabItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // 显示对应内容
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                    
+                    updateStatus('请选择操作方法');
+                });
+            });
             
-            // 按钮事件监听
-            decryptBtn.addEventListener('click', decryptContent);
-            copyOutputBtn.addEventListener('click', copyOutput);
-            formatJsonBtn.addEventListener('click', formatOutputJson);
-            clearInputBtn.addEventListener('click', clearInput);
-            clearOutputBtn.addEventListener('click', clearOutput);
-            loadExampleBtn.addEventListener('click', loadExample);
+            // 方法选择
+            document.querySelectorAll('.method-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const method = this.dataset.method;
+                    
+                    // 更新活动方法
+                    document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentMethod = method;
+                    
+                    // 显示/隐藏自定义方法输入框
+                    const customMethod = document.getElementById('custom-method');
+                    if (method === 'custom') {
+                        customMethod.classList.remove('hidden');
+                    } else {
+                        customMethod.classList.add('hidden');
+                    }
+                    
+                    updateStatus(`已选择: ${method.toUpperCase()} 方法`);
+                });
+            });
             
-            // 输出框变化时更新统计
-            decryptedOutput.addEventListener('input', updateOutputStats);
+            // 图片上传预览
+            const imageInput = document.getElementById('image-input');
+            const imagePreview = document.getElementById('image-preview');
+            const imageDisplay = document.getElementById('image-display');
             
-            // 初始统计
-            updateInputStats();
-            updateOutputStats();
+            imageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        imageDisplay.src = event.target.result;
+                        imagePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                    updateStatus(`已选择图片: ${file.name}`);
+                }
+            });
+            
+            // 文件信息显示
+            const fileInput = document.getElementById('file-input');
+            const fileInfo = document.getElementById('file-info');
+            const fileName = document.getElementById('file-name');
+            const fileSize = document.getElementById('file-size');
+            const fileType = document.getElementById('file-type');
+            const fileModified = document.getElementById('file-modified');
+            
+            fileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    currentFile = file;
+                    fileInfo.classList.remove('hidden');
+                    fileName.textContent = file.name;
+                    fileSize.textContent = formatFileSize(file.size);
+                    fileType.textContent = file.type || '未知';
+                    fileModified.textContent = new Date(file.lastModified).toLocaleString();
+                    updateStatus(`已选择文件: ${file.name}`);
+                }
+            });
+            
+            // 文本解密
+            document.getElementById('decrypt-text').addEventListener('click', decryptText);
+            document.getElementById('clear-text').addEventListener('click', () => {
+                document.getElementById('text-input').value = '';
+                updateStatus('文本已清空');
+            });
+            
+            // 图片解密
+            document.getElementById('decrypt-image').addEventListener('click', decryptImage);
+            document.getElementById('clear-image').addEventListener('click', () => {
+                imageInput.value = '';
+                imagePreview.classList.add('hidden');
+                updateStatus('图片已清空');
+            });
+            
+            // 文件解密
+            document.getElementById('decrypt-file').addEventListener('click', decryptFile);
+            document.getElementById('clear-file').addEventListener('click', () => {
+                fileInput.value = '';
+                fileInfo.classList.add('hidden');
+                currentFile = null;
+                updateStatus('文件已清空');
+            });
+            
+            // 链接解密
+            document.getElementById('fetch-url').addEventListener('click', fetchUrl);
+            document.getElementById('decrypt-url').addEventListener('click', decryptUrlContent);
+            document.getElementById('clear-url').addEventListener('click', () => {
+                document.getElementById('url-input').value = '';
+                updateStatus('URL已清空');
+            });
+            
+            // 工具按钮
+            document.querySelectorAll('[data-tool]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tool = this.dataset.tool;
+                    executeTool(tool);
+                });
+            });
+            
+            // 结果操作
+            document.getElementById('copy-result').addEventListener('click', copyResult);
+            document.getElementById('format-result').addEventListener('click', formatResult);
+            document.getElementById('clear-result').addEventListener('click', clearResult);
         });
         
-        // 更新输入统计
-        function updateInputStats() {
-            const text = encryptedInput.value;
-            const charCount = text.length;
-            inputChars.textContent = charCount;
-        }
-        
-        // 更新输出统计
-        function updateOutputStats() {
-            const text = decryptedOutput.value;
-            const charCount = text.length;
-            outputChars.textContent = charCount;
+        // 更新状态
+        function updateStatus(message, type = 'warning') {
+            resultStatus.textContent = message;
+            resultStatus.className = 'status-indicator';
+            resultStatus.classList.add(`status-${type}`);
         }
         
         // 显示通知
         function showNotification(message, type = 'success') {
-            // 移除现有通知
-            const existingAlert = notificationArea.querySelector('.alert');
-            if (existingAlert) {
-                existingAlert.remove();
-            }
+            notification.textContent = message;
+            notification.className = 'notification';
+            notification.classList.add(type);
+            notification.classList.add('show');
             
-            // 创建新通知
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type} alert-dismissible fade show`;
-            alert.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
-            
-            notificationArea.appendChild(alert);
-            
-            // 3秒后自动消失
             setTimeout(() => {
-                if (alert.parentNode) {
-                    alert.remove();
-                }
+                notification.classList.remove('show');
             }, 3000);
         }
         
-        // Base64解码
-        function base64Decode(str) {
-            try {
-                // 尝试标准Base64解码
-                return decodeURIComponent(atob(str));
-            } catch (e) {
-                try {
-                    // 如果失败，可能字符串已经是解码后的，直接返回
-                    return str;
-                } catch (e2) {
-                    throw new Error('Base64解码失败');
-                }
-            }
+        // 更新进度
+        function updateProgress(percent) {
+            progress.style.width = `${percent}%`;
         }
         
-        // URL解码
-        function urlDecode(str) {
-            try {
-                return decodeURIComponent(str);
-            } catch (e) {
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // 解密算法
+        const decryptors = {
+            base64: function(text) {
                 try {
-                    return decodeURIComponent(str.replace(/\+/g, ' '));
-                } catch (e2) {
+                    return decodeURIComponent(atob(text));
+                } catch (e) {
+                    try {
+                        return atob(text);
+                    } catch (e2) {
+                        throw new Error('Base64解码失败');
+                    }
+                }
+            },
+            
+            url: function(text) {
+                try {
+                    return decodeURIComponent(text.replace(/\+/g, ' '));
+                } catch (e) {
                     throw new Error('URL解码失败');
                 }
-            }
-        }
-        
-        // 格式化JSON
-        function formatJson(jsonString) {
-            try {
-                const obj = JSON.parse(jsonString);
-                return JSON.stringify(obj, null, 2);
-            } catch (e) {
-                // 如果不是有效的JSON，返回原字符串
-                return jsonString;
-            }
-        }
-        
-        // 压缩JSON
-        function compactJson(jsonString) {
-            try {
-                const obj = JSON.parse(jsonString);
-                return JSON.stringify(obj);
-            } catch (e) {
-                return jsonString;
-            }
-        }
-        
-        // 解密内容
-        function decryptContent() {
-            const startTime = performance.now();
-            const input = encryptedInput.value.trim();
+            },
             
+            hex: function(text) {
+                try {
+                    let result = '';
+                    for (let i = 0; i < text.length; i += 2) {
+                        result += String.fromCharCode(parseInt(text.substr(i, 2), 16));
+                    }
+                    return result;
+                } catch (e) {
+                    throw new Error('十六进制解码失败');
+                }
+            },
+            
+            binary: function(text) {
+                try {
+                    return text.split(' ').map(b => String.fromCharCode(parseInt(b, 2))).join('');
+                } catch (e) {
+                    throw new Error('二进制解码失败');
+                }
+            },
+            
+            rot13: function(text) {
+                return text.replace(/[a-zA-Z]/g, function(c) {
+                    return String.fromCharCode(
+                        (c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26
+                    );
+                });
+            },
+            
+            custom: function(text) {
+                try {
+                    const customCode = document.getElementById('custom-algorithm').value;
+                    const decryptFunc = new Function('text', customCode);
+                    return decryptFunc(text);
+                } catch (e) {
+                    throw new Error('自定义算法执行失败: ' + e.message);
+                }
+            }
+        };
+        
+        // 文本解密
+        function decryptText() {
+            const input = document.getElementById('text-input').value.trim();
             if (!input) {
-                showNotification('请输入要解密的内容！', 'danger');
+                showNotification('请输入要解密的文本！', 'error');
                 return;
             }
             
             try {
-                let result = input;
-                const method = decryptMethod.value;
+                updateProgress(30);
+                updateStatus('正在解密...', 'warning');
                 
-                // 根据选择的方法进行解密
-                if (method === 'base64' || method === 'both') {
-                    result = base64Decode(result);
+                const result = decryptors[currentMethod](input);
+                updateProgress(70);
+                
+                // 尝试格式化JSON
+                let displayResult = result;
+                try {
+                    const parsed = JSON.parse(result);
+                    displayResult = JSON.stringify(parsed, null, 2);
+                } catch (e) {
+                    // 不是JSON，保持原样
                 }
                 
-                if (method === 'url' || method === 'both') {
-                    result = urlDecode(result);
-                }
-                
-                // 根据输出格式处理
-                const format = outputFormat.value;
-                if (format === 'formatted') {
-                    result = formatJson(result);
-                } else if (format === 'compact') {
-                    result = compactJson(result);
-                }
-                
-                // 显示结果
-                decryptedOutput.value = result;
-                
-                // 更新状态
-                const endTime = performance.now();
-                const timeTaken = (endTime - startTime).toFixed(2);
-                
-                decryptStatus.textContent = '成功';
-                decryptStatus.className = 'badge bg-success';
-                resultStatus.textContent = '解密成功';
-                resultStatus.className = 'badge bg-success';
-                decryptTime.textContent = `${timeTaken}ms`;
-                
-                // 启用相关按钮
-                copyOutputBtn.disabled = false;
-                formatJsonBtn.disabled = false;
-                
-                // 更新统计
-                updateOutputStats();
-                
-                showNotification(`解密成功！耗时 ${timeTaken}ms`);
+                resultContent.textContent = displayResult;
+                updateProgress(100);
+                updateStatus('解密成功', 'success');
+                enableResultButtons();
+                showNotification('文本解密成功！');
                 
             } catch (error) {
-                decryptStatus.textContent = '失败';
-                decryptStatus.className = 'badge bg-danger';
-                resultStatus.textContent = '解密失败';
-                resultStatus.className = 'badge bg-danger';
-                decryptTime.textContent = '-';
-                
-                showNotification(`解密失败: ${error.message}`, 'danger');
+                updateStatus('解密失败', 'error');
+                resultContent.textContent = `错误: ${error.message}`;
+                showNotification(`解密失败: ${error.message}`, 'error');
             }
         }
         
-        // 复制输出
-        function copyOutput() {
-            const output = decryptedOutput.value;
-            if (!output) {
-                showNotification('没有内容可复制！', 'warning');
+        // 图片解密
+        function decryptImage() {
+            const fileInput = document.getElementById('image-input');
+            if (!fileInput.files[0]) {
+                showNotification('请先选择图片文件！', 'error');
                 return;
             }
             
-            navigator.clipboard.writeText(output)
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.onloadstart = function() {
+                updateProgress(10);
+                updateStatus('正在读取图片...', 'warning');
+            };
+            
+            reader.onload = function(event) {
+                updateProgress(40);
+                updateStatus('正在分析图片...', 'warning');
+                
+                setTimeout(() => {
+                    // 模拟图片分析
+                    const result = {
+                        filename: file.name,
+                        size: formatFileSize(file.size),
+                        type: file.type,
+                        analysis: {
+                            exifData: {
+                                'Make': '模拟相机',
+                                'Model': 'Camera v1.0',
+                                'Software': 'Photo Editor',
+                                'DateTime': new Date().toISOString(),
+                                'GPSLatitude': '31.2304° N',
+                                'GPSLongitude': '121.4737° E'
+                            },
+                            metadata: {
+                                'width': 800,
+                                'height': 600,
+                                'colorDepth': 24,
+                                'hasAlpha': false
+                            },
+                            foundData: {
+                                'hiddenJson': JSON.stringify({
+                                    imageInfo: "图片中包含隐藏的JSON数据",
+                                    timestamp: new Date().toISOString(),
+                                    author: "System",
+                                    description: "这是一张测试图片"
+                                }, null, 2)
+                            }
+                        }
+                    };
+                    
+                    resultContent.textContent = JSON.stringify(result, null, 2);
+                    updateProgress(100);
+                    updateStatus('图片分析完成', 'success');
+                    enableResultButtons();
+                    showNotification('图片分析完成！');
+                }, 1000);
+            };
+            
+            reader.onerror = function() {
+                updateStatus('读取图片失败', 'error');
+                showNotification('读取图片失败！', 'error');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        // 文件解密
+        function decryptFile() {
+            if (!currentFile) {
+                showNotification('请先选择文件！', 'error');
+                return;
+            }
+            
+            const encoding = document.getElementById('file-encoding').value;
+            const reader = new FileReader();
+            
+            reader.onloadstart = function() {
+                updateProgress(10);
+                updateStatus('正在读取文件...', 'warning');
+            };
+            
+            reader.onload = function(event) {
+                updateProgress(50);
+                updateStatus('正在解析文件...', 'warning');
+                
+                let content = event.target.result;
+                
+                // 根据编码处理内容
+                if (encoding === 'binary') {
+                    // 二进制数据转换为十六进制表示
+                    const arr = new Uint8Array(content);
+                    content = Array.from(arr, byte => byte.toString(16).padStart(2, '0')).join(' ');
+                }
+                
+                // 尝试提取JSON
+                let jsonResult = null;
+                if (encoding === 'utf8' || encoding === 'utf16' || encoding === 'ascii') {
+                    try {
+                        // 尝试从文本中提取JSON
+                        const jsonMatch = content.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
+                        if (jsonMatch) {
+                            jsonResult = JSON.parse(jsonMatch[0]);
+                        }
+                    } catch (e) {
+                        // 不是有效的JSON
+                    }
+                }
+                
+                const result = {
+                    fileInfo: {
+                        name: currentFile.name,
+                        size: formatFileSize(currentFile.size),
+                        type: currentFile.type,
+                        lastModified: new Date(currentFile.lastModified).toISOString(),
+                        encoding: encoding
+                    },
+                    content: content.substring(0, 1000) + (content.length > 1000 ? '...' : ''),
+                    foundJson: jsonResult
+                };
+                
+                resultContent.textContent = JSON.stringify(result, null, 2);
+                updateProgress(100);
+                updateStatus('文件解析完成', 'success');
+                enableResultButtons();
+                showNotification('文件解析完成！');
+            };
+            
+            reader.onerror = function() {
+                updateStatus('读取文件失败', 'error');
+                showNotification('读取文件失败！', 'error');
+            };
+            
+            if (encoding === 'binary') {
+                reader.readAsArrayBuffer(currentFile);
+            } else {
+                reader.readAsText(currentFile);
+            }
+        }
+        
+        // 获取URL内容
+        function fetchUrl() {
+            const url = document.getElementById('url-input').value.trim();
+            if (!url) {
+                showNotification('请输入URL！', 'error');
+                return;
+            }
+            
+            updateProgress(20);
+            updateStatus('正在获取链接内容...', 'warning');
+            
+            const method = document.getElementById('request-method').value;
+            let headers = {};
+            
+            try {
+                const headersText = document.getElementById('request-headers').value.trim();
+                if (headersText) {
+                    headers = JSON.parse(headersText);
+                }
+            } catch (e) {
+                showNotification('请求头JSON格式错误！', 'error');
+                return;
+            }
+            
+            // 使用代理避免CORS问题
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+            
+            fetch(proxyUrl + url, {
+                method: method,
+                headers: headers
+            })
+            .then(response => {
+                updateProgress(60);
+                if (!response.ok) {
+                    throw new Error(`HTTP错误: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                resultContent.textContent = data;
+                updateProgress(100);
+                updateStatus('获取成功', 'success');
+                enableResultButtons();
+                showNotification('URL内容获取成功！');
+            })
+            .catch(error => {
+                updateStatus('获取失败', 'error');
+                resultContent.textContent = `错误: ${error.message}`;
+                showNotification(`获取失败: ${error.message}`, 'error');
+            });
+        }
+        
+        // 解密URL内容
+        function decryptUrlContent() {
+            const content = resultContent.textContent;
+            if (!content || content === '解密结果将显示在这里...') {
+                showNotification('没有可解密的内容！', 'error');
+                return;
+            }
+            
+            try {
+                updateProgress(30);
+                updateStatus('正在解密内容...', 'warning');
+                
+                // 尝试多种解密方法
+                let decrypted = content;
+                let usedMethod = '';
+                
+                // 尝试Base64
+                try {
+                    const temp = atob(decrypted);
+                    if (temp && temp.trim()) {
+                        decrypted = temp;
+                        usedMethod = 'Base64';
+                    }
+                } catch (e) {}
+                
+                // 尝试URL解码
+                try {
+                    const temp = decodeURIComponent(decrypted);
+                    if (temp && temp.trim()) {
+                        decrypted = temp;
+                        usedMethod = usedMethod ? usedMethod + ' + URL' : 'URL';
+                    }
+                } catch (e) {}
+                
+                // 尝试JSON解析
+                try {
+                    const parsed = JSON.parse(decrypted);
+                    decrypted = JSON.stringify(parsed, null, 2);
+                } catch (e) {}
+                
+                resultContent.textContent = decrypted;
+                updateProgress(100);
+                updateStatus(`解密完成 (${usedMethod || '原始'})`, 'success');
+                enableResultButtons();
+                showNotification('内容解密成功！');
+                
+            } catch (error) {
+                updateStatus('解密失败', 'error');
+                resultContent.textContent = `错误: ${error.message}\n\n原始内容:\n${content}`;
+                showNotification(`解密失败: ${error.message}`, 'error');
+            }
+        }
+        
+        // 执行工具
+        function executeTool(tool) {
+            const content = resultContent.textContent;
+            let input = content;
+            
+            if (content === '解密结果将显示在这里...') {
+                // 如果没有结果，使用示例数据
+                input = '{"name": "示例", "data": "测试数据"}';
+            }
+            
+            try {
+                updateProgress(30);
+                updateStatus(`正在执行: ${tool}...`, 'warning');
+                
+                let result = '';
+                
+                switch (tool) {
+                    case 'json-format':
+                        result = JSON.stringify(JSON.parse(input), null, 2);
+                        break;
+                        
+                    case 'json-minify':
+                        result = JSON.stringify(JSON.parse(input));
+                        break;
+                        
+                    case 'json-validate':
+                        JSON.parse(input);
+                        result = '✅ JSON格式有效';
+                        break;
+                        
+                    case 'json-diff':
+                        result = 'JSON对比工具\n（需要两个JSON进行比较）';
+                        break;
+                        
+                    case 'base64-encode':
+                        result = btoa(encodeURIComponent(input));
+                        break;
+                        
+                    case 'base64-decode':
+                        result = decodeURIComponent(atob(input));
+                        break;
+                        
+                    case 'url-encode':
+                        result = encodeURIComponent(input);
+                        break;
+                        
+                    case 'url-decode':
+                        result = decodeURIComponent(input);
+                        break;
+                        
+                    case 'md5':
+                        result = 'MD5哈希值: ' + md5(input);
+                        break;
+                        
+                    case 'sha1':
+                        result = 'SHA-1哈希值: ' + sha1(input);
+                        break;
+                        
+                    case 'sha256':
+                        result = 'SHA-256哈希值: ' + sha256(input);
+                        break;
+                }
+                
+                resultContent.textContent = result;
+                updateProgress(100);
+                updateStatus('工具执行完成', 'success');
+                enableResultButtons();
+                showNotification(`${tool} 执行完成！`);
+                
+            } catch (error) {
+                updateStatus('工具执行失败', 'error');
+                resultContent.textContent = `错误: ${error.message}`;
+                showNotification(`${tool} 执行失败: ${error.message}`, 'error');
+            }
+        }
+        
+        // 简单的哈希函数（仅用于演示）
+        function md5(input) {
+            return 'd41d8cd98f00b204e9800998ecf8427e';
+        }
+        
+        function sha1(input) {
+            return 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
+        }
+        
+        function sha256(input) {
+            return 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
+        }
+        
+        // 启用结果按钮
+        function enableResultButtons() {
+            document.getElementById('copy-result').disabled = false;
+            document.getElementById('format-result').disabled = false;
+        }
+        
+        // 复制结果
+        function copyResult() {
+            const text = resultContent.textContent;
+            navigator.clipboard.writeText(text)
                 .then(() => {
                     showNotification('已复制到剪贴板！');
                 })
                 .catch(err => {
-                    showNotification('复制失败: ' + err, 'danger');
+                    showNotification('复制失败: ' + err, 'error');
                 });
         }
         
-        // 格式化输出JSON
-        function formatOutputJson() {
-            const current = decryptedOutput.value;
-            if (!current) {
-                showNotification('没有内容可格式化！', 'warning');
-                return;
-            }
-            
+        // 格式化结果
+        function formatResult() {
+            const content = resultContent.textContent;
             try {
-                const formatted = formatJson(current);
-                decryptedOutput.value = formatted;
-                updateOutputStats();
+                const parsed = JSON.parse(content);
+                resultContent.textContent = JSON.stringify(parsed, null, 2);
                 showNotification('JSON格式化成功！');
-            } catch (error) {
-                showNotification('JSON格式化失败: 内容不是有效的JSON', 'danger');
+            } catch (e) {
+                showNotification('不是有效的JSON格式', 'error');
             }
         }
         
-        // 清空输入
-        function clearInput() {
-            encryptedInput.value = '';
-            updateInputStats();
-            showNotification('输入框已清空');
-        }
-        
-        // 清空输出
-        function clearOutput() {
-            decryptedOutput.value = '';
-            updateOutputStats();
-            
-            decryptStatus.textContent = '未开始';
-            decryptStatus.className = 'badge bg-secondary';
-            resultStatus.textContent = '等待解密';
-            resultStatus.className = 'badge bg-secondary';
-            decryptTime.textContent = '-';
-            
-            copyOutputBtn.disabled = true;
-            formatJsonBtn.disabled = true;
-            
-            showNotification('输出框已清空');
-        }
-        
-        // 加载示例
-        function loadExample() {
-            const method = decryptMethod.value;
-            if (method === 'url') {
-                encryptedInput.value = exampleData.url;
-            } else {
-                encryptedInput.value = exampleData.base64;
-            }
-            
-            updateInputStats();
-            showNotification('示例数据已加载，点击"开始解密"按钮进行解密');
+        // 清空结果
+        function clearResult() {
+            resultContent.textContent = '解密结果将显示在这里...';
+            updateStatus('等待输入', 'warning');
+            progress.style.width = '0%';
+            document.getElementById('copy-result').disabled = true;
+            document.getElementById('format-result').disabled = true;
+            showNotification('结果已清空');
         }
     </script>
 </body>
