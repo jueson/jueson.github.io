@@ -97,7 +97,7 @@
         
         .editor-section {
             margin-bottom: 30px;
-            padding-bottom: 20px;
+  padding-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
         }
         
@@ -298,6 +298,25 @@
             color: var(--primary-color);
         }
         
+        .two-column-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .two-column-input .form-group {
+            flex: 1;
+        }
+        
+        .compact-input {
+            font-size: 12px;
+            min-height: 60px;
+        }
+        
+        .full-json-input {
+            min-height: 120px;
+            font-size: 12px;
+        }
+        
         @media (max-width: 768px) {
             .main-content {
                 flex-direction: column;
@@ -308,6 +327,10 @@
             }
             
             .input-methods {
+                flex-direction: column;
+            }
+            
+            .two-column-input {
                 flex-direction: column;
             }
         }
@@ -811,25 +834,29 @@
                             <i class="fas fa-lock-open"></i>
                         </button>
                     </div>
-                    <div class="form-group">
-                        <label>Key</label>
-                        <input type="text" class="site-key" placeholder="唯一标识符">
+                    <div class="two-column-input">
+                        <div class="form-group">
+                            <label>Key</label>
+                            <input type="text" class="site-key" placeholder="唯一标识符">
+                        </div>
+                        <div class="form-group">
+                            <label>名称</label>
+                            <input type="text" class="site-name" placeholder="显示名称">
+                        </div>
+                    </div>
+                    <div class="two-column-input">
+                        <div class="form-group">
+                            <label>类型 (type)</label>
+                            <input type="number" class="site-type" value="3">
+                        </div>
+                        <div class="form-group">
+                            <label>API</label>
+                            <input type="text" class="site-api" placeholder="API名称">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>名称</label>
-                        <input type="text" class="site-name" placeholder="显示名称">
-                    </div>
-                    <div class="form-group">
-                        <label>类型 (type)</label>
-                        <input type="number" class="site-type" value="3">
-                    </div>
-                    <div class="form-group">
-                        <label>API</label>
-                        <input type="text" class="site-api" placeholder="API名称">
-                    </div>
-                    <div class="form-group">
-                        <label>其他设置 (JSON格式)</label>
-                        <textarea class="site-extras" placeholder='{"key": "value"}'></textarea>
+                        <label>其他设置 (无需最外层{})</label>
+                        <textarea class="site-extras compact-input" placeholder='"indexs": 1, "searchable": 0, "quickSearch": 0, "changeable": 0'></textarea>
                     </div>
                     <div class="btn-group">
                         <button class="btn btn-danger delete-group" data-group="${groupId}">
@@ -869,20 +896,20 @@
             sites.forEach((site, index) => {
                 const groupId = `site-${Date.now()}-${index}`;
                 
-                let extras = '';
-                if (site.ext) {
-                    extras += `"ext": ${JSON.stringify(site.ext)}`;
-                }
-                if (site.style) {
-                    if (extras) extras += ', ';
-                    extras += `"style": ${JSON.stringify(site.style)}`;
-                }
-                // 添加其他字段
-                const otherFields = ['indexs', 'searchable', 'quickSearch', 'changeable', 'timeout'];
-                otherFields.forEach(field => {
-                    if (site[field] !== undefined) {
-                        if (extras) extras += ', ';
-                        extras += `"${field}": ${JSON.stringify(site[field])}`;
+                // 提取额外设置
+                const { key, name, type, api, ...extras } = site;
+                
+                // 构建额外设置字符串（不包含最外层大括号）
+                let extrasStr = '';
+                const extrasEntries = Object.entries(extras);
+                extrasEntries.forEach(([k, v], idx) => {
+                    if (typeof v === 'object') {
+                        extrasStr += `"${k}": ${JSON.stringify(v)}`;
+                    } else {
+                        extrasStr += `"${k}": ${JSON.stringify(v)}`;
+                    }
+                    if (idx < extrasEntries.length - 1) {
+                        extrasStr += ', ';
                     }
                 });
                 
@@ -894,25 +921,29 @@
                                 <i class="fas fa-lock"></i>
                             </button>
                         </div>
-                        <div class="form-group">
-                            <label>Key</label>
-                            <input type="text" class="site-key" value="${site.key || ''}" placeholder="唯一标识符">
+                        <div class="two-column-input">
+                            <div class="form-group">
+                                <label>Key</label>
+                                <input type="text" class="site-key" value="${site.key || ''}" placeholder="唯一标识符">
+                            </div>
+                            <div class="form-group">
+                                <label>名称</label>
+                                <input type="text" class="site-name" value="${site.name || ''}" placeholder="显示名称">
+                            </div>
+                        </div>
+                        <div class="two-column-input">
+                            <div class="form-group">
+                                <label>类型 (type)</label>
+                                <input type="number" class="site-type" value="${site.type || 3}">
+                            </div>
+                            <div class="form-group">
+                                <label>API</label>
+                                <input type="text" class="site-api" value="${site.api || ''}" placeholder="API名称">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label>名称</label>
-                            <input type="text" class="site-name" value="${site.name || ''}" placeholder="显示名称">
-                        </div>
-                        <div class="form-group">
-                            <label>类型 (type)</label>
-                            <input type="number" class="site-type" value="${site.type || 3}">
-                        </div>
-                        <div class="form-group">
-                            <label>API</label>
-                            <input type="text" class="site-api" value="${site.api || ''}" placeholder="API名称">
-                        </div>
-                        <div class="form-group">
-                            <label>其他设置 (JSON格式)</label>
-                            <textarea class="site-extras" placeholder='{"key": "value"}'>${extras ? `{${extras}}` : ''}</textarea>
+                            <label>其他设置 (无需最外层{})</label>
+                            <textarea class="site-extras compact-input" placeholder='"key": "value"'>${extrasStr}</textarea>
                         </div>
                         <div class="btn-group">
                             <button class="btn btn-danger delete-group" data-group="${groupId}">
@@ -970,12 +1001,12 @@
                         <input type="text" class="live-name" placeholder="直播源名称">
                     </div>
                     <div class="form-group">
-                        <label>类型 (type)</label>
-                        <input type="number" class="live-type" value="0">
-                    </div>
-                    <div class="form-group">
                         <label>URL</label>
                         <input type="text" class="live-url" placeholder="直播源URL">
+                    </div>
+                    <div class="form-group">
+                        <label>其他设置 (无需最外层{})</label>
+                        <textarea class="live-extras compact-input" placeholder='"type": 0'></textarea>
                     </div>
                     <div class="btn-group">
                         <button class="btn btn-danger delete-group" data-group="${groupId}">
@@ -1015,6 +1046,19 @@
             lives.forEach((live, index) => {
                 const groupId = `live-${Date.now()}-${index}`;
                 
+                // 提取额外设置
+                const { name, url, ...extras } = live;
+                
+                // 构建额外设置字符串（不包含最外层大括号）
+                let extrasStr = '';
+                const extrasEntries = Object.entries(extras);
+                extrasEntries.forEach(([k, v], idx) => {
+                    extrasStr += `"${k}": ${JSON.stringify(v)}`;
+                    if (idx < extrasEntries.length - 1) {
+                        extrasStr += ', ';
+                    }
+                });
+                
                 const groupHtml = `
                     <div class="group-container" id="${groupId}">
                         <div class="group-header">
@@ -1028,12 +1072,12 @@
                             <input type="text" class="live-name" value="${live.name || ''}" placeholder="直播源名称">
                         </div>
                         <div class="form-group">
-                            <label>类型 (type)</label>
-                            <input type="number" class="live-type" value="${live.type || 0}">
-                        </div>
-                        <div class="form-group">
                             <label>URL</label>
                             <input type="text" class="live-url" value="${live.url || ''}" placeholder="直播源URL">
+                        </div>
+                        <div class="form-group">
+                            <label>其他设置 (无需最外层{})</label>
+                            <textarea class="live-extras compact-input" placeholder='"type": 0'>${extrasStr}</textarea>
                         </div>
                         <div class="btn-group">
                             <button class="btn btn-danger delete-group" data-group="${groupId}">
@@ -1087,16 +1131,8 @@
                         </button>
                     </div>
                     <div class="form-group">
-                        <label>名称</label>
-                        <input type="text" class="parse-name" placeholder="解析源名称">
-                    </div>
-                    <div class="form-group">
-                        <label>类型 (type)</label>
-                        <input type="number" class="parse-type" value="0">
-                    </div>
-                    <div class="form-group">
-                        <label>URL</label>
-                        <input type="text" class="parse-url" placeholder="解析URL">
+                        <label>完整配置 (JSON格式)</label>
+                        <textarea class="parse-full full-json-input" placeholder='{"name": "VIP1", "type": 0, "url": "https://jx.xmflv.com/?url="}'></textarea>
                     </div>
                     <div class="btn-group">
                         <button class="btn btn-danger delete-group" data-group="${groupId}">
@@ -1145,16 +1181,8 @@
                             </button>
                         </div>
                         <div class="form-group">
-                            <label>名称</label>
-                            <input type="text" class="parse-name" value="${parse.name || ''}" placeholder="解析源名称">
-                        </div>
-                        <div class="form-group">
-                            <label>类型 (type)</label>
-                            <input type="number" class="parse-type" value="${parse.type || 0}">
-                        </div>
-                        <div class="form-group">
-                            <label>URL</label>
-                            <input type="text" class="parse-url" value="${parse.url || ''}" placeholder="解析URL">
+                            <label>完整配置 (JSON格式)</label>
+                            <textarea class="parse-full full-json-input" placeholder='{"name": "VIP1", "type": 0, "url": "https://jx.xmflv.com/?url="}'>${JSON.stringify(parse, null, 2)}</textarea>
                         </div>
                         <div class="btn-group">
                             <button class="btn btn-danger delete-group" data-group="${groupId}">
@@ -1238,7 +1266,15 @@
                     // 解析额外设置
                     if (extrasText.trim()) {
                         try {
-                            const extrasObj = JSON.parse(extrasText);
+                            // 添加最外层大括号
+                            let extrasJsonStr = extrasText.trim();
+                            if (!extrasJsonStr.startsWith('{')) {
+                                extrasJsonStr = '{' + extrasJsonStr;
+                            }
+                            if (!extrasJsonStr.endsWith('}')) {
+                                extrasJsonStr = extrasJsonStr + '}';
+                            }
+                            const extrasObj = JSON.parse(extrasJsonStr);
                             Object.assign(site, extrasObj);
                         } catch (e) {
                             console.warn('解析额外设置失败:', e);
@@ -1277,11 +1313,31 @@
             
             groups.forEach(group => {
                 const name = group.querySelector('.live-name').value;
-                const type = parseInt(group.querySelector('.live-type').value);
                 const url = group.querySelector('.live-url').value;
+                const extrasText = group.querySelector('.live-extras').value;
                 
                 if (name && url) {
-                    lives.push({ name, type, url });
+                    const live = { name, url };
+                    
+                    // 解析额外设置
+                    if (extrasText.trim()) {
+                        try {
+                            // 添加最外层大括号
+                            let extrasJsonStr = extrasText.trim();
+                            if (!extrasJsonStr.startsWith('{')) {
+                                extrasJsonStr = '{' + extrasJsonStr;
+                            }
+                            if (!extrasJsonStr.endsWith('}')) {
+                                extrasJsonStr = extrasJsonStr + '}';
+                            }
+                            const extrasObj = JSON.parse(extrasJsonStr);
+                            Object.assign(live, extrasObj);
+                        } catch (e) {
+                            console.warn('解析额外设置失败:', e);
+                        }
+                    }
+                    
+                    lives.push(live);
                 }
             });
             
@@ -1312,12 +1368,15 @@
             const parses = [];
             
             groups.forEach(group => {
-                const name = group.querySelector('.parse-name').value;
-                const type = parseInt(group.querySelector('.parse-type').value);
-                const url = group.querySelector('.parse-url').value;
+                const fullText = group.querySelector('.parse-full').value;
                 
-                if (name && url) {
-                    parses.push({ name, type, url });
+                if (fullText.trim()) {
+                    try {
+                        const parseObj = JSON.parse(fullText);
+                        parses.push(parseObj);
+                    } catch (e) {
+                        console.warn('解析配置失败:', e);
+                    }
                 }
             });
             
@@ -1407,14 +1466,18 @@
         
         // 格式化JSON
         function formatJson() {
-            const jsonOutput = document.getElementById('json-output');
             const cachedData = localStorage.getItem('tvbox_json');
             
             if (cachedData) {
                 try {
                     const jsonObj = JSON.parse(cachedData);
                     const formattedJson = JSON.stringify(jsonObj, null, 2);
-                    jsonOutput.value = formattedJson;
+                    
+                    // 创建新窗口显示格式化结果
+                    const newWindow = window.open();
+                    newWindow.document.write('<pre>' + formattedJson + '</pre>');
+                    newWindow.document.title = '格式化JSON结果';
+                    
                     showNotification('JSON已格式化！');
                 } catch (e) {
                     showNotification('JSON格式化错误: ' + e.message, true);
@@ -1477,8 +1540,12 @@
                 try {
                     // 简单加密：Base64编码
                     const encoded = btoa(encodeURIComponent(cachedData));
-                    const jsonOutput = document.getElementById('json-output');
-                    jsonOutput.value = encoded;
+                    
+                    // 创建新窗口显示加密结果
+                    const newWindow = window.open();
+                    newWindow.document.write('<pre>' + encoded + '</pre>');
+                    newWindow.document.title = '加密JSON结果';
+                    
                     showNotification('JSON已加密（Base64）！');
                 } catch (e) {
                     showNotification('加密失败: ' + e.message, true);
