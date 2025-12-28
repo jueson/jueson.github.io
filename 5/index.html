@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TVBox接口编辑器增强版</title>
+    <title>TVBox配置编辑器</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -32,7 +32,7 @@
         }
         
         .container {
-            max-width: 1800px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         
@@ -43,7 +43,7 @@
             border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
         
-        h1 {
+        header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
             background: linear-gradient(to right, #3498db, #2ecc71);
@@ -52,273 +52,193 @@
             display: inline-block;
         }
         
-        .subtitle {
+        header p {
             color: var(--gray);
             font-size: 1.1rem;
         }
         
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        .card {
+            background: rgba(44, 62, 80, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 25px;
             margin-bottom: 30px;
-        }
-        
-        .input-section, .output-section {
-            background: rgba(44, 62, 80, 0.7);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .section-title {
+        .card-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
             margin-bottom: 20px;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .section-title i {
-            color: var(--primary);
+        .card-title {
             font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-success {
+            background: var(--success);
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+        }
+        
+        .btn-danger {
+            background: var(--danger);
         }
         
         .btn-group {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
             flex-wrap: wrap;
         }
         
-        .btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-        
-        .btn-warning {
-            background: var(--warning);
-            color: white;
-        }
-        
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: var(--gray);
-            color: white;
-        }
-        
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        
-        textarea {
-            width: 100%;
-            height: 300px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            padding: 15px;
-            color: white;
-            font-family: monospace;
-            resize: vertical;
-        }
-        
-        .editor-container {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 5px;
-            padding: 15px;
-            margin-top: 20px;
-            max-height: 600px;
-            overflow-y: auto;
-        }
-        
-        .editor-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .editor-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        
-        .editor-controls {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .editor-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .editor-table th {
-            background: rgba(52, 152, 219, 0.3);
-            padding: 10px;
-            text-align: left;
-            position: sticky;
-            top: 0;
-        }
-        
-        .editor-table td {
-            padding: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .editor-table tr:nth-child(even) {
-            background: rgba(0, 0, 0, 0.2);
-        }
-        
-        .editor-table tr:hover {
-            background: rgba(52, 152, 219, 0.1);
-        }
-        
-        .editor-table input, .editor-table select, .editor-table textarea {
-            width: 100%;
-            padding: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            color: white;
-        }
-        
-        .editor-table textarea {
-            height: 60px;
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
-        
-        .action-cell {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .action-btn {
-            padding: 5px 8px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        
-        .json-display {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 5px;
-            padding: 15px;
-            max-height: 500px;
-            overflow-y: auto;
-            font-family: monospace;
-            white-space: pre-wrap;
-            word-break: break-all;
-        }
-        
-        .json-key {
-            color: #3498db;
-        }
-        
-        .json-string {
-            color: #2ecc71;
-        }
-        
-        .json-number {
-            color: #f39c12;
-        }
-        
-        .json-boolean {
-            color: #9b59b6;
-        }
-        
-        .json-null {
-            color: #7f8c8d;
-        }
-        
-        .json-punctuation {
-            color: #ecf0f1;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-        
-        .modal-content {
-            background: rgba(44, 62, 80, 0.95);
-            margin: 5% auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 800px;
-            max-height: 80%;
-            overflow-y: auto;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .input-group {
             margin-bottom: 20px;
         }
         
-        .close {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--light);
         }
         
-        .close:hover {
-            color: white;
-        }
-        
-        .site-group {
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             background: rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: monospace;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .module-editor {
+            display: none;
+        }
+        
+        .module-editor.active {
+            display: block;
+        }
+        
+        .site-item, .live-item {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
             padding: 15px;
             margin-bottom: 15px;
+            position: relative;
         }
         
-        .site-group-header {
+        .site-header, .live-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
         }
         
-        .site-group-title {
+        .site-title, .live-title {
             font-weight: 600;
-            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .delete-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lock-btn {
+            background: var(--warning);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+        
+        .locked {
+            background: var(--success);
+        }
+        
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 25px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            font-weight: 600;
+        }
+        
+        .output-container {
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
         }
         
         .notification {
@@ -326,11 +246,12 @@
             top: 20px;
             right: 20px;
             padding: 15px 25px;
-            border-radius: 5px;
+            border-radius: 8px;
             background: var(--success);
             color: white;
+            font-weight: 500;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transform: translateX(200%);
+            transform: translateX(150%);
             transition: transform 0.3s ease;
             z-index: 1000;
         }
@@ -343,62 +264,30 @@
             background: var(--danger);
         }
         
-        .notification.warning {
-            background: var(--warning);
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
         }
         
-        .tab-container {
-            display: flex;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .empty-state i {
+            font-size: 3rem;
             margin-bottom: 20px;
+            opacity: 0.5;
         }
         
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-        }
-        
-        .tab.active {
-            border-bottom: 3px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .field-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
-        
-        .field-label {
-            min-width: 120px;
-            font-weight: 600;
-        }
-        
-        .field-input {
-            flex: 1;
-        }
-        
-        .field-actions {
-            min-width: 60px;
-            display: flex;
-            gap: 5px;
-        }
-        
-        @media (max-width: 900px) {
-            .main-content {
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-group {
                 flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -406,911 +295,924 @@
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-tv"></i> TVBox接口编辑器增强版</h1>
-            <p class="subtitle">支持细粒度编辑站点配置，批量操作和行级编辑</p>
+            <h1><i class="fas fa-tv"></i> TVBox配置编辑器</h1>
+            <p>导入、编辑和导出TVBox配置文件</p>
         </header>
         
-        <div class="main-content">
-            <div class="input-section">
-                <div class="section-title">
-                    <i class="fas fa-edit"></i>
-                    <h2>输入配置</h2>
-                </div>
-                
-                <div class="tab-container">
-                    <div class="tab active" data-tab="input-tab">JSON输入</div>
-                    <div class="tab" data-tab="sites-tab">站点管理</div>
-                    <div class="tab" data-tab="parses-tab">解析管理</div>
-                    <div class="tab" data-tab="groups-tab">批量操作</div>
-                </div>
-                
-                <div class="tab-content active" id="input-tab">
-                    <div class="btn-group">
-                        <button class="btn btn-primary" id="pasteBtn">
-                            <i class="fas fa-paste"></i> 从剪贴板粘贴
-                        </button>
-                        <button class="btn btn-primary" id="fileBtn">
-                            <i class="fas fa-file-upload"></i> 上传JSON文件
-                        </button>
-                        <button class="btn btn-success" id="loadExampleBtn">
-                            <i class="fas fa-lightbulb"></i> 加载示例
-                        </button>
-                        <button class="btn btn-danger" id="clearBtn">
-                            <i class="fas fa-trash"></i> 清空
-                        </button>
-                        <button class="btn btn-warning" id="parseBtn">
-                            <i class="fas fa-code"></i> 解析JSON
-                        </button>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">导入配置</h2>
+            </div>
+            <div class="input-group">
+                <label for="importMethod">导入方式</label>
+                <select id="importMethod">
+                    <option value="paste">粘贴文本</option>
+                    <option value="file">上传文件</option>
+                    <option value="url">从URL获取</option>
+                </select>
+            </div>
+            
+            <div class="input-group" id="pasteInput">
+                <label for="configText">粘贴JSON配置</label>
+                <textarea id="configText" placeholder='粘贴TVBox配置JSON...'></textarea>
+            </div>
+            
+            <div class="input-group" id="fileInput" style="display: none;">
+                <label for="configFile">上传配置文件</label>
+                <input type="file" id="configFile" accept=".json,.txt">
+            </div>
+            
+            <div class="input-group" id="urlInput" style="display: none;">
+                <label for="configUrl">配置URL地址</label>
+                <input type="text" id="configUrl" placeholder="https://example.com/config.json">
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn" id="importBtn"><i class="fas fa-file-import"></i> 导入配置</button>
+                <button class="btn btn-success" id="sampleBtn"><i class="fas fa-lightbulb"></i> 加载示例</button>
+                <button class="btn btn-warning" id="resetBtn"><i class="fas fa-redo"></i> 重置</button>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">配置编辑</h2>
+            </div>
+            
+            <div class="tab-container">
+                <div class="tab active" data-tab="general">通用设置</div>
+                <div class="tab" data-tab="sites">点播站点</div>
+                <div class="tab" data-tab="lives">直播源</div>
+                <div class="tab" data-tab="parses">解析服务</div>
+                <div class="tab" data-tab="advanced">高级设置</div>
+            </div>
+            
+            <!-- 通用设置 -->
+            <div class="module-editor active" id="general-editor">
+                <div class="grid">
+                    <div class="input-group">
+                        <label for="spider">爬虫地址</label>
+                        <input type="text" id="spider" placeholder="https://...">
                     </div>
-                    
-                    <textarea id="jsonInput" placeholder='在此粘贴TVBox JSON配置或上传文件...'>{
-  "sites": [
-    {
-      "key": "蓝鹰",
-      "name": "蓝鹰｜APP",
-      "type": 3,
-      "quickSearch": 1,
-      "api": "csp_AppQi",
-      "ext": {
-        "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/lanyingxmy.txt",
-        "dataKey": "ca94b06ca359d80e",
-        "dataIv": "ca94b06ca359d80e",
-        "version": "120"
-      }
-    },
-    {
-      "key": "开心",
-      "name": "开心｜APP",
-      "type": 3,
-      "quickSearch": 1,
-      "api": "csp_AppQi",
-      "ext": {
-        "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/gw.txt",
-        "dataKey": "ca94b06ca3c7d80e",
-        "dataIv": "ca94b06ca3c7d80e",
-        "ua": "okhttp/3.10.0"
-      }
-    },
-    {
-      "key": "仓鼠",
-      "name": "仓鼠｜APP",
-      "type": 3,
-      "quickSearch": 1,
-      "api": "csp_AppQi",
-      "ext": {
-        "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/ceshi421.txt",
-        "dataKey": "da61247f5b662597",
-        "dataIv": "da61247f5b662597",
-        "version": "120"
-      }
-    }
-  ]
-}</textarea>
-                </div>
-                
-                <div class="tab-content" id="sites-tab">
-                    <div class="editor-header">
-                        <div class="editor-title">站点编辑器 - 支持行级编辑</div>
-                        <div class="editor-controls">
-                            <button class="btn btn-success" id="addSiteBtn">
-                                <i class="fas fa-plus"></i> 添加站点
-                            </button>
-                            <button class="btn btn-secondary" id="batchAddBtn">
-                                <i class="fas fa-layer-group"></i> 批量添加
-                            </button>
-                        </div>
+                    <div class="input-group">
+                        <label for="wallpaper">壁纸地址</label>
+                        <input type="text" id="wallpaper" placeholder="http://...">
                     </div>
-                    
-                    <table class="editor-table">
-                        <thead>
-                            <tr>
-                                <th>操作</th>
-                                <th>名称</th>
-                                <th>KEY</th>
-                                <th>API</th>
-                                <th>类型</th>
-                                <th>扩展配置</th>
-                            </tr>
-                        </thead>
-                        <tbody id="sitesTable">
-                            <!-- 站点数据将通过JS动态添加 -->
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="tab-content" id="parses-tab">
-                    <div class="editor-header">
-                        <div class="editor-title">解析器编辑器</div>
-                        <div class="editor-controls">
-                            <button class="btn btn-success" id="addParseBtn">
-                                <i class="fas fa-plus"></i> 添加解析器
-                            </button>
-                        </div>
+                    <div class="input-group">
+                        <label for="logo">Logo地址</label>
+                        <input type="text" id="logo" placeholder="https://...">
                     </div>
-                    
-                    <table class="editor-table">
-                        <thead>
-                            <tr>
-                                <th>操作</th>
-                                <th>名称</th>
-                                <th>类型</th>
-                                <th>URL</th>
-                            </tr>
-                        </thead>
-                        <tbody id="parsesTable">
-                            <!-- 解析器数据将通过JS动态添加 -->
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="tab-content" id="groups-tab">
-                    <div class="editor-header">
-                        <div class="editor-title">批量操作站点组</div>
-                        <div class="editor-controls">
-                            <button class="btn btn-success" id="addGroupBtn">
-                                <i class="fas fa-plus"></i> 添加站点组
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div id="siteGroupsContainer">
-                        <!-- 站点组将通过JS动态添加 -->
+                    <div class="input-group">
+                        <label for="warningText">提示文字</label>
+                        <input type="text" id="warningText" placeholder="免费资源，请勿充值">
                     </div>
                 </div>
             </div>
             
-            <div class="output-section">
-                <div class="section-title">
-                    <i class="fas fa-code"></i>
-                    <h2>输出配置</h2>
-                </div>
-                
+            <!-- 点播站点编辑 -->
+            <div class="module-editor" id="sites-editor">
                 <div class="btn-group">
-                    <button class="btn btn-success" id="generateBtn">
-                        <i class="fas fa-cogs"></i> 生成配置
-                    </button>
-                    <button class="btn btn-primary" id="copyBtn">
-                        <i class="fas fa-copy"></i> 复制全部
-                    </button>
-                    <button class="btn btn-warning" id="downloadBtn">
-                        <i class="fas fa-download"></i> 下载文件
-                    </button>
-                    <button class="btn btn-secondary" id="validateBtn">
-                        <i class="fas fa-check"></i> 验证JSON
-                    </button>
+                    <button class="btn" id="addSiteBtn"><i class="fas fa-plus"></i> 添加站点</button>
+                    <button class="btn btn-danger" id="removeAllSitesBtn"><i class="fas fa-trash"></i> 清空所有</button>
                 </div>
                 
-                <div class="json-display" id="jsonOutput"></div>
+                <div id="sitesContainer">
+                    <div class="empty-state">
+                        <i class="fas fa-film"></i>
+                        <p>暂无点播站点，点击"添加站点"按钮开始添加</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 直播源编辑 -->
+            <div class="module-editor" id="lives-editor">
+                <div class="btn-group">
+                    <button class="btn" id="addLiveBtn"><i class="fas fa-plus"></i> 添加直播源</button>
+                    <button class="btn btn-danger" id="removeAllLivesBtn"><i class="fas fa-trash"></i> 清空所有</button>
+                </div>
+                
+                <div id="livesContainer">
+                    <div class="empty-state">
+                        <i class="fas fa-satellite"></i>
+                        <p>暂无直播源，点击"添加直播源"按钮开始添加</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 解析服务编辑 -->
+            <div class="module-editor" id="parses-editor">
+                <div class="btn-group">
+                    <button class="btn" id="addParseBtn"><i class="fas fa-plus"></i> 添加解析</button>
+                    <button class="btn btn-danger" id="removeAllParsesBtn"><i class="fas fa-trash"></i> 清空所有</button>
+                </div>
+                
+                <div id="parsesContainer">
+                    <div class="empty-state">
+                        <i class="fas fa-code"></i>
+                        <p>暂无解析服务，点击"添加解析"按钮开始添加</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 高级设置 -->
+            <div class="module-editor" id="advanced-editor">
+                <div class="grid">
+                    <div class="input-group">
+                        <label for="hosts">Hosts 配置</label>
+                        <textarea id="hosts" placeholder="每行一个host映射..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="doh">DNS over HTTPS</label>
+                        <textarea id="doh" placeholder="每行一个DoH配置..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="flags">平台标识</label>
+                        <input type="text" id="flags" placeholder="逗号分隔的平台标识...">
+                    </div>
+                    <div class="input-group">
+                        <label for="proxy">代理设置</label>
+                        <textarea id="proxy" placeholder="每行一个代理规则..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="ads">广告过滤</label>
+                        <textarea id="ads" placeholder="每行一个广告域名..."></textarea>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <div class="modal" id="groupModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>批量添加站点组</h3>
-                    <span class="close">&times;</span>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <p>输入站点组JSON数组（可以一次添加多个站点）：</p>
-                    <textarea id="groupJsonInput" style="width: 100%; height: 300px;" placeholder='例如：
-[
-  {
-    "key": "新站点1",
-    "name": "新站点1｜APP",
-    "type": 3,
-    "quickSearch": 1,
-    "api": "csp_NewGuard",
-    "ext": {
-      "site": "https://example.com/site1.txt",
-      "dataKey": "examplekey1",
-      "dataIv": "exampleiv1"
-    }
-  },
-  {
-    "key": "新站点2",
-    "name": "新站点2｜APP",
-    "type": 3,
-    "quickSearch": 1,
-    "api": "csp_NewGuard2",
-    "ext": {
-      "site": "https://example.com/site2.txt",
-      "dataKey": "examplekey2",
-      "dataIv": "exampleiv2"
-    }
-  }
-]'></textarea>
-                </div>
-                <div style="text-align: right;">
-                    <button class="btn btn-primary" id="addGroupConfirmBtn">添加站点组</button>
-                </div>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">导出配置</h2>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-success" id="exportBtn"><i class="fas fa-file-export"></i> 导出JSON</button>
+                <button class="btn" id="downloadBtn"><i class="fas fa-download"></i> 下载文件</button>
+                <button class="btn btn-warning" id="encryptBtn"><i class="fas fa-lock"></i> 简单加密</button>
+            </div>
+            
+            <div class="output-container">
+                <label for="outputJson">输出配置</label>
+                <textarea id="outputJson" readonly></textarea>
+                <button class="btn copy-btn" id="copyBtn"><i class="fas fa-copy"></i> 复制</button>
             </div>
         </div>
-        
-        <div class="notification" id="notification">操作成功！</div>
-        
-        <input type="file" id="fileInput" accept=".json" style="display: none;">
     </div>
     
+    <div class="notification" id="notification">操作成功！</div>
+    
     <script>
-        // DOM元素
-        const jsonInput = document.getElementById('jsonInput');
-        const jsonOutput = document.getElementById('jsonOutput');
-        const pasteBtn = document.getElementById('pasteBtn');
-        const fileBtn = document.getElementById('fileBtn');
-        const fileInput = document.getElementById('fileInput');
-        const loadExampleBtn = document.getElementById('loadExampleBtn');
-        const clearBtn = document.getElementById('clearBtn');
-        const parseBtn = document.getElementById('parseBtn');
-        const generateBtn = document.getElementById('generateBtn');
-        const copyBtn = document.getElementById('copyBtn');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const validateBtn = document.getElementById('validateBtn');
-        const addSiteBtn = document.getElementById('addSiteBtn');
-        const addParseBtn = document.getElementById('addParseBtn');
-        const batchAddBtn = document.getElementById('batchAddBtn');
-        const addGroupBtn = document.getElementById('addGroupBtn');
-        const sitesTable = document.getElementById('sitesTable');
-        const parsesTable = document.getElementById('parsesTable');
-        const siteGroupsContainer = document.getElementById('siteGroupsContainer');
-        const notification = document.getElementById('notification');
-        const groupModal = document.getElementById('groupModal');
-        const groupJsonInput = document.getElementById('groupJsonInput');
-        const addGroupConfirmBtn = document.getElementById('addGroupConfirmBtn');
-        const closeModalBtn = document.querySelector('.close');
-        const tabs = document.querySelectorAll('.tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-        
-        // 当前编辑的JSON数据
-        let currentData = {
-            sites: [],
-            parses: [],
-            spider: "",
-            wallpaper: "",
-            logo: "",
-            doh: [],
-            ads: [],
-            lives: [],
-            ijk: [],
-            proxy: [],
-            rules: []
+        // 示例配置数据
+        const sampleConfig = {
+            "spider": "https://tvbox.catvod.com/catvod.jar;md5;392df5f6a1c925c9f765c7e4b6f3eda4",
+            "wallpaper": "http://我不是.摸鱼儿.com/wallpaper/moyu.php",
+            "logo": "https://gh-proxy.com/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/SDX1/lib/jueson.jpg",
+            "warningText": "免费资源，请勿充值",
+            "sites": [
+                {
+                    "key": "豆豆",
+                    "name": "�🅱豆瓣┃推荐",
+                    "type": 3,
+                    "api": "csp_DouDouGuard",
+                    "indexs": 1,
+                    "searchable": 0,
+                    "quickSearch": 0,
+                    "changeable": 0
+                },
+                {
+                    "key": "MDrive",
+                    "name": "🗂我的云盘┃我配置",
+                    "type": 3,
+                    "api": "csp_MyDriveGuard",
+                    "changeable": 0,
+                    "indexs": 0,
+                    "searchable": 1,
+                    "style": {
+                        "type": "oval"
+                    },
+                    "ext": {
+                        "Cloud-drive": "tvfan/Cloud-drive.txt"
+                    }
+                }
+            ],
+            "lives": [
+                {
+                    "name": "catvod.com",
+                    "type": 0,
+                    "url": "https://iptv.catvod.com/tv.m3u"
+                }
+            ],
+            "parses": [
+                {
+                    "name": "VIP1",
+                    "type": 0,
+                    "url": "https://jx.xmflv.com/?url="
+                }
+            ],
+            "hosts": [
+                "cache.ott.ystenlive.itv.cmvideo.cn=base-v4-free-mghy.e.cdn.chinamobile.com"
+            ],
+            "doh": [
+                {
+                    "name": "Google",
+                    "url": "https://dns.google/dns-query",
+                    "ips": ["8.8.4.4", "8.8.8.8"]
+                }
+            ],
+            "flags": ["youku", "qq", "iqiyi"],
+            "rules": [],
+            "ijk": [],
+            "proxy": ["raw.githubusercontent.com"],
+            "ads": ["wan.51img1.com"]
         };
-        
+
+        // DOM元素
+        const importMethod = document.getElementById('importMethod');
+        const pasteInput = document.getElementById('pasteInput');
+        const fileInput = document.getElementById('fileInput');
+        const urlInput = document.getElementById('urlInput');
+        const configText = document.getElementById('configText');
+        const configFile = document.getElementById('configFile');
+        const configUrl = document.getElementById('configUrl');
+        const importBtn = document.getElementById('importBtn');
+        const sampleBtn = document.getElementById('sampleBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const tabs = document.querySelectorAll('.tab');
+        const moduleEditors = document.querySelectorAll('.module-editor');
+        const outputJson = document.getElementById('outputJson');
+        const exportBtn = document.getElementById('exportBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const encryptBtn = document.getElementById('encryptBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const notification = document.getElementById('notification');
+
+        // 当前配置数据
+        let currentConfig = null;
+
         // 初始化
         function init() {
-            // 事件监听
-            pasteBtn.addEventListener('click', handlePaste);
-            fileBtn.addEventListener('click', () => fileInput.click());
-            fileInput.addEventListener('change', handleFileUpload);
-            loadExampleBtn.addEventListener('click', loadExample);
-            clearBtn.addEventListener('click', clearAll);
-            parseBtn.addEventListener('click', parseJson);
-            generateBtn.addEventListener('click', generateOutput);
-            copyBtn.addEventListener('click', copyToClipboard);
-            downloadBtn.addEventListener('click', downloadJson);
-            validateBtn.addEventListener('click', validateJson);
-            addSiteBtn.addEventListener('click', addNewSite);
-            addParseBtn.addEventListener('click', addNewParse);
-            batchAddBtn.addEventListener('click', showGroupModal);
-            addGroupBtn.addEventListener('click', showGroupModal);
-            addGroupConfirmBtn.addEventListener('click', addSiteGroup);
-            closeModalBtn.addEventListener('click', hideGroupModal);
+            // 绑定事件
+            importMethod.addEventListener('change', toggleImportMethod);
+            importBtn.addEventListener('click', importConfig);
+            sampleBtn.addEventListener('click', loadSample);
+            resetBtn.addEventListener('click', resetEditor);
+            tabs.forEach(tab => tab.addEventListener('click', switchTab));
+            exportBtn.addEventListener('click', exportConfig);
+            downloadBtn.addEventListener('click', downloadConfig);
+            encryptBtn.addEventListener('click', encryptConfig);
+            copyBtn.addEventListener('click', copyOutput);
             
-            // 标签页切换
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const tabId = tab.getAttribute('data-tab');
-                    switchTab(tabId);
-                });
-            });
+            // 点播站点相关
+            document.getElementById('addSiteBtn').addEventListener('click', addSiteItem);
+            document.getElementById('removeAllSitesBtn').addEventListener('click', removeAllSites);
             
-            // 点击模态框外部关闭
-            window.addEventListener('click', (e) => {
-                if (e.target === groupModal) {
-                    hideGroupModal();
-                }
-            });
+            // 直播源相关
+            document.getElementById('addLiveBtn').addEventListener('click', addLiveItem);
+            document.getElementById('removeAllLivesBtn').addEventListener('click', removeAllLives);
             
-            // 加载示例数据
-            loadExample();
+            // 解析服务相关
+            document.getElementById('addParseBtn').addEventListener('click', addParseItem);
+            document.getElementById('removeAllParsesBtn').addEventListener('click', removeAllParses);
+            
+            // 默认显示粘贴输入
+            toggleImportMethod();
         }
-        
-        // 切换标签页
-        function switchTab(tabId) {
-            // 移除所有活动标签
-            tabs.forEach(tab => tab.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-            
-            // 激活当前标签
-            document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+
+        // 切换导入方式
+        function toggleImportMethod() {
+            const method = importMethod.value;
+            pasteInput.style.display = method === 'paste' ? 'block' : 'none';
+            fileInput.style.display = method === 'file' ? 'block' : 'none';
+            urlInput.style.display = method === 'url' ? 'block' : 'none';
         }
-        
-        // 处理粘贴
-        async function handlePaste() {
+
+        // 导入配置
+        function importConfig() {
+            let configData = null;
+            
             try {
-                const text = await navigator.clipboard.readText();
-                jsonInput.value = text;
-                showNotification('已从剪贴板粘贴内容');
-            } catch (err) {
-                showNotification('无法访问剪贴板，请手动粘贴', 'error');
-            }
-        }
-        
-        // 处理文件上传
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                jsonInput.value = e.target.result;
-                showNotification(`已加载文件: ${file.name}`);
-            };
-            reader.readAsText(file);
-            
-            // 重置input以允许再次选择同一文件
-            event.target.value = '';
-        }
-        
-        // 加载示例
-        function loadExample() {
-            const exampleJson = {
-                "spider": "https://gh-proxy.com/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/OK/lib/ok1.jpg;md5;83e2ccc1e3c050154d8390b60f1a2ae2",
-                "wallpaper": "http://127.0.0.1:9978/proxy?do=wall",
-                "logo": "https://storage.7x24cc.com/storage-server/presigned/ss1/a6-online-fileupload/newMediaImage/ACB34B_773_photo_2022-09-14_00-00-57_20251204145106336newMediaImage.jpg",
-                "sites": [
-                    {
-                        "key": "蓝鹰",
-                        "name": "蓝鹰｜APP",
-                        "type": 3,
-                        "quickSearch": 1,
-                        "api": "csp_AppQi",
-                        "ext": {
-                            "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/lanyingxmy.txt",
-                            "dataKey": "ca94b06ca359d80e",
-                            "dataIv": "ca94b06ca359d80e",
-                            "version": "120"
-                        }
-                    },
-                    {
-                        "key": "开心",
-                        "name": "开心｜APP",
-                        "type": 3,
-                        "quickSearch": 1,
-                        "api": "csp_AppQi",
-                        "ext": {
-                            "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/gw.txt",
-                            "dataKey": "ca94b06ca3c7d80e",
-                            "dataIv": "ca94b06ca3c7d80e",
-                            "ua": "okhttp/3.10.0"
-                        }
-                    },
-                    {
-                        "key": "仓鼠",
-                        "name": "仓鼠｜APP",
-                        "type": 3,
-                        "quickSearch": 1,
-                        "api": "csp_AppQi",
-                        "ext": {
-                            "site": "https://gh-proxy.org/raw.githubusercontent.com/jueson/tvbox/refs/heads/main/潇洒/lib/ceshi421.txt",
-                            "dataKey": "da61247f5b662597",
-                            "dataIv": "da61247f5b662597",
-                            "version": "120"
-                        }
+                if (importMethod.value === 'paste') {
+                    configData = JSON.parse(configText.value || '{}');
+                } else if (importMethod.value === 'file') {
+                    const file = configFile.files[0];
+                    if (!file) {
+                        showNotification('请选择配置文件', true);
+                        return;
                     }
-                ],
-                "parses": [
-                    {"name": "聚合1", "type": 3, "url": "Demo"},
-                    {"name": "聚合0", "type": 3, "url": "Web"},
-                    {"name": "ikun", "type": 0, "url": "https://jx.hls.one/?url="}
-                ],
-                "doh": [
-                    {"name": "Google", "url": "https://dns.google/dns-query", "ips": ["8.8.4.4", "8.8.8.8"]}
-                ],
-                "ads": ["mozai.4gtv.tv"],
-                "lives": [
-                    {"name": "MIGU", "type": 0, "url": "http://127.0.0.1:9978/proxy?do=live&url=https%3A%2F%2Fbc.188766.xyz%2F%3Fip%3D%26mishitong%3Dtrue%26mima%3Dmianfeibuhuaqian%26json%3Dtrue", "playerType": 2, "timeout": 10, "ua": "bingcha/1.1(mianfeifenxiang)"}
-                ],
-                "ijk": [
-                    {"group": "软解码", "options": [{"category": 4, "name": "opensles", "value": "0"}]}
-                ],
-                "proxy": ["raw.githubusercontent.com", "googlevideo.com"],
-                "rules": [
-                    {"name": "cl", "hosts": ["magnet"], "regex": ["最新", "直播", "更新"]}
-                ]
-            };
-            
-            jsonInput.value = JSON.stringify(exampleJson, null, 2);
-            parseJson();
-            showNotification('已加载示例配置');
-        }
-        
-        // 清空所有
-        function clearAll() {
-            jsonInput.value = '';
-            jsonOutput.innerHTML = '';
-            sitesTable.innerHTML = '';
-            parsesTable.innerHTML = '';
-            siteGroupsContainer.innerHTML = '';
-            showNotification('已清空所有内容');
-        }
-        
-        // 解析JSON
-        function parseJson() {
-            try {
-                const jsonText = jsonInput.value.trim();
-                if (!jsonText) {
-                    showNotification('请输入JSON数据', 'error');
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            configData = JSON.parse(e.target.result);
+                            processImportedConfig(configData);
+                        } catch (error) {
+                            showNotification('文件解析错误: ' + error.message, true);
+                        }
+                    };
+                    reader.readAsText(file);
+                    return;
+                } else if (importMethod.value === 'url') {
+                    const url = configUrl.value.trim();
+                    if (!url) {
+                        showNotification('请输入URL地址', true);
+                        return;
+                    }
+                    
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            processImportedConfig(data);
+                        })
+                        .catch(error => {
+                            showNotification('获取配置失败: ' + error.message, true);
+                        });
                     return;
                 }
                 
-                currentData = JSON.parse(jsonText);
-                
-                // 确保必要字段存在
-                if (!currentData.sites) currentData.sites = [];
-                if (!currentData.parses) currentData.parses = [];
-                if (!currentData.doh) currentData.doh = [];
-                if (!currentData.ads) currentData.ads = [];
-                if (!currentData.lives) currentData.lives = [];
-                if (!currentData.ijk) currentData.ijk = [];
-                if (!currentData.proxy) currentData.proxy = [];
-                if (!currentData.rules) currentData.rules = [];
-                
-                renderSitesTable();
-                renderParsesTable();
-                renderSiteGroups();
-                showNotification('JSON解析成功');
-            } catch (e) {
-                showNotification(`JSON解析错误: ${e.message}`, 'error');
+                processImportedConfig(configData);
+            } catch (error) {
+                showNotification('JSON解析错误: ' + error.message, true);
             }
         }
-        
-        // 渲染站点表格
-        function renderSitesTable() {
-            sitesTable.innerHTML = '';
-            
-            if (!currentData.sites || currentData.sites.length === 0) {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td colspan="6" style="text-align: center; padding: 20px;">暂无站点数据</td>`;
-                sitesTable.appendChild(row);
+
+        // 处理导入的配置
+        function processImportedConfig(configData) {
+            if (!configData || Object.keys(configData).length === 0) {
+                showNotification('配置为空或无效', true);
                 return;
             }
             
-            currentData.sites.forEach((site, index) => {
-                const row = document.createElement('tr');
-                const extText = site.ext ? JSON.stringify(site.ext, null, 2) : '';
-                
-                row.innerHTML = `
-                    <td class="action-cell">
-                        <button class="action-btn btn-primary" onclick="editSite(${index})" title="编辑">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn btn-danger" onclick="deleteSite(${index})" title="删除">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td><input type="text" value="${site.name || ''}" onchange="updateSiteField(${index}, 'name', this.value)" style="width: 100%;"></td>
-                    <td><input type="text" value="${site.key || ''}" onchange="updateSiteField(${index}, 'key', this.value)" style="width: 100%;"></td>
-                    <td><input type="text" value="${site.api || ''}" onchange="updateSiteField(${index}, 'api', this.value)" style="width: 100%;"></td>
-                    <td><input type="number" value="${site.type || 3}" onchange="updateSiteField(${index}, 'type', parseInt(this.value) || 3)" style="width: 100%;"></td>
-                    <td><textarea onchange="updateSiteField(${index}, 'ext', this.value)" style="width: 100%; height: 60px; font-family: monospace; font-size: 0.8rem;">${extText}</textarea></td>
-                `;
-                
-                sitesTable.appendChild(row);
-            });
+            currentConfig = configData;
+            populateEditor(currentConfig);
+            showNotification('配置导入成功！');
         }
-        
-        // 渲染解析器表格
-        function renderParsesTable() {
-            parsesTable.innerHTML = '';
-            
-            if (!currentData.parses || currentData.parses.length === 0) {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td colspan="4" style="text-align: center; padding: 20px;">暂无解析器数据</td>`;
-                parsesTable.appendChild(row);
-                return;
-            }
-            
-            currentData.parses.forEach((parse, index) => {
-                const row = document.createElement('tr');
-                
-                row.innerHTML = `
-                    <td class="action-cell">
-                        <button class="action-btn btn-primary" onclick="editParse(${index})" title="编辑">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn btn-danger" onclick="deleteParse(${index})" title="删除">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                    <td><input type="text" value="${parse.name || ''}" onchange="updateParseField(${index}, 'name', this.value)" style="width: 100%;"></td>
-                    <td><input type="number" value="${parse.type || 0}" onchange="updateParseField(${index}, 'type', parseInt(this.value) || 0)" style="width: 100%;"></td>
-                    <td><input type="text" value="${parse.url || ''}" onchange="updateParseField(${index}, 'url', this.value)" style="width: 100%;"></td>
-                `;
-                
-                parsesTable.appendChild(row);
-            });
+
+        // 加载示例配置
+        function loadSample() {
+            currentConfig = JSON.parse(JSON.stringify(sampleConfig));
+            populateEditor(currentConfig);
+            showNotification('示例配置已加载');
         }
-        
-        // 渲染站点组
-        function renderSiteGroups() {
-            siteGroupsContainer.innerHTML = '';
+
+        // 重置编辑器
+        function resetEditor() {
+            currentConfig = null;
+            configText.value = '';
+            configFile.value = '';
+            configUrl.value = '';
+            outputJson.value = '';
             
-            if (!currentData.sites || currentData.sites.length === 0) {
-                siteGroupsContainer.innerHTML = '<p style="text-align: center; padding: 20px; color: #ccc;">暂无站点组数据</p>';
-                return;
-            }
+            // 重置表单
+            document.getElementById('spider').value = '';
+            document.getElementById('wallpaper').value = '';
+            document.getElementById('logo').value = '';
+            document.getElementById('warningText').value = '';
+            document.getElementById('hosts').value = '';
+            document.getElementById('doh').value = '';
+            document.getElementById('flags').value = '';
+            document.getElementById('proxy').value = '';
+            document.getElementById('ads').value = '';
             
-            // 将站点分组显示，每3个一组
-            for (let i = 0; i < currentData.sites.length; i += 3) {
-                const group = currentData.sites.slice(i, i + 3);
-                const groupIndex = Math.floor(i / 3);
-                
-                const groupDiv = document.createElement('div');
-                groupDiv.className = 'site-group';
-                
-                let groupHtml = `
-                    <div class="site-group-header">
-                        <div class="site-group-title">站点组 ${groupIndex + 1}</div>
-                        <div>
-                            <button class="btn btn-danger" onclick="deleteSiteGroup(${groupIndex})" style="padding: 5px 10px; font-size: 0.9rem;">
-                                <i class="fas fa-trash"></i> 删除整组
-                            </button>
-                        </div>
+            // 清空容器
+            document.getElementById('sitesContainer').innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-film"></i>
+                    <p>暂无点播站点，点击"添加站点"按钮开始添加</p>
+                </div>
+            `;
+            
+            document.getElementById('livesContainer').innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-satellite"></i>
+                    <p>暂无直播源，点击"添加直播源"按钮开始添加</p>
+                </div>
+            `;
+            
+            document.getElementById('parsesContainer').innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-code"></i>
+                    <p>暂无解析服务，点击"添加解析"按钮开始添加</p>
+                </div>
+            `;
+            
+            showNotification('编辑器已重置');
+        }
+
+        // 填充编辑器
+        function populateEditor(config) {
+            // 通用设置
+            document.getElementById('spider').value = config.spider || '';
+            document.getElementById('wallpaper').value = config.wallpaper || '';
+            document.getElementById('logo').value = config.logo || '';
+            document.getElementById('warningText').value = config.warningText || '';
+            
+            // 点播站点
+            const sitesContainer = document.getElementById('sitesContainer');
+            sitesContainer.innerHTML = '';
+            
+            if (config.sites && config.sites.length > 0) {
+                config.sites.forEach((site, index) => {
+                    addSiteItem(site, index);
+                });
+            } else {
+                sitesContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-film"></i>
+                        <p>暂无点播站点，点击"添加站点"按钮开始添加</p>
                     </div>
                 `;
-                
-                group.forEach((site, idx) => {
-                    const siteIndex = i + idx;
-                    groupHtml += `
-                        <div class="field-row">
-                            <div class="field-label">站点 ${idx + 1}</div>
-                            <div class="field-input">
-                                <input type="text" value="${site.name || ''}" onchange="updateSiteField(${siteIndex}, 'name', this.value)" placeholder="站点名称" style="width: 100%;">
-                            </div>
-                            <div class="field-actions">
-                                <button class="action-btn btn-primary" onclick="editSite(${siteIndex})" title="编辑">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn btn-danger" onclick="deleteSite(${siteIndex})" title="删除">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="field-row">
-                            <div class="field-label">API</div>
-                            <div class="field-input">
-                                <input type="text" value="${site.api || ''}" onchange="updateSiteField(${siteIndex}, 'api', this.value)" placeholder="API名称" style="width: 100%;">
-                            </div>
-                        </div>
-                        <div class="field-row">
-                            <div class="field-label">站点URL</div>
-                            <div class="field-input">
-                                <input type="text" value="${site.ext && site.ext.site ? site.ext.site : ''}" onchange="updateExtField(${siteIndex}, 'site', this.value)" placeholder="站点URL" style="width: 100%;">
-                            </div>
-                        </div>
-                        ${idx < group.length - 1 ? '<hr style="margin: 10px 0; border-color: rgba(255,255,255,0.1);">' : ''}
-                    `;
+            }
+            
+            // 直播源
+            const livesContainer = document.getElementById('livesContainer');
+            livesContainer.innerHTML = '';
+            
+            if (config.lives && config.lives.length > 0) {
+                config.lives.forEach((live, index) => {
+                    addLiveItem(live, index);
                 });
-                
-                groupDiv.innerHTML = groupHtml;
-                siteGroupsContainer.appendChild(groupDiv);
+            } else {
+                livesContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-satellite"></i>
+                        <p>暂无直播源，点击"添加直播源"按钮开始添加</p>
+                    </div>
+                `;
             }
-        }
-        
-        // 更新站点字段
-        function updateSiteField(index, field, value) {
-            if (currentData.sites && currentData.sites[index]) {
-                currentData.sites[index][field] = value;
-                updateJsonInput();
-                showNotification(`已更新站点 ${index + 1} 的 ${field} 字段`);
-            }
-        }
-        
-        // 更新扩展字段
-        function updateExtField(siteIndex, field, value) {
-            if (currentData.sites && currentData.sites[siteIndex]) {
-                if (!currentData.sites[siteIndex].ext) {
-                    currentData.sites[siteIndex].ext = {};
-                }
-                currentData.sites[siteIndex].ext[field] = value;
-                updateJsonInput();
-                showNotification(`已更新站点 ${siteIndex + 1} 的 ext.${field} 字段`);
-            }
-        }
-        
-        // 更新解析器字段
-        function updateParseField(index, field, value) {
-            if (currentData.parses && currentData.parses[index]) {
-                currentData.parses[index][field] = value;
-                updateJsonInput();
-                showNotification(`已更新解析器 ${index + 1} 的 ${field} 字段`);
-            }
-        }
-        
-        // 更新JSON输入框
-        function updateJsonInput() {
-            jsonInput.value = JSON.stringify(currentData, null, 2);
-        }
-        
-        // 添加新站点
-        function addNewSite() {
-            const newSite = {
-                key: `新站点${currentData.sites.length + 1}`,
-                name: "新站点",
-                type: 3,
-                api: "csp_NewGuard",
-                searchable: 1,
-                changeable: 1,
-                ext: {
-                    site: "https://example.com/site.txt",
-                    dataKey: "examplekey",
-                    dataIv: "exampleiv"
-                }
-            };
             
-            if (!currentData.sites) currentData.sites = [];
-            currentData.sites.push(newSite);
-            updateJsonInput();
-            renderSitesTable();
-            renderSiteGroups();
-            showNotification('已添加新站点');
-        }
-        
-        // 添加新解析器
-        function addNewParse() {
-            const newParse = {
-                name: `新解析器${currentData.parses.length + 1}`,
-                type: 0,
-                url: "https://example.com/jx/?url="
-            };
+            // 解析服务
+            const parsesContainer = document.getElementById('parsesContainer');
+            parsesContainer.innerHTML = '';
             
-            if (!currentData.parses) currentData.parses = [];
-            currentData.parses.push(newParse);
-            updateJsonInput();
-            renderParsesTable();
-            showNotification('已添加新解析器');
-        }
-        
-        // 编辑站点
-        function editSite(index) {
-            if (currentData.sites && currentData.sites[index]) {
-                const site = currentData.sites[index];
-                const newJson = prompt(`编辑站点 ${index + 1} 的完整JSON:`, JSON.stringify(site, null, 2));
-                
-                if (newJson) {
-                    try {
-                        const parsedSite = JSON.parse(newJson);
-                        currentData.sites[index] = parsedSite;
-                        updateJsonInput();
-                        renderSitesTable();
-                        renderSiteGroups();
-                        showNotification(`已更新站点 ${index + 1}`);
-                    } catch (e) {
-                        showNotification(`JSON格式错误: ${e.message}`, 'error');
-                    }
-                }
+            if (config.parses && config.parses.length > 0) {
+                config.parses.forEach((parse, index) => {
+                    addParseItem(parse, index);
+                });
+            } else {
+                parsesContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-code"></i>
+                        <p>暂无解析服务，点击"添加解析"按钮开始添加</p>
+                    </div>
+                `;
             }
-        }
-        
-        // 编辑解析器
-        function editParse(index) {
-            if (currentData.parses && currentData.parses[index]) {
-                const parse = currentData.parses[index];
-                const newJson = prompt(`编辑解析器 ${index + 1} 的完整JSON:`, JSON.stringify(parse, null, 2));
-                
-                if (newJson) {
-                    try {
-                        const parsedParse = JSON.parse(newJson);
-                        currentData.parses[index] = parsedParse;
-                        updateJsonInput();
-                        renderParsesTable();
-                        showNotification(`已更新解析器 ${index + 1}`);
-                    } catch (e) {
-                        showNotification(`JSON格式错误: ${e.message}`, 'error');
-                    }
-                }
-            }
-        }
-        
-        // 删除站点
-        function deleteSite(index) {
-            if (currentData.sites && currentData.sites[index]) {
-                if (confirm(`确定要删除站点 "${currentData.sites[index].name}" 吗？`)) {
-                    currentData.sites.splice(index, 1);
-                    updateJsonInput();
-                    renderSitesTable();
-                    renderSiteGroups();
-                    showNotification('已删除站点');
-                }
-            }
-        }
-        
-        // 删除解析器
-        function deleteParse(index) {
-            if (currentData.parses && currentData.parses[index]) {
-                if (confirm(`确定要删除解析器 "${currentData.parses[index].name}" 吗？`)) {
-                    currentData.parses.splice(index, 1);
-                    updateJsonInput();
-                    renderParsesTable();
-                    showNotification('已删除解析器');
-                }
-            }
-        }
-        
-        // 删除站点组
-        function deleteSiteGroup(groupIndex) {
-            if (!currentData.sites || currentData.sites.length === 0) return;
             
-            const startIndex = groupIndex * 3;
-            const endIndex = Math.min(startIndex + 3, currentData.sites.length);
+            // 高级设置
+            document.getElementById('hosts').value = (config.hosts || []).join('\n');
+            document.getElementById('doh').value = (config.doh || []).map(d => `${d.name},${d.url},${d.ips.join(',')}`).join('\n');
+            document.getElementById('flags').value = (config.flags || []).join(',');
+            document.getElementById('proxy').value = (config.proxy || []).join('\n');
+            document.getElementById('ads').value = (config.ads || []).join('\n');
+        }
+
+        // 切换标签页
+        function switchTab(e) {
+            const tabName = e.target.dataset.tab;
             
-            if (confirm(`确定要删除站点组 ${groupIndex + 1}（包含 ${endIndex - startIndex} 个站点）吗？`)) {
-                currentData.sites.splice(startIndex, endIndex - startIndex);
-                updateJsonInput();
-                renderSitesTable();
-                renderSiteGroups();
-                showNotification(`已删除站点组 ${groupIndex + 1}`);
-            }
-        }
-        
-        // 显示批量添加模态框
-        function showGroupModal() {
-            groupModal.style.display = 'block';
-        }
-        
-        // 隐藏批量添加模态框
-        function hideGroupModal() {
-            groupModal.style.display = 'none';
-        }
-        
-        // 添加站点组
-        function addSiteGroup() {
-            try {
-                const groupJson = groupJsonInput.value.trim();
-                if (!groupJson) {
-                    showNotification('请输入站点组JSON数据', 'error');
-                    return;
+            // 更新标签状态
+            tabs.forEach(tab => {
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
                 }
-                
-                const sites = JSON.parse(groupJson);
-                if (!Array.isArray(sites)) {
-                    showNotification('请输入站点数组', 'error');
-                    return;
+            });
+            
+            // 更新编辑器显示
+            moduleEditors.forEach(editor => {
+                if (editor.id === `${tabName}-editor`) {
+                    editor.classList.add('active');
+                } else {
+                    editor.classList.remove('active');
                 }
-                
-                if (!currentData.sites) currentData.sites = [];
-                currentData.sites.push(...sites);
-                updateJsonInput();
-                renderSitesTable();
-                renderSiteGroups();
-                hideGroupModal();
-                showNotification(`已添加 ${sites.length} 个站点`);
-            } catch (e) {
-                showNotification(`JSON格式错误: ${e.message}`, 'error');
-            }
-        }
-        
-        // 生成输出
-        function generateOutput() {
-            try {
-                parseJson(); // 先解析以确保数据最新
-                jsonOutput.innerHTML = syntaxHighlight(JSON.stringify(currentData, null, 2));
-                showNotification('配置已生成');
-            } catch (e) {
-                jsonOutput.innerHTML = `<div style="color: #e74c3c;">JSON格式错误: ${e.message}</div>`;
-                showNotification('JSON格式错误', 'error');
-            }
-        }
-        
-        // JSON语法高亮
-        function syntaxHighlight(json) {
-            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-                let cls = 'json-number';
-                if (/^"/.test(match)) {
-                    if (/:$/.test(match)) {
-                        cls = 'json-key';
-                    } else {
-                        cls = 'json-string';
-                    }
-                } else if (/true|false/.test(match)) {
-                    cls = 'json-boolean';
-                } else if (/null/.test(match)) {
-                    cls = 'json-null';
-                }
-                return '<span class="' + cls + '">' + match + '</span>';
             });
         }
-        
-        // 验证JSON
-        function validateJson() {
-            try {
-                JSON.parse(jsonInput.value);
-                showNotification('JSON格式有效');
-            } catch (e) {
-                showNotification(`JSON格式无效: ${e.message}`, 'error');
+
+        // 添加点播站点
+        function addSiteItem(siteData = null, index = Date.now()) {
+            const container = document.getElementById('sitesContainer');
+            
+            // 移除空状态
+            if (container.querySelector('.empty-state')) {
+                container.innerHTML = '';
+            }
+            
+            const site = siteData || {
+                key: '',
+                name: '',
+                type: 3,
+                api: '',
+                indexs: 0,
+                searchable: 0,
+                quickSearch: 0,
+                changeable: 0
+            };
+            
+            const siteElement = document.createElement('div');
+            siteElement.className = 'site-item';
+            siteElement.dataset.index = index;
+            siteElement.innerHTML = `
+                <div class="site-header">
+                    <div class="site-title">${site.name || '新站点'}</div>
+                    <div>
+                        <button class="lock-btn ${site.locked ? 'locked' : ''}" onclick="toggleLock(this)">
+                            <i class="fas fa-${site.locked ? 'lock' : 'unlock'}"></i>
+                        </button>
+                        <button class="delete-btn" onclick="removeSiteItem(this)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="input-group">
+                        <label>标识 (key)</label>
+                        <input type="text" class="site-key" value="${site.key || ''}" placeholder="唯一标识">
+                    </div>
+                    <div class="input-group">
+                        <label>名称 (name)</label>
+                        <input type="text" class="site-name" value="${site.name || ''}" placeholder="显示名称">
+                    </div>
+                    <div class="input-group">
+                        <label>类型 (type)</label>
+                        <input type="number" class="site-type" value="${site.type || 3}" placeholder="类型">
+                    </div>
+                    <div class="input-group">
+                        <label>API (api)</label>
+                        <input type="text" class="site-api" value="${site.api || ''}" placeholder="API名称">
+                    </div>
+                    <div class="input-group">
+                        <label>索引 (indexs)</label>
+                        <input type="number" class="site-indexs" value="${site.indexs || 0}" placeholder="索引">
+                    </div>
+                    <div class="input-group">
+                        <label>可搜索 (searchable)</label>
+                        <select class="site-searchable">
+                            <option value="0" ${site.searchable == 0 ? 'selected' : ''}>否</option>
+                            <option value="1" ${site.searchable == 1 ? 'selected' : ''}>是</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(siteElement);
+        }
+
+        // 移除点播站点
+        function removeSiteItem(btn) {
+            const item = btn.closest('.site-item');
+            item.remove();
+            
+            // 如果没有站点了，显示空状态
+            const container = document.getElementById('sitesContainer');
+            if (container.children.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-film"></i>
+                        <p>暂无点播站点，点击"添加站点"按钮开始添加</p>
+                    </div>
+                `;
             }
         }
-        
-        // 复制到剪贴板
-        function copyToClipboard() {
-            if (!jsonOutput.textContent) {
-                showNotification('没有内容可复制', 'error');
-                return;
-            }
-            
-            const textArea = document.createElement('textarea');
-            textArea.value = jsonOutput.textContent;
-            document.body.appendChild(textArea);
-            textArea.select();
-            
-            try {
-                document.execCommand('copy');
-                showNotification('已复制到剪贴板');
-            } catch (err) {
-                showNotification('复制失败', 'error');
-            }
-            
-            document.body.removeChild(textArea);
-        }
-        
-        // 下载JSON文件
-        function downloadJson() {
-            if (!jsonInput.value.trim()) {
-                showNotification('没有内容可下载', 'error');
-                return;
-            }
-            
-            try {
-                const data = JSON.parse(jsonInput.value);
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'tvbox_config.json';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                
-                showNotification('文件已下载');
-            } catch (e) {
-                showNotification('下载失败，JSON格式错误', 'error');
+
+        // 移除所有点播站点
+        function removeAllSites() {
+            if (confirm('确定要删除所有点播站点吗？')) {
+                document.getElementById('sitesContainer').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-film"></i>
+                        <p>暂无点播站点，点击"添加站点"按钮开始添加</p>
+                    </div>
+                `;
             }
         }
-        
-        // 显示通知
-        function showNotification(message, type = 'success') {
-            notification.textContent = message;
-            notification.className = 'notification show';
+
+        // 添加直播源
+        function addLiveItem(liveData = null, index = Date.now()) {
+            const container = document.getElementById('livesContainer');
             
-            if (type === 'error') {
-                notification.classList.add('error');
-            } else if (type === 'warning') {
-                notification.classList.add('warning');
+            // 移除空状态
+            if (container.querySelector('.empty-state')) {
+                container.innerHTML = '';
+            }
+            
+            const live = liveData || {
+                name: '',
+                type: 0,
+                url: ''
+            };
+            
+            const liveElement = document.createElement('div');
+            liveElement.className = 'live-item';
+            liveElement.dataset.index = index;
+            liveElement.innerHTML = `
+                <div class="live-header">
+                    <div class="live-title">${live.name || '新直播源'}</div>
+                    <div>
+                        <button class="lock-btn ${live.locked ? 'locked' : ''}" onclick="toggleLock(this)">
+                            <i class="fas fa-${live.locked ? 'lock' : 'unlock'}"></i>
+                        </button>
+                        <button class="delete-btn" onclick="removeLiveItem(this)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="input-group">
+                        <label>名称 (name)</label>
+                        <input type="text" class="live-name" value="${live.name || ''}" placeholder="直播源名称">
+                    </div>
+                    <div class="input-group">
+                        <label>类型 (type)</label>
+                        <input type="number" class="live-type" value="${live.type || 0}" placeholder="类型">
+                    </div>
+                    <div class="input-group">
+                        <label>地址 (url)</label>
+                        <input type="text" class="live-url" value="${live.url || ''}" placeholder="直播源地址">
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(liveElement);
+        }
+
+        // 移除直播源
+        function removeLiveItem(btn) {
+            const item = btn.closest('.live-item');
+            item.remove();
+            
+            // 如果没有直播源了，显示空状态
+            const container = document.getElementById('livesContainer');
+            if (container.children.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-satellite"></i>
+                        <p>暂无直播源，点击"添加直播源"按钮开始添加</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 移除所有直播源
+        function removeAllLives() {
+            if (confirm('确定要删除所有直播源吗？')) {
+                document.getElementById('livesContainer').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-satellite"></i>
+                        <p>暂无直播源，点击"添加直播源"按钮开始添加</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 添加解析服务
+        function addParseItem(parseData = null, index = Date.now()) {
+            const container = document.getElementById('parsesContainer');
+            
+            // 移除空状态
+            if (container.querySelector('.empty-state')) {
+                container.innerHTML = '';
+            }
+            
+            const parse = parseData || {
+                name: '',
+                type: 0,
+                url: ''
+            };
+            
+            const parseElement = document.createElement('div');
+            parseElement.className = 'site-item';
+            parseElement.dataset.index = index;
+            parseElement.innerHTML = `
+                <div class="site-header">
+                    <div class="site-title">${parse.name || '新解析服务'}</div>
+                    <div>
+                        <button class="lock-btn ${parse.locked ? 'locked' : ''}" onclick="toggleLock(this)">
+                            <i class="fas fa-${parse.locked ? 'lock' : 'unlock'}"></i>
+                        </button>
+                        <button class="delete-btn" onclick="removeParseItem(this)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="input-group">
+                        <label>名称 (name)</label>
+                        <input type="text" class="parse-name" value="${parse.name || ''}" placeholder="解析名称">
+                    </div>
+                    <div class="input-group">
+                        <label>类型 (type)</label>
+                        <input type="number" class="parse-type" value="${parse.type || 0}" placeholder="类型">
+                    </div>
+                    <div class="input-group">
+                        <label>地址 (url)</label>
+                        <input type="text" class="parse-url" value="${parse.url || ''}" placeholder="解析地址">
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(parseElement);
+        }
+
+        // 移除解析服务
+        function removeParseItem(btn) {
+            const item = btn.closest('.site-item');
+            item.remove();
+            
+            // 如果没有解析服务了，显示空状态
+            const container = document.getElementById('parsesContainer');
+            if (container.children.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-code"></i>
+                        <p>暂无解析服务，点击"添加解析"按钮开始添加</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 移除所有解析服务
+        function removeAllParses() {
+            if (confirm('确定要删除所有解析服务吗？')) {
+                document.getElementById('parsesContainer').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-code"></i>
+                        <p>暂无解析服务，点击"添加解析"按钮开始添加</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 切换锁定状态
+        function toggleLock(btn) {
+            btn.classList.toggle('locked');
+            const icon = btn.querySelector('i');
+            if (btn.classList.contains('locked')) {
+                icon.classList.replace('fa-unlock', 'fa-lock');
             } else {
-                notification.classList.remove('error', 'warning');
+                icon.classList.replace('fa-lock', 'fa-unlock');
             }
+        }
+
+        // 导出配置
+        function exportConfig() {
+            if (!currentConfig) {
+                showNotification('请先导入或加载配置', true);
+                return;
+            }
+            
+            // 收集通用设置
+            const spider = document.getElementById('spider').value;
+            const wallpaper = document.getElementById('wallpaper').value;
+            const logo = document.getElementById('logo').value;
+            const warningText = document.getElementById('warningText').value;
+            
+            // 收集点播站点
+            const sites = [];
+            document.querySelectorAll('#sitesContainer .site-item').forEach(item => {
+                sites.push({
+                    key: item.querySelector('.site-key').value,
+                    name: item.querySelector('.site-name').value,
+                    type: parseInt(item.querySelector('.site-type').value),
+                    api: item.querySelector('.site-api').value,
+                    indexs: parseInt(item.querySelector('.site-indexs').value),
+                    searchable: parseInt(item.querySelector('.site-searchable').value),
+                    quickSearch: 0,
+                    changeable: 0,
+                    locked: item.querySelector('.lock-btn').classList.contains('locked')
+                });
+            });
+            
+            // 收集直播源
+            const lives = [];
+            document.querySelectorAll('#livesContainer .live-item').forEach(item => {
+                lives.push({
+                    name: item.querySelector('.live-name').value,
+                    type: parseInt(item.querySelector('.live-type').value),
+                    url: item.querySelector('.live-url').value,
+                    locked: item.querySelector('.lock-btn').classList.contains('locked')
+                });
+            });
+            
+            // 收集解析服务
+            const parses = [];
+            document.querySelectorAll('#parsesContainer .site-item').forEach(item => {
+                parses.push({
+                    name: item.querySelector('.parse-name').value,
+                    type: parseInt(item.querySelector('.parse-type').value),
+                    url: item.querySelector('.parse-url').value,
+                    locked: item.querySelector('.lock-btn').classList.contains('locked')
+                });
+            });
+            
+            // 收集高级设置
+            const hosts = document.getElementById('hosts').value.split('\n').filter(line => line.trim());
+            const dohLines = document.getElementById('doh').value.split('\n').filter(line => line.trim());
+            const doh = dohLines.map(line => {
+                const parts = line.split(',');
+                return {
+                    name: parts[0] || '',
+                    url: parts[1] || '',
+                    ips: parts.slice(2)
+                };
+            }).filter(d => d.name && d.url);
+            
+            const flags = document.getElementById('flags').value.split(',').map(flag => flag.trim()).filter(flag => flag);
+            const proxy = document.getElementById('proxy').value.split('\n').filter(line => line.trim());
+            const ads = document.getElementById('ads').value.split('\n').filter(line => line.trim());
+            
+            // 构建配置对象
+            const config = {
+                spider: spider || currentConfig.spider,
+                wallpaper: wallpaper || currentConfig.wallpaper,
+                logo: logo || currentConfig.logo,
+                warningText: warningText || currentConfig.warningText,
+                sites: sites.length ? sites : currentConfig.sites,
+                lives: lives.length ? lives : currentConfig.lives,
+                parses: parses.length ? parses : currentConfig.parses,
+                hosts: hosts.length ? hosts : currentConfig.hosts,
+                doh: doh.length ? doh : currentConfig.doh,
+                flags: flags.length ? flags : currentConfig.flags,
+                rules: currentConfig.rules || [],
+                ijk: currentConfig.ijk || [],
+                proxy: proxy.length ? proxy : currentConfig.proxy,
+                ads: ads.length ? ads : currentConfig.ads
+            };
+            
+            // 输出JSON
+            outputJson.value = JSON.stringify(config, null, 2);
+            showNotification('配置导出成功！');
+        }
+
+        // 下载配置
+        function downloadConfig() {
+            if (!outputJson.value) {
+                showNotification('请先导出配置', true);
+                return;
+            }
+            
+            const blob = new Blob([outputJson.value], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'tvbox_config.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('配置文件已下载');
+        }
+
+        // 加密配置
+        function encryptConfig() {
+            if (!outputJson.value) {
+                showNotification('请先导出配置', true);
+                return;
+            }
+            
+            // 简单加密：Base64编码
+            const encoded = btoa(unescape(encodeURIComponent(outputJson.value)));
+            outputJson.value = encoded;
+            showNotification('配置已加密（Base64编码）');
+        }
+
+        // 复制输出
+        function copyOutput() {
+            if (!outputJson.value) {
+                showNotification('没有内容可复制', true);
+                return;
+            }
+            
+            outputJson.select();
+            document.execCommand('copy');
+            showNotification('已复制到剪贴板');
+        }
+
+        // 显示通知
+        function showNotification(message, isError = false) {
+            notification.textContent = message;
+            notification.className = 'notification';
+            
+            if (isError) {
+                notification.classList.add('error');
+            }
+            
+            notification.classList.add('show');
             
             setTimeout(() => {
-                notification.className = 'notification';
+                notification.classList.remove('show');
             }, 3000);
         }
-        
-        // 初始化应用
-        window.onload = init;
+
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', init);
         
         // 暴露函数给全局作用域
-        window.updateSiteField = updateSiteField;
-        window.updateExtField = updateExtField;
-        window.updateParseField = updateParseField;
-        window.editSite = editSite;
-        window.editParse = editParse;
-        window.deleteSite = deleteSite;
-        window.deleteParse = deleteParse;
-        window.deleteSiteGroup = deleteSiteGroup;
+        window.removeSiteItem = removeSiteItem;
+        window.removeLiveItem = removeLiveItem;
+        window.removeParseItem = removeParseItem;
+        window.toggleLock = toggleLock;
     </script>
 </body>
 </html>
