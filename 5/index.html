@@ -202,6 +202,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-top: 15px;
         }
         
         .lock-btn {
@@ -353,6 +354,18 @@
             overflow-y: auto;
         }
         
+        .paste-container {
+            position: relative;
+        }
+        
+        .reload-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
         @media (max-width: 768px) {
             .main-content {
                 flex-direction: column;
@@ -391,6 +404,7 @@
                     <li class="module-item" data-module="sites"><i class="fas fa-film"></i> 点播模块</li>
                     <li class="module-item" data-module="lives"><i class="fas fa-satellite"></i> 直播模块</li>
                     <li class="module-item" data-module="parses"><i class="fas fa-code"></i> 解析模块</li>
+                    <li class="module-item" data-module="custom"><i class="fas fa-user-cog"></i> 自定义模块</li>
                     <li class="module-item" data-module="others"><i class="fas fa-sliders-h"></i> 其他设置</li>
                     <li class="module-item" data-module="advanced"><i class="fas fa-tools"></i> 高级设置</li>
                 </ul>
@@ -401,7 +415,12 @@
                     <div class="input-method" id="paste-method">
                         <i class="fas fa-paste"></i>
                         <p>粘贴JSON内容</p>
-                        <textarea id="json-paste" placeholder="在此处粘贴JSON内容..."></textarea>
+                        <div class="paste-container">
+                            <textarea id="json-paste" placeholder="在此处粘贴JSON内容..."></textarea>
+                            <button class="btn btn-primary reload-btn" id="reload-json">
+                                <i class="fas fa-redo"></i> 重新加载
+                            </button>
+                        </div>
                     </div>
                     <div class="input-method" id="file-method">
                         <i class="fas fa-file-upload"></i>
@@ -455,11 +474,6 @@
                     <div id="sites-container">
                         <!-- 站点组将通过JS动态添加 -->
                     </div>
-                    
-                    <div class="btn-group">
-                        <button class="btn btn-primary" id="save-sites">保存设置</button>
-                        <button class="btn btn-danger" id="clear-sites">清空所有</button>
-                    </div>
                 </div>
                 
                 <div id="lives-editor" class="editor-section hidden">
@@ -471,11 +485,6 @@
                     
                     <div id="lives-container">
                         <!-- 直播组将通过JS动态添加 -->
-                    </div>
-                    
-                    <div class="btn-group">
-                        <button class="btn btn-primary" id="save-lives">保存设置</button>
-                        <button class="btn btn-danger" id="clear-lives">清空所有</button>
                     </div>
                 </div>
                 
@@ -489,10 +498,23 @@
                     <div id="parses-container">
                         <!-- 解析组将通过JS动态添加 -->
                     </div>
+                </div>
+                
+                <div id="custom-editor" class="editor-section hidden">
+                    <h2 class="section-title"><i class="fas fa-user-cog"></i> 自定义模块</h2>
+                    
+                    <div class="form-group">
+                        <label for="custom-json">自定义JSON配置</label>
+                        <textarea id="custom-json" placeholder='在此处添加自定义的JSON配置，例如：
+{
+  "customSetting1": "value1",
+  "customSetting2": ["item1", "item2"]
+}'></textarea>
+                    </div>
                     
                     <div class="btn-group">
-                        <button class="btn btn-primary" id="save-parses">保存设置</button>
-                        <button class="btn btn-danger" id="clear-parses">清空所有</button>
+                        <button class="btn btn-primary" id="save-custom">保存设置</button>
+                        <button class="btn btn-warning" id="reset-custom">重置</button>
                     </div>
                 </div>
                 
@@ -729,6 +751,8 @@
                     reader.onload = function(event) {
                         try {
                             const jsonData = JSON.parse(event.target.result);
+                            // 将内容显示到粘贴输入框
+                            jsonPaste.value = JSON.stringify(jsonData, null, 2);
                             loadJsonData(jsonData);
                             showNotification('文件加载成功！');
                         } catch (e) {
@@ -748,6 +772,8 @@
                     fetch(url)
                         .then(response => response.json())
                         .then(data => {
+                            // 将内容显示到粘贴输入框
+                            jsonPaste.value = JSON.stringify(data, null, 2);
                             loadJsonData(data);
                             showNotification('URL加载成功！');
                         })
@@ -756,6 +782,22 @@
                         });
                 } else {
                     showNotification('请输入有效的URL', true);
+                }
+            });
+            
+            // 重新加载按钮
+            document.getElementById('reload-json').addEventListener('click', function() {
+                const cachedData = localStorage.getItem('tvbox_json');
+                if (cachedData) {
+                    try {
+                        const jsonData = JSON.parse(cachedData);
+                        jsonPaste.value = JSON.stringify(jsonData, null, 2);
+                        showNotification('已从缓存重新加载！');
+                    } catch (e) {
+                        showNotification('重新加载失败: ' + e.message, true);
+                    }
+                } else {
+                    showNotification('没有可用的缓存数据', true);
                 }
             });
         }
@@ -789,29 +831,17 @@
             // 添加站点组
             document.getElementById('add-site-group').addEventListener('click', addSiteGroup);
             
-            // 保存站点设置
-            document.getElementById('save-sites').addEventListener('click', saveSitesSettings);
-            
-            // 清空站点
-            document.getElementById('clear-sites').addEventListener('click', clearSites);
-            
             // 添加直播源
             document.getElementById('add-live-group').addEventListener('click', addLiveGroup);
-            
-            // 保存直播设置
-            document.getElementById('save-lives').addEventListener('click', saveLivesSettings);
-            
-            // 清空直播
-            document.getElementById('clear-lives').addEventListener('click', clearLives);
             
             // 添加解析源
             document.getElementById('add-parse-group').addEventListener('click', addParseGroup);
             
-            // 保存解析设置
-            document.getElementById('save-parses').addEventListener('click', saveParsesSettings);
+            // 保存自定义设置
+            document.getElementById('save-custom').addEventListener('click', saveCustomSettings);
             
-            // 清空解析
-            document.getElementById('clear-parses').addEventListener('click', clearParses);
+            // 重置自定义设置
+            document.getElementById('reset-custom').addEventListener('click', resetCustomSettings);
             
             // 保存其他设置
             document.getElementById('save-others').addEventListener('click', saveOthersSettings);
@@ -845,6 +875,13 @@
             
             // 填充解析
             populateParses(data.parses || []);
+            
+            // 填充自定义设置
+            if (data.custom) {
+                document.getElementById('custom-json').value = JSON.stringify(data.custom, null, 2);
+            } else {
+                document.getElementById('custom-json').value = '';
+            }
             
             // 填充其他设置
             document.getElementById('hosts').value = Array.isArray(data.hosts) ? data.hosts.join('\n') : '';
@@ -892,38 +929,38 @@
                 <div class="group-container" id="site-group-${groupId}">
                     <div class="group-header">
                         <div class="group-title">站点组 ${container.children.length + 1}</div>
-                        <div class="group-actions">
-                            <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                <i class="fas fa-trash"></i> 删除
-                            </button>
-                            <button class="lock-btn" data-group="${groupId}">
-                                <i class="fas fa-lock-open"></i>
-                            </button>
-                        </div>
                     </div>
                     <div class="two-column-input">
                         <div class="form-group">
                             <label>Key</label>
-                            <input type="text" class="site-key" placeholder="唯一标识符">
+                            <input type="text" class="site-key" placeholder="唯一标识符" oninput="autoSaveModule('sites')">
                         </div>
                         <div class="form-group">
                             <label>名称</label>
-                            <input type="text" class="site-name" placeholder="显示名称">
+                            <input type="text" class="site-name" placeholder="显示名称" oninput="autoSaveModule('sites')">
                         </div>
                     </div>
                     <div class="two-column-input">
                         <div class="form-group">
                             <label>类型 (type)</label>
-                            <input type="number" class="site-type" value="3">
+                            <input type="number" class="site-type" value="3" oninput="autoSaveModule('sites')">
                         </div>
                         <div class="form-group">
                             <label>API</label>
-                            <input type="text" class="site-api" placeholder="API名称">
+                            <input type="text" class="site-api" placeholder="API名称" oninput="autoSaveModule('sites')">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>其他设置 (无需最外层{})</label>
-                        <textarea class="site-extras compact-input" placeholder='"indexs": 1, "searchable": 0, "quickSearch": 0, "changeable": 0'></textarea>
+                        <textarea class="site-extras compact-input" placeholder='"indexs": 1, "searchable": 0, "quickSearch": 0, "changeable": 0' oninput="autoSaveModule('sites')"></textarea>
+                    </div>
+                    <div class="group-actions">
+                        <button class="btn btn-danger delete-group" data-group="${groupId}">
+                            <i class="fas fa-trash"></i> 删除
+                        </button>
+                        <button class="lock-btn" data-group="${groupId}">
+                            <i class="fas fa-lock-open"></i> 锁定
+                        </button>
                     </div>
                 </div>
             `;
@@ -933,6 +970,7 @@
             // 添加删除事件
             document.querySelector(`#site-group-${groupId} .delete-group`).addEventListener('click', function() {
                 document.getElementById(`site-group-${groupId}`).remove();
+                autoSaveModule('sites');
             });
             
             // 添加锁定事件
@@ -979,38 +1017,38 @@
                     <div class="group-container" id="${groupId}">
                         <div class="group-header">
                             <div class="group-title">${site.name || '站点组'}</div>
-                            <div class="group-actions">
-                                <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                    <i class="fas fa-trash"></i> 删除
-                                </button>
-                                <button class="lock-btn locked" data-group="${groupId}">
-                                    <i class="fas fa-lock"></i>
-                                </button>
-                            </div>
                         </div>
                         <div class="two-column-input">
                             <div class="form-group">
                                 <label>Key</label>
-                                <input type="text" class="site-key" value="${site.key || ''}" placeholder="唯一标识符">
+                                <input type="text" class="site-key" value="${site.key || ''}" placeholder="唯一标识符" oninput="autoSaveModule('sites')">
                             </div>
                             <div class="form-group">
                                 <label>名称</label>
-                                <input type="text" class="site-name" value="${site.name || ''}" placeholder="显示名称">
+                                <input type="text" class="site-name" value="${site.name || ''}" placeholder="显示名称" oninput="autoSaveModule('sites')">
                             </div>
                         </div>
                         <div class="two-column-input">
                             <div class="form-group">
                                 <label>类型 (type)</label>
-                                <input type="number" class="site-type" value="${site.type || 3}">
+                                <input type="number" class="site-type" value="${site.type || 3}" oninput="autoSaveModule('sites')">
                             </div>
                             <div class="form-group">
                                 <label>API</label>
-                                <input type="text" class="site-api" value="${site.api || ''}" placeholder="API名称">
+                                <input type="text" class="site-api" value="${site.api || ''}" placeholder="API名称" oninput="autoSaveModule('sites')">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>其他设置 (无需最外层{})</label>
-                            <textarea class="site-extras compact-input" placeholder='"key": "value"'>${extrasStr}</textarea>
+                            <textarea class="site-extras compact-input" placeholder='"key": "value"' oninput="autoSaveModule('sites')">${extrasStr}</textarea>
+                        </div>
+                        <div class="group-actions">
+                            <button class="btn btn-danger delete-group" data-group="${groupId}">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                            <button class="lock-btn locked" data-group="${groupId}">
+                                <i class="fas fa-lock"></i> 解锁
+                            </button>
                         </div>
                     </div>
                 `;
@@ -1020,6 +1058,7 @@
                 // 添加删除事件
                 document.querySelector(`#${groupId} .delete-group`).addEventListener('click', function() {
                     document.getElementById(groupId).remove();
+                    autoSaveModule('sites');
                 });
                 
                 // 添加锁定事件
@@ -1054,26 +1093,26 @@
                 <div class="group-container" id="live-group-${groupId}">
                     <div class="group-header">
                         <div class="group-title">直播源 ${container.children.length + 1}</div>
-                        <div class="group-actions">
-                            <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                <i class="fas fa-trash"></i> 删除
-                            </button>
-                            <button class="lock-btn" data-group="${groupId}">
-                                <i class="fas fa-lock-open"></i>
-                            </button>
-                        </div>
                     </div>
                     <div class="form-group">
                         <label>名称</label>
-                        <input type="text" class="live-name" placeholder="直播源名称">
+                        <input type="text" class="live-name" placeholder="直播源名称" oninput="autoSaveModule('lives')">
                     </div>
                     <div class="form-group">
                         <label>URL</label>
-                        <input type="text" class="live-url" placeholder="直播源URL">
+                        <input type="text" class="live-url" placeholder="直播源URL" oninput="autoSaveModule('lives')">
                     </div>
                     <div class="form-group">
                         <label>其他设置 (无需最外层{})</label>
-                        <textarea class="live-extras compact-input" placeholder='"type": 0'></textarea>
+                        <textarea class="live-extras compact-input" placeholder='"type": 0' oninput="autoSaveModule('lives')"></textarea>
+                    </div>
+                    <div class="group-actions">
+                        <button class="btn btn-danger delete-group" data-group="${groupId}">
+                            <i class="fas fa-trash"></i> 删除
+                        </button>
+                        <button class="lock-btn" data-group="${groupId}">
+                            <i class="fas fa-lock-open"></i> 锁定
+                        </button>
                     </div>
                 </div>
             `;
@@ -1083,6 +1122,7 @@
             // 添加删除事件
             document.querySelector(`#live-group-${groupId} .delete-group`).addEventListener('click', function() {
                 document.getElementById(`live-group-${groupId}`).remove();
+                autoSaveModule('lives');
             });
             
             // 添加锁定事件
@@ -1125,26 +1165,26 @@
                     <div class="group-container" id="${groupId}">
                         <div class="group-header">
                             <div class="group-title">${live.name || '直播源'}</div>
-                            <div class="group-actions">
-                                <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                    <i class="fas fa-trash"></i> 删除
-                                </button>
-                                <button class="lock-btn locked" data-group="${groupId}">
-                                    <i class="fas fa-lock"></i>
-                                </button>
-                            </div>
                         </div>
                         <div class="form-group">
                             <label>名称</label>
-                            <input type="text" class="live-name" value="${live.name || ''}" placeholder="直播源名称">
+                            <input type="text" class="live-name" value="${live.name || ''}" placeholder="直播源名称" oninput="autoSaveModule('lives')">
                         </div>
                         <div class="form-group">
                             <label>URL</label>
-                            <input type="text" class="live-url" value="${live.url || ''}" placeholder="直播源URL">
+                            <input type="text" class="live-url" value="${live.url || ''}" placeholder="直播源URL" oninput="autoSaveModule('lives')">
                         </div>
                         <div class="form-group">
                             <label>其他设置 (无需最外层{})</label>
-                            <textarea class="live-extras compact-input" placeholder='"type": 0'>${extrasStr}</textarea>
+                            <textarea class="live-extras compact-input" placeholder='"type": 0' oninput="autoSaveModule('lives')">${extrasStr}</textarea>
+                        </div>
+                        <div class="group-actions">
+                            <button class="btn btn-danger delete-group" data-group="${groupId}">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                            <button class="lock-btn locked" data-group="${groupId}">
+                                <i class="fas fa-lock"></i> 解锁
+                            </button>
                         </div>
                     </div>
                 `;
@@ -1154,6 +1194,7 @@
                 // 添加删除事件
                 document.querySelector(`#${groupId} .delete-group`).addEventListener('click', function() {
                     document.getElementById(groupId).remove();
+                    autoSaveModule('lives');
                 });
                 
                 // 添加锁定事件
@@ -1188,18 +1229,18 @@
                 <div class="group-container" id="parse-group-${groupId}">
                     <div class="group-header">
                         <div class="group-title">解析源 ${container.children.length + 1}</div>
-                        <div class="group-actions">
-                            <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                <i class="fas fa-trash"></i> 删除
-                            </button>
-                            <button class="lock-btn" data-group="${groupId}">
-                                <i class="fas fa-lock-open"></i>
-                            </button>
-                        </div>
                     </div>
                     <div class="form-group">
                         <label>完整配置 (JSON格式)</label>
-                        <textarea class="parse-full full-json-input" placeholder='{"name": "VIP1", "type": 0, "url": "https://jx.xmflv.com/?url="}'></textarea>
+                        <textarea class="parse-full full-json-input" placeholder='{"name": "VIP1", "type": 0, "url": "https://jx.xmflv.com/?url="}' oninput="autoSaveModule('parses')"></textarea>
+                    </div>
+                    <div class="group-actions">
+                        <button class="btn btn-danger delete-group" data-group="${groupId}">
+                            <i class="fas fa-trash"></i> 删除
+                        </button>
+                        <button class="lock-btn" data-group="${groupId}">
+                            <i class="fas fa-lock-open"></i> 锁定
+                        </button>
                     </div>
                 </div>
             `;
@@ -1209,6 +1250,7 @@
             // 添加删除事件
             document.querySelector(`#parse-group-${groupId} .delete-group`).addEventListener('click', function() {
                 document.getElementById(`parse-group-${groupId}`).remove();
+                autoSaveModule('parses');
             });
             
             // 添加锁定事件
@@ -1238,18 +1280,18 @@
                     <div class="group-container" id="${groupId}">
                         <div class="group-header">
                             <div class="group-title">${parse.name || '解析源'}</div>
-                            <div class="group-actions">
-                                <button class="btn btn-danger delete-group" data-group="${groupId}">
-                                    <i class="fas fa-trash"></i> 删除
-                                </button>
-                                <button class="lock-btn locked" data-group="${groupId}">
-                                    <i class="fas fa-lock"></i>
-                                </button>
-                            </div>
                         </div>
                         <div class="form-group">
                             <label>完整配置 (JSON格式)</label>
-                            <textarea class="parse-full full-json-input" placeholder='{"name": "VIP1", "type": 0, "url": "https://jx.xmflv.com/?url="}'>${JSON.stringify(parse, null, 2)}</textarea>
+                            <textarea class="parse-full full-json-input" placeholder='{"name": "VIP1", "type": 0, "url": "https://jx.xmflv.com/?url="}' oninput="autoSaveModule('parses')">${JSON.stringify(parse, null, 2)}</textarea>
+                        </div>
+                        <div class="group-actions">
+                            <button class="btn btn-danger delete-group" data-group="${groupId}">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                            <button class="lock-btn locked" data-group="${groupId}">
+                                <i class="fas fa-lock"></i> 解锁
+                            </button>
                         </div>
                     </div>
                 `;
@@ -1259,6 +1301,7 @@
                 // 添加删除事件
                 document.querySelector(`#${groupId} .delete-group`).addEventListener('click', function() {
                     document.getElementById(groupId).remove();
+                    autoSaveModule('parses');
                 });
                 
                 // 添加锁定事件
@@ -1275,6 +1318,112 @@
                     }
                 });
             });
+        }
+        
+        // 自动保存模块
+        function autoSaveModule(moduleName) {
+            let moduleData = {};
+            
+            if (moduleName === 'sites') {
+                const groups = document.querySelectorAll('#sites-container .group-container');
+                const sites = [];
+                
+                groups.forEach(group => {
+                    const key = group.querySelector('.site-key').value;
+                    const name = group.querySelector('.site-name').value;
+                    const type = parseInt(group.querySelector('.site-type').value);
+                    const api = group.querySelector('.site-api').value;
+                    const extrasText = group.querySelector('.site-extras').value;
+                    
+                    if (key && name) {
+                        const site = { key, name, type, api };
+                        
+                        // 解析额外设置
+                        if (extrasText.trim()) {
+                            try {
+                                // 添加最外层大括号
+                                let extrasJsonStr = extrasText.trim();
+                                if (!extrasJsonStr.startsWith('{')) {
+                                    extrasJsonStr = '{' + extrasJsonStr;
+                                }
+                                if (!extrasJsonStr.endsWith('}')) {
+                                    extrasJsonStr = extrasJsonStr + '}';
+                                }
+                                const extrasObj = JSON.parse(extrasJsonStr);
+                                Object.assign(site, extrasObj);
+                            } catch (e) {
+                                console.warn('解析额外设置失败:', e);
+                            }
+                        }
+                        
+                        sites.push(site);
+                    }
+                });
+                
+                moduleData = sites;
+            } else if (moduleName === 'lives') {
+                const groups = document.querySelectorAll('#lives-container .group-container');
+                const lives = [];
+                
+                groups.forEach(group => {
+                    const name = group.querySelector('.live-name').value;
+                    const url = group.querySelector('.live-url').value;
+                    const extrasText = group.querySelector('.live-extras').value;
+                    
+                    if (name && url) {
+                        const live = { name, url };
+                        
+                        // 解析额外设置
+                        if (extrasText.trim()) {
+                            try {
+                                // 添加最外层大括号
+                                let extrasJsonStr = extrasText.trim();
+                                if (!extrasJsonStr.startsWith('{')) {
+                                    extrasJsonStr = '{' + extrasJsonStr;
+                                }
+                                if (!extrasJsonStr.endsWith('}')) {
+                                    extrasJsonStr = extrasJsonStr + '}';
+                                }
+                                const extrasObj = JSON.parse(extrasJsonStr);
+                                Object.assign(live, extrasObj);
+                            } catch (e) {
+                                console.warn('解析额外设置失败:', e);
+                            }
+                        }
+                        
+                        lives.push(live);
+                    }
+                });
+                
+                moduleData = lives;
+            } else if (moduleName === 'parses') {
+                const groups = document.querySelectorAll('#parses-container .group-container');
+                const parses = [];
+                
+                groups.forEach(group => {
+                    const fullText = group.querySelector('.parse-full').value;
+                    
+                    if (fullText.trim()) {
+                        try {
+                            const parseObj = JSON.parse(fullText);
+                            parses.push(parseObj);
+                        } catch (e) {
+                            console.warn('解析配置失败:', e);
+                        }
+                    }
+                });
+                
+                moduleData = parses;
+            }
+            
+            // 获取当前缓存数据
+            let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
+            
+            // 更新数据
+            currentData[moduleName] = moduleData;
+            
+            // 保存回缓存
+            localStorage.setItem('tvbox_json', JSON.stringify(currentData));
         }
         
         // 保存通用设置
@@ -1310,156 +1459,37 @@
             }
         }
         
-        // 保存站点设置
-        function saveSitesSettings() {
-            const groups = document.querySelectorAll('#sites-container .group-container');
-            const sites = [];
-            
-            groups.forEach(group => {
-                const key = group.querySelector('.site-key').value;
-                const name = group.querySelector('.site-name').value;
-                const type = parseInt(group.querySelector('.site-type').value);
-                const api = group.querySelector('.site-api').value;
-                const extrasText = group.querySelector('.site-extras').value;
-                
-                if (key && name) {
-                    const site = { key, name, type, api };
-                    
-                    // 解析额外设置
-                    if (extrasText.trim()) {
-                        try {
-                            // 添加最外层大括号
-                            let extrasJsonStr = extrasText.trim();
-                            if (!extrasJsonStr.startsWith('{')) {
-                                extrasJsonStr = '{' + extrasJsonStr;
-                            }
-                            if (!extrasJsonStr.endsWith('}')) {
-                                extrasJsonStr = extrasJsonStr + '}';
-                            }
-                            const extrasObj = JSON.parse(extrasJsonStr);
-                            Object.assign(site, extrasObj);
-                        } catch (e) {
-                            console.warn('解析额外设置失败:', e);
-                        }
-                    }
-                    
-                    sites.push(site);
-                }
-            });
+        // 保存自定义设置
+        function saveCustomSettings() {
+            const customText = document.getElementById('custom-json').value;
             
             // 获取当前缓存数据
             let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
             
             // 更新数据
-            currentData.sites = sites;
-            
-            // 保存回缓存
-            localStorage.setItem('tvbox_json', JSON.stringify(currentData));
-            
-            showNotification(`已保存 ${sites.length} 个站点组！`);
-        }
-        
-        // 清空站点
-        function clearSites() {
-            if (confirm('确定要清空所有站点吗？')) {
-                document.getElementById('sites-container').innerHTML = '';
-                addSiteGroup();
-                showNotification('站点已清空！');
+            if (customText.trim()) {
+                try {
+                    const customObj = JSON.parse(customText);
+                    currentData.custom = customObj;
+                } catch (e) {
+                    showNotification('自定义JSON格式错误: ' + e.message, true);
+                    return;
+                }
+            } else {
+                delete currentData.custom;
             }
-        }
-        
-        // 保存直播设置
-        function saveLivesSettings() {
-            const groups = document.querySelectorAll('#lives-container .group-container');
-            const lives = [];
-            
-            groups.forEach(group => {
-                const name = group.querySelector('.live-name').value;
-                const url = group.querySelector('.live-url').value;
-                const extrasText = group.querySelector('.live-extras').value;
-                
-                if (name && url) {
-                    const live = { name, url };
-                    
-                    // 解析额外设置
-                    if (extrasText.trim()) {
-                        try {
-                            // 添加最外层大括号
-                            let extrasJsonStr = extrasText.trim();
-                            if (!extrasJsonStr.startsWith('{')) {
-                                extrasJsonStr = '{' + extrasJsonStr;
-                            }
-                            if (!extrasJsonStr.endsWith('}')) {
-                                extrasJsonStr = extrasJsonStr + '}';
-                            }
-                            const extrasObj = JSON.parse(extrasJsonStr);
-                            Object.assign(live, extrasObj);
-                        } catch (e) {
-                            console.warn('解析额外设置失败:', e);
-                        }
-                    }
-                    
-                    lives.push(live);
-                }
-            });
-            
-            // 获取当前缓存数据
-            let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
-            
-            // 更新数据
-            currentData.lives = lives;
             
             // 保存回缓存
             localStorage.setItem('tvbox_json', JSON.stringify(currentData));
             
-            showNotification(`已保存 ${lives.length} 个直播源！`);
+            showNotification('自定义设置已保存！');
         }
         
-        // 清空直播
-        function clearLives() {
-            if (confirm('确定要清空所有直播源吗？')) {
-                document.getElementById('lives-container').innerHTML = '';
-                addLiveGroup();
-                showNotification('直播源已清空！');
-            }
-        }
-        
-        // 保存解析设置
-        function saveParsesSettings() {
-            const groups = document.querySelectorAll('#parses-container .group-container');
-            const parses = [];
-            
-            groups.forEach(group => {
-                const fullText = group.querySelector('.parse-full').value;
-                
-                if (fullText.trim()) {
-                    try {
-                        const parseObj = JSON.parse(fullText);
-                        parses.push(parseObj);
-                    } catch (e) {
-                        console.warn('解析配置失败:', e);
-                    }
-                }
-            });
-            
-            // 获取当前缓存数据
-            let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
-            
-            // 更新数据
-            currentData.parses = parses;
-            
-            // 保存回缓存
-            localStorage.setItem('tvbox_json', JSON.stringify(currentData));
-            
-            showNotification(`已保存 ${parses.length} 个解析源！`);
-        }
-        
-        // 清空解析
-        function clearParses() {
-            if (confirm('确定要清空所有解析源吗？')) {
-                document.getElementById('parses-container').innerHTML = '';
-                addParseGroup();
-                showNotification('解析源已清空！');
+        // 重置自定义设置
+        function resetCustomSettings() {
+            if (confirm('确定要重置自定义设置吗？')) {
+                document.getElementById('custom-json').value = '';
+                showNotification('自定义设置已重置！');
             }
         }
         
@@ -1623,6 +1653,9 @@
                 document.getElementById('lives-container').innerHTML = '';
                 document.getElementById('parses-container').innerHTML = '';
                 
+                // 清空自定义设置
+                document.getElementById('custom-json').value = '';
+                
                 // 清空其他设置
                 document.getElementById('hosts').value = '';
                 document.getElementById('doh').value = '';
@@ -1633,6 +1666,9 @@
                 document.getElementById('ijk').value = '';
                 document.getElementById('proxy').value = '';
                 document.getElementById('ads').value = '';
+                
+                // 清空粘贴框
+                document.getElementById('json-paste').value = '';
                 
                 // 重新初始化
                 addSiteGroup();
