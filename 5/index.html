@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TVbox JSON编辑器</title>
+    <title>TVbox编辑器</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -405,6 +405,26 @@
             margin-top: 10px;
         }
         
+        .local-storage-check {
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+        
+        .local-storage-check.success {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #27ae60;
+            border: 1px solid #2ecc71;
+        }
+        
+        .local-storage-check.error {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: #c0392b;
+            border: 1px solid #e74c3c;
+        }
+        
         @media (max-width: 768px) {
             .main-content {
                 flex-direction: column;
@@ -530,6 +550,10 @@
                             <button class="btn btn-primary" id="load-url" style="width: 100%;">加载</button>
                         </div>
                     </div>
+                </div>
+                
+                <div id="local-storage-status" class="local-storage-check success">
+                    <i class="fas fa-check-circle"></i> 浏览器缓存功能已启用
                 </div>
                 
                 <div id="general-editor" class="editor-section">
@@ -754,9 +778,82 @@
         const editorSections = document.querySelectorAll('.editor-section');
         const notification = document.getElementById('notification');
         const outputContent = document.getElementById('output-content');
+        const localStorageStatus = document.getElementById('local-storage-status');
+        
+        // 检查localStorage是否可用
+        function isLocalStorageAvailable() {
+            try {
+                const testKey = '__test__';
+                localStorage.setItem(testKey, testKey);
+                localStorage.removeItem(testKey);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+        
+        // 更新localStorage状态显示
+        function updateLocalStorageStatus() {
+            if (isLocalStorageAvailable()) {
+                localStorageStatus.innerHTML = '<i class="fas fa-check-circle"></i> 浏览器缓存功能已启用';
+                localStorageStatus.className = 'local-storage-check success';
+            } else {
+                localStorageStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> 浏览器缓存功能不可用，数据不会自动保存';
+                localStorageStatus.className = 'local-storage-check error';
+            }
+        }
+        
+        // 安全地保存到localStorage
+        function saveToLocalStorage(key, data) {
+            if (!isLocalStorageAvailable()) {
+                console.warn('localStorage不可用，数据未保存');
+                return false;
+            }
+            
+            try {
+                localStorage.setItem(key, JSON.stringify(data));
+                return true;
+            } catch (e) {
+                console.error('保存到localStorage失败:', e);
+                localStorageStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> 浏览器缓存功能异常，数据可能未保存';
+                localStorageStatus.className = 'local-storage-check error';
+                return false;
+            }
+        }
+        
+        // 从localStorage安全读取
+        function getFromLocalStorage(key) {
+            if (!isLocalStorageAvailable()) {
+                return null;
+            }
+            
+            try {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : null;
+            } catch (e) {
+                console.error('从localStorage读取失败:', e);
+                return null;
+            }
+        }
+        
+        // 从localStorage删除
+        function removeFromLocalStorage(key) {
+            if (!isLocalStorageAvailable()) {
+                return;
+            }
+            
+            try {
+                localStorage.removeItem(key);
+            } catch (e) {
+                console.error('从localStorage删除失败:', e);
+            }
+        }
         
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
+            // 更新localStorage状态
+            updateLocalStorageStatus();
+            
             // 加载缓存数据
             loadFromCache();
             
@@ -847,19 +944,19 @@
                 }
             });
             
-            // 重新加载按钮
+            // 重新加载按钮 - 修改为加载粘贴输入框的内容
             document.getElementById('reload-json').addEventListener('click', function() {
-                const cachedData = localStorage.getItem('tvbox_json');
-                if (cachedData) {
+                const pasteContent = jsonPaste.value;
+                if (pasteContent.trim()) {
                     try {
-                        const jsonData = JSON.parse(cachedData);
-                        jsonPaste.value = JSON.stringify(jsonData, null, 2);
-                        showNotification('已从缓存重新加载！');
+                        const jsonData = JSON.parse(pasteContent);
+                        loadJsonData(jsonData);
+                        showNotification('已从粘贴框重新加载！');
                     } catch (e) {
-                        showNotification('重新加载失败: ' + e.message, true);
+                        showNotification('JSON解析错误: ' + e.message, true);
                     }
                 } else {
-                    showNotification('没有可用的缓存数据', true);
+                    showNotification('粘贴框没有内容', true);
                 }
             });
         }
@@ -924,7 +1021,7 @@
         // 加载JSON数据到编辑器
         function loadJsonData(data) {
             // 保存到缓存
-            localStorage.setItem('tvbox_json', JSON.stringify(data));
+            saveToLocalStorage('tvbox_json', data);
             
             // 填充通用设置
             document.getElementById('spider').value = data.spider || '';
@@ -962,13 +1059,14 @@
         
         // 从缓存加载数据
         function loadFromCache() {
-            const cachedData = localStorage.getItem('tvbox_json');
+            const cachedData = getFromLocalStorage('tvbox_json');
             if (cachedData) {
                 try {
-                    const jsonData = JSON.parse(cachedData);
-                    loadJsonData(jsonData);
+                    loadJsonData(cachedData);
                 } catch (e) {
                     console.error('缓存数据解析错误:', e);
+                    // 加载示例数据
+                    loadJsonData(sampleJson);
                 }
             } else {
                 // 加载示例数据
@@ -1348,13 +1446,13 @@
             }
             
             // 获取当前缓存数据
-            let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
+            let currentData = getFromLocalStorage('tvbox_json') || {};
             
             // 更新数据
             currentData[moduleName] = moduleData;
             
             // 保存回缓存
-            localStorage.setItem('tvbox_json', JSON.stringify(currentData));
+            saveToLocalStorage('tvbox_json', currentData);
         }
         
         // 锁定通用设置
@@ -1365,7 +1463,7 @@
             const warningText = document.getElementById('warningText').value;
             
             // 获取当前缓存数据
-            let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
+            let currentData = getFromLocalStorage('tvbox_json') || {};
             
             // 更新数据
             currentData.spider = spider;
@@ -1374,7 +1472,7 @@
             currentData.warningText = warningText;
             
             // 保存回缓存
-            localStorage.setItem('tvbox_json', JSON.stringify(currentData));
+            saveToLocalStorage('tvbox_json', currentData);
             
             showNotification('通用设置已锁定！');
         }
@@ -1474,19 +1572,46 @@
             const ads = document.getElementById('ads').value.split('\n').filter(line => line.trim());
             
             // 获取当前缓存数据
-            let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
+            let currentData = getFromLocalStorage('tvbox_json') || {};
             
             // 更新数据
             currentData.hosts = hosts;
-            currentData.doh = doh ? JSON.parse(doh) : [];
+            if (doh) {
+                try {
+                    currentData.doh = JSON.parse(doh);
+                } catch (e) {
+                    showNotification('DOH设置JSON格式错误: ' + e.message, true);
+                    return;
+                }
+            } else {
+                currentData.doh = [];
+            }
             currentData.flags = flags;
-            currentData.rules = rules ? JSON.parse(rules) : [];
-            currentData.ijk = ijk ? JSON.parse(ijk) : [];
+            if (rules) {
+                try {
+                    currentData.rules = JSON.parse(rules);
+                } catch (e) {
+                    showNotification('规则设置JSON格式错误: ' + e.message, true);
+                    return;
+                }
+            } else {
+                currentData.rules = [];
+            }
+            if (ijk) {
+                try {
+                    currentData.ijk = JSON.parse(ijk);
+                } catch (e) {
+                    showNotification('IJK设置JSON格式错误: ' + e.message, true);
+                    return;
+                }
+            } else {
+                currentData.ijk = [];
+            }
             currentData.proxy = proxy;
             currentData.ads = ads;
             
             // 保存回缓存
-            localStorage.setItem('tvbox_json', JSON.stringify(currentData));
+            saveToLocalStorage('tvbox_json', currentData);
             
             showNotification('其他设置已锁定！');
         }
@@ -1496,7 +1621,7 @@
             const extraText = document.getElementById('extra-json').value;
             
             // 获取当前缓存数据
-            let currentData = JSON.parse(localStorage.getItem('tvbox_json') || '{}');
+            let currentData = getFromLocalStorage('tvbox_json') || {};
             
             // 更新数据
             if (extraText.trim()) {
@@ -1512,19 +1637,18 @@
             }
             
             // 保存回缓存
-            localStorage.setItem('tvbox_json', JSON.stringify(currentData));
+            saveToLocalStorage('tvbox_json', currentData);
             
             showNotification('其他模块已锁定！');
         }
         
         // 格式化JSON
         function formatJson() {
-            const cachedData = localStorage.getItem('tvbox_json');
+            const cachedData = getFromLocalStorage('tvbox_json');
             
             if (cachedData) {
                 try {
-                    const jsonObj = JSON.parse(cachedData);
-                    const formattedJson = JSON.stringify(jsonObj, null, 2);
+                    const formattedJson = JSON.stringify(cachedData, null, 2);
                     outputContent.textContent = formattedJson;
                     showNotification('JSON已格式化！');
                 } catch (e) {
@@ -1537,12 +1661,11 @@
         
         // 导出JSON
         function exportJson() {
-            const cachedData = localStorage.getItem('tvbox_json');
+            const cachedData = getFromLocalStorage('tvbox_json');
             
             if (cachedData) {
                 try {
-                    const jsonObj = JSON.parse(cachedData);
-                    const jsonStr = JSON.stringify(jsonObj, null, 2);
+                    const jsonStr = JSON.stringify(cachedData, null, 2);
                     const blob = new Blob([jsonStr], { type: 'application/json' });
                     const url = URL.createObjectURL(blob);
                     
@@ -1565,11 +1688,11 @@
         
         // 复制JSON到剪贴板
         function copyJsonToClipboard() {
-            const cachedData = localStorage.getItem('tvbox_json');
+            const cachedData = getFromLocalStorage('tvbox_json');
             
             if (cachedData) {
                 try {
-                    navigator.clipboard.writeText(cachedData)
+                    navigator.clipboard.writeText(JSON.stringify(cachedData))
                         .then(() => showNotification('JSON已复制到剪贴板！'))
                         .catch(err => showNotification('复制失败: ' + err, true));
                 } catch (e) {
@@ -1582,12 +1705,12 @@
         
         // 简单加密JSON
         function encryptJson() {
-            const cachedData = localStorage.getItem('tvbox_json');
+            const cachedData = getFromLocalStorage('tvbox_json');
             
             if (cachedData) {
                 try {
                     // 简单加密：Base64编码
-                    const encoded = btoa(encodeURIComponent(cachedData));
+                    const encoded = btoa(encodeURIComponent(JSON.stringify(cachedData)));
                     outputContent.textContent = encoded;
                     showNotification('JSON已加密（Base64）！');
                 } catch (e) {
@@ -1601,7 +1724,7 @@
         // 清空所有
         function clearAll() {
             if (confirm('确定要清空所有数据吗？此操作不可撤销！')) {
-                localStorage.removeItem('tvbox_json');
+                removeFromLocalStorage('tvbox_json');
                 
                 // 重置所有输入框
                 document.getElementById('spider').value = '';
