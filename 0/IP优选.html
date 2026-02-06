@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP延迟测试工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .modules {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .module {
+            flex: 1;
+            min-width: 300px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        textarea, input, select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: monospace;
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .results-container {
+            margin-top: 20px;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .results-list {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .result-item {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .result-item:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .status.info {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .test-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .progress {
+            width: 100%;
+            height: 6px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #3498db;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .ip-source-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .ip-source-controls input {
+            flex: 1;
+        }
+
+        .source-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .source-buttons button {
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .modules {
+                flex-direction: column;
+            }
+
+            .module {
+                min-width: 100%;
+            }
+
+            .ip-source-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IP延迟测试工具</h1>
+            <p class="description">测试IP延迟并排序，显示最佳20个结果，可下载所有有效IP</p>
+        </header>
+
+        <div class="modules">
+            <div class="module">
+                <h2>配置设置</h2>
+
+                <div class="form-group">
+                    <label for="ipSource">IP来源</label>
+                    <select id="ipSource">
+                        <option value="manual">手动输入</option>
+                        <option value="cfRandom">CF随机IP</option>
+                        <option value="urlFetch">URL获取</option>
+                    </select>
+                </div>
+
+                <div id="manualInputDiv" class="form-group">
+                    <label for="ipList">IP列表（每行一个，格式：IP:端口#描述）</label>
+                    <textarea id="ipList" placeholder="例如：
+104.21.26.58:443#🇺🇺🇸🇸 西雅图
+173.245.58.95:443#🇺🇺🇸🇸 洛杉矶
+51.178.141.36:8443#🇫🇫🇷🇷 巴黎戴高乐"></textarea>
+                </div>
+
+                <div id="cfRandomDiv" class="form-group hidden">
+                    <div class="ip-source-controls">
+                        <div>
+                            <label for="randomIPCount">生成数量</label>
+                            <input type="number" id="randomIPCount" value="20" min="1" max="100">
+                        </div>
+                        <div>
+                            <label for="cfPort">端口</label>
+                            <input type="number" id="cfPort" value="443" min="1" max="65535">
+                        </div>
+                    </div>
+                    <button id="generateCFIPBtn">生成CF随机IP</button>
+                </div>
+
+                <div id="urlFetchDiv" class="form-group hidden">
+                    <label for="fetchURLInput">获取URL</label>
+                    <input type="text" id="fetchURLInput" placeholder="例如：https://raw.githubusercontent.com/example/ips.txt">
+                    <button id="fetchIPBtn">获取IP</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="testUrl">自定义测试URL（可选）</label>
+                    <input type="text" id="testUrl" placeholder="例如：https://your-test-endpoint.com/test">
+                    <small>留空使用默认测试方法</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="threads">并发线程数</label>
+                    <input type="number" id="threads" value="5" min="1" max="50">
+                </div>
+
+                <div class="button-group">
+                    <button id="startTest">开始测试</button>
+                    <button id="clearResults">清空结果</button>
+                </div>
+            </div>
+
+            <div class="module">
+                <h2>测试状态</h2>
+                <div id="statusMessage" class="status info">准备开始测试</div>
+
+                <div class="progress">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+
+                <div class="test-controls">
+                    <button id="stopTest" disabled>停止测试</button>
+                    <button id="downloadResults" class="hidden">下载所有有效IP</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="module">
+            <div class="results-header">
+                <h2>测试结果（按延迟排序，显示前20个）</h2>
+                <span id="resultCount">0 个结果</span>
+            </div>
+
+            <div class="results-container">
+                <div id="resultsList" class="results-list">
+                    <div class="result-item">暂无测试结果</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取DOM元素
+            const ipSourceSelect = document.getElementById('ipSource');
+            const manualInputDiv = document.getElementById('manualInputDiv');
+            const cfRandomDiv = document.getElementById('cfRandomDiv');
+            const urlFetchDiv = document.getElementById('urlFetchDiv');
+            const ipListTextarea = document.getElementById('ipList');
+            const randomIPCountInput = document.getElementById('randomIPCount');
+            const cfPortInput = document.getElementById('cfPort');
+            const fetchURLInput = document.getElementById('fetchURLInput');
+            const generateCFIPBtn = document.getElementById('generateCFIPBtn');
+            const fetchIPBtn = document.getElementById('fetchIPBtn');
+            const testUrlInput = document.getElementById('testUrl');
+            const threadsInput = document.getElementById('threads');
+            const startTestButton = document.getElementById('startTest');
+            const stopTestButton = document.getElementById('stopTest');
+            const clearResultsButton = document.getElementById('clearResults');
+            const downloadResultsButton = document.getElementById('downloadResults');
+            const statusMessage = document.getElementById('statusMessage');
+            const progressBar = document.getElementById('progressBar');
+            const resultsList = document.getElementById('resultsList');
+            const resultCount = document.getElementById('resultCount');
+
+            // 测试状态变量
+            let isTesting = false;
+            let testAbortController = null;
+            let testResults = [];
+
+            // CF CIDR列表
+            const CF_CIDR_LIST = [
+                '173.245.48.0/20', '103.21.244.0/22', '103.22.200.0/22', '103.31.4.0/22',
+                '141.101.64.0/18', '108.162.192.0/18', '190.93.240.0/20', '188.114.96.0/20',
+                '197.234.240.0/22', '198.41.128.0/17', '162.158.0.0/15', '104.16.0.0/13',
+                '104.24.0.0/14', '172.64.0.0/13', '131.0.72.0/22'
+            ];
+
+            // 示例IP列表
+            const exampleIPs = `104.21.26.58:443#🇺🇺🇸🇸 西雅图
+173.245.58.95:443#🇺🇺🇸🇸 洛杉矶
+51.178.141.36:8443#🇫🇫🇷🇷 巴黎戴高乐
+104.16.223.254:443#🇺🇺🇸🇸 圣何塞
+172.67.70.71:443#🇺🇺🇸🇸 纽约
+104.28.14.11:443#🇺🇺🇸🇸 芝加哥
+104.31.16.35:443#🇺🇺🇸🇸 达拉斯
+104.18.34.23:443#🇺🇺🇸🇸 亚特兰大`;
+
+            // 设置示例IP列表
+            ipListTextarea.value = exampleIPs;
+
+            // IP来源选择事件
+            ipSourceSelect.addEventListener('change', function() {
+                const value = this.value;
+                manualInputDiv.classList.toggle('hidden', value !== 'manual');
+                cfRandomDiv.classList.toggle('hidden', value !== 'cfRandom');
+                urlFetchDiv.classList.toggle('hidden', value !== 'urlFetch');
+            });
+
+            // 生成CF随机IP按钮点击事件
+            generateCFIPBtn.addEventListener('click', generateCFRandomIPs);
+
+            // 获取IP按钮点击事件
+            fetchIPBtn.addEventListener('click', fetchIPsFromURL);
+
+            // 开始测试按钮点击事件
+            startTestButton.addEventListener('click', startTest);
+
+            // 停止测试按钮点击事件
+            stopTestButton.addEventListener('click', stopTest);
+
+            // 清空结果按钮点击事件
+            clearResultsButton.addEventListener('click', clearResults);
+
+            // 下载结果按钮点击事件
+            downloadResultsButton.addEventListener('click', downloadResults);
+
+            // 生成CF随机IP函数
+            function generateCFRandomIPs() {
+                const count = parseInt(randomIPCountInput.value) || 20;
+                const port = cfPortInput.value || '443';
+
+                if (count < 1 || count > 100) {
+                    showStatus('生成数量必须在1-100之间', 'error');
+                    return;
+                }
+
+                const ips = [];
+                for (let i = 0; i < count; i++) {
+                    const cidr = CF_CIDR_LIST[Math.floor(Math.random() * CF_CIDR_LIST.length)];
+                    const ip = generateRandomIPFromCIDR(cidr);
+                    ips.push(ip + ':' + port);
+                }
+
+                // 切换到手动输入模式并填充结果
+                ipSourceSelect.value = 'manual';
+                manualInputDiv.classList.remove('hidden');
+                cfRandomDiv.classList.add('hidden');
+                urlFetchDiv.classList.add('hidden');
+
+                ipListTextarea.value = ips.join('\n');
+                showStatus(`已生成 ${count} 个CF随机IP`, 'info');
+            }
+
+            // 从CIDR生成随机IP
+            function generateRandomIPFromCIDR(cidr) {
+                const [baseIP, prefixLength] = cidr.split('/');
+                const prefix = parseInt(prefixLength);
+                const hostBits = 32 - prefix;
+                const ipParts = baseIP.split('.').map(p => parseInt(p));
+                const ipInt = (ipParts[0] << 24) | (ipParts[1] << 16) | (ipParts[2] << 8) | ipParts[3];
+                const randomOffset = Math.floor(Math.random() * Math.pow(2, hostBits));
+                const mask = (0xFFFFFFFF << hostBits) >>> 0;
+                const randomIP = (((ipInt & mask) >>> 0) + randomOffset) >>> 0;
+                return [(randomIP >>> 24) & 0xFF, (randomIP >>> 16) & 0xFF, (randomIP >>> 8) & 0xFF, randomIP & 0xFF].join('.');
+            }
+
+            // 从URL获取IP函数
+            async function fetchIPsFromURL() {
+                const url = fetchURLInput.value.trim();
+                if (!url) {
+                    showStatus('请输入URL', 'error');
+                    return;
+                }
+
+                fetchIPBtn.disabled = true;
+                fetchIPBtn.textContent = '获取中...';
+
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+
+                    const text = await response.text();
+                    const ipLines = text.split('\n')
+                        .map(line => line.trim())
+                        .filter(line => line && !line.startsWith('#'));
+
+                    if (ipLines.length === 0) {
+                        showStatus('未获取到有效IP', 'error');
+                        return;
+                    }
+
+                    // 切换到手动输入模式并填充结果
+                    ipSourceSelect.value = 'manual';
+                    manualInputDiv.classList.remove('hidden');
+                    cfRandomDiv.classList.add('hidden');
+                    urlFetchDiv.classList.add('hidden');
+
+                    ipListTextarea.value = ipLines.join('\n');
+                    showStatus(`已获取 ${ipLines.length} 个IP`, 'info');
+                } catch (error) {
+                    showStatus(`获取失败: ${error.message}`, 'error');
+                } finally {
+                    fetchIPBtn.disabled = false;
+                    fetchIPBtn.textContent = '获取IP';
+                }
+            }
+
+            // 开始测试函数
+            function startTest() {
+                if (isTesting) return;
+
+                // 获取IP列表
+                let ipEntries = [];
+                const ipSource = ipSourceSelect.value;
+
+                if (ipSource === 'manual') {
+                    // 解析手动输入的IP列表
+                    const ipListText = ipListTextarea.value.trim();
+                    if (!ipListText) {
+                        showStatus('请输入IP列表', 'error');
+                        return;
+                    }
+
+                    ipEntries = parseIPList(ipListText);
+                } else if (ipSource === 'cfRandom') {
+                    // 生成CF随机IP
+                    const count = parseInt(randomIPCountInput.value) || 20;
+                    const port = cfPortInput.value || '443';
+
+                    if (count < 1 || count > 100) {
+                        showStatus('生成数量必须在1-100之间', 'error');
+                        return;
+                    }
+
+                    const ips = [];
+                    for (let i = 0; i < count; i++) {
+                        const cidr = CF_CIDR_LIST[Math.floor(Math.random() * CF_CIDR_LIST.length)];
+                        const ip = generateRandomIPFromCIDR(cidr);
+                        ips.push(ip + ':' + port);
+                    }
+
+                    ipEntries = parseIPList(ips.join('\n'));
+                } else if (ipSource === 'urlFetch') {
+                    showStatus('请先使用"获取IP"按钮获取IP列表', 'error');
+                    return;
+                }
+
+                if (ipEntries.length === 0) {
+                    showStatus('没有有效的IP条目', 'error');
+                    return;
+                }
+
+                // 获取测试URL
+                const testUrl = testUrlInput.value.trim();
+
+                // 获取线程数
+                const threads = parseInt(threadsInput.value) || 5;
+                if (threads < 1 || threads > 50) {
+                    showStatus('线程数必须在1-50之间', 'error');
+                    return;
+                }
+
+                // 更新UI状态
+                isTesting = true;
+                startTestButton.disabled = true;
+                stopTestButton.disabled = false;
+                testResults = [];
+                updateResultsDisplay();
+
+                // 创建中止控制器
+                testAbortController = new AbortController();
+
+                // 开始测试
+                showStatus(`开始测试 ${ipEntries.length} 个IP...`, 'info');
+                progressBar.style.width = '0%';
+
+                runLatencyTest(ipEntries, testUrl, threads, testAbortController.signal)
+                    .then(results => {
+                        if (!testAbortController.signal.aborted) {
+                            testResults = results;
+                            updateResultsDisplay();
+                            showStatus(`测试完成，共测试 ${results.length} 个IP`, 'info');
+                            downloadResultsButton.classList.remove('hidden');
+                        }
+                    })
+                    .catch(error => {
+                        if (!testAbortController.signal.aborted) {
+                            showStatus(`测试出错: ${error.message}`, 'error');
+                        }
+                    })
+                    .finally(() => {
+                        isTesting = false;
+                        startTestButton.disabled = false;
+                        stopTestButton.disabled = true;
+                        progressBar.style.width = '100%';
+                    });
+            }
+
+            // 解析IP列表
+            function parseIPList(ipListText) {
+                const ipLines = ipListText.split('\n').filter(line => line.trim());
+                const ipEntries = [];
+
+                for (const line of ipLines) {
+                    const parts = line.split('#');
+                    if (parts.length < 1) continue;
+
+                    const ipPort = parts[0].trim();
+                    const description = parts.length > 1 ? parts[1].trim() : '';
+
+                    // 验证IP:端口格式
+                    const ipPortRegex = /^([\d.]+|[\da-fA-F:]+):(\d+)$/;
+                    if (!ipPortRegex.test(ipPort)) {
+                        showStatus(`无效的IP格式: ${ipPort}`, 'error');
+                        return [];
+                    }
+
+                    ipEntries.push({
+                        ipPort: ipPort,
+                        description: description
+                    });
+                }
+
+                return ipEntries;
+            }
+
+            // 停止测试函数
+            function stopTest() {
+                if (isTesting && testAbortController) {
+                    testAbortController.abort();
+                    isTesting = false;
+                    startTestButton.disabled = false;
+                    stopTestButton.disabled = true;
+                    showStatus('测试已停止', 'warning');
+                }
+            }
+
+            // 清空结果函数
+            function clearResults() {
+                testResults = [];
+                updateResultsDisplay();
+                downloadResultsButton.classList.add('hidden');
+                showStatus('结果已清空', 'info');
+            }
+
+            // 下载结果函数 - 修改为下载所有有效IP
+            function downloadResults() {
+                if (testResults.length === 0) {
+                    showStatus('没有结果可下载', 'error');
+                    return;
+                }
+
+                // 获取所有有效结果（延迟>=0）
+                const validResults = getAllValidResults();
+
+                if (validResults.length === 0) {
+                    showStatus('没有有效的IP结果可下载', 'error');
+                    return;
+                }
+
+                // 创建要下载的内容
+                let content = '';
+                for (const result of validResults) {
+                    content += `${result.ipPort}#[${result.description}] ${result.latency}ms\n`;
+                }
+
+                // 创建下载链接
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+
+                // 添加时间戳到文件名
+                const now = new Date();
+                const timestamp = `${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}`;
+                a.download = `ip_latency_results_${timestamp}.txt`;
+
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showStatus(`已下载 ${validResults.length} 个有效IP结果`, 'info');
+            }
+
+            // 运行延迟测试
+            async function runLatencyTest(ipEntries, testUrl, threads, signal) {
+                const results = [];
+                const total = ipEntries.length;
+                let completed = 0;
+
+                // 分批处理
+                for (let i = 0; i < total; i += threads) {
+                    if (signal.aborted) break;
+
+                    const batch = ipEntries.slice(i, Math.min(i + threads, total));
+                    const promises = batch.map(entry => testLatency(entry, testUrl, signal));
+
+                    const batchResults = await Promise.all(promises);
+                    results.push(...batchResults.filter(r => r !== null));
+
+                    completed += batch.length;
+                    const progress = (completed / total) * 100;
+                    progressBar.style.width = `${progress}%`;
+
+                    showStatus(`测试进度: ${completed}/${total} (${Math.round(progress)}%)`, 'info');
+                }
+
+                return results;
+            }
+
+            // 测试单个IP的延迟
+            async function testLatency(ipEntry, testUrl, signal) {
+                try {
+                    const startTime = Date.now();
+
+                    // 如果有自定义测试URL，使用它
+                    if (testUrl) {
+                        // 替换URL中的占位符
+                        const [ip, port] = ipEntry.ipPort.split(':');
+                        const testEndpoint = testUrl.replace('{ip}', ip).replace('{port}', port);
+
+                        const response = await fetch(testEndpoint, {
+                            method: 'GET',
+                            signal: signal,
+                            cache: 'no-cache'
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                    } else {
+                        // 使用默认测试方法（模拟延迟）
+                        // 在实际应用中，这里应该替换为真实的延迟测试逻辑
+                        await new Promise(resolve => {
+                            setTimeout(resolve, Math.random() * 1000 + 100);
+                        });
+                    }
+
+                    const latency = Date.now() - startTime;
+
+                    return {
+                        ...ipEntry,
+                        latency: latency,
+                        timestamp: new Date().toISOString()
+                    };
+                } catch (error) {
+                    if (signal.aborted) {
+                        return null;
+                    }
+
+                    console.error(`测试 ${ipEntry.ipPort} 失败:`, error);
+                    return {
+                        ...ipEntry,
+                        latency: -1,
+                        error: error.message,
+                        timestamp: new Date().toISOString()
+                    };
+                }
+            }
+
+            // 获取前N个结果（用于显示）
+            function getTopResults(n) {
+                // 过滤掉失败的结果
+                const validResults = testResults.filter(r => r.latency >= 0);
+
+                // 按延迟排序
+                validResults.sort((a, b) => a.latency - b.latency);
+
+                // 返回前N个
+                return validResults.slice(0, n);
+            }
+
+            // 获取所有有效结果（用于下载）
+            function getAllValidResults() {
+                // 过滤掉失败的结果
+                const validResults = testResults.filter(r => r.latency >= 0);
+
+                // 按延迟排序
+                validResults.sort((a, b) => a.latency - b.latency);
+
+                return validResults;
+            }
+
+            // 更新结果显示
+            function updateResultsDisplay() {
+                const topResults = getTopResults(20);
+
+                if (topResults.length === 0) {
+                    resultsList.innerHTML = '<div class="result-item">暂无测试结果</div>';
+                    resultCount.textContent = '0 个结果';
+                    return;
+                }
+
+                let html = '';
+                for (const result of topResults) {
+                    html += `<div class="result-item">${result.ipPort}#[${result.description}] ${result.latency}ms</div>`;
+                }
+
+                resultsList.innerHTML = html;
+                resultCount.textContent = `${topResults.length} 个结果（共 ${testResults.length} 个IP，${getAllValidResults().length} 个有效）`;
+            }
+
+            // 显示状态消息
+            function showStatus(message, type) {
+                statusMessage.textContent = message;
+                statusMessage.className = 'status ' + type;
+            }
+        });
+    </script>
+</body>
+</html>
